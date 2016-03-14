@@ -29,30 +29,4 @@ body {
   font-family: "Courier New";
   text-align: center; }
 
-.button {
-  font-size: 150%;
-  margin: 5%; }
-
-.row {
-  margin-top: 1%;
-  text-align: justify; }
-
-.title {
-  font-size: 500%;
-  text-align: center; }
-
-.input {
-  margin-top: 5%; }
-
-#prompt {
-  margin: 5%; }
-
-#leftInput {
-  margin-top: 5%;
-  float: left; }
-
-#rightInput {
-  margin-top: 5%;
-  float: right; }
-
 /*# sourceMappingURL=style.css.map */
