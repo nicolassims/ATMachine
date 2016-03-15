@@ -29,14 +29,17 @@ body {
   font-family: "Courier New";
   text-align: center; }
 
-.button {
+.text {
+  margin-top: 10%; }
+
+.menu {
   margin-top: 90%;
   width: 90%; }
 
-.text {
-  margin-top: 43%; }
-
 .input {
+  margin-top: 20%; }
+
+.toplayer {
   margin-top: 5%; }
 
 /*# sourceMappingURL=style.css.map */
