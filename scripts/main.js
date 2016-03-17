@@ -133,62 +133,62 @@ class main {
         document.getElementById("one").addEventListener("click", function() {
             if (PINdigits == 0) {
                 document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "1";
+                PINdigits++;
             }
-            PINdigits++;
         }, false);
         document.getElementById("two").addEventListener("click", function() {
             if (PINdigits == 0) {
                 document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "2";
+                PINdigits++;
             }
-            PINdigits++;
         }, false);
         document.getElementById("three").addEventListener("click", function() {
             if (PINdigits == 0) {
                 document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "3";
+                PINdigits++;
             }
-            PINdigits++;
         }, false);
         document.getElementById("four").addEventListener("click", function() {
             if (PINdigits == 0) {
                 document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "4";
+                PINdigits++;
             }
-            PINdigits++;
         }, false);
         document.getElementById("five").addEventListener("click", function() {
             if (PINdigits == 0) {
                 document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "5";
+                PINdigits++;
             }
-            PINdigits++;
         }, false);
         document.getElementById("six").addEventListener("click", function() {
             if (PINdigits == 0) {
                 document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "6";
+                PINdigits++;
             }
-            PINdigits++;
         }, false);
         document.getElementById("seven").addEventListener("click", function() {
             if (PINdigits == 0) {
                 document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "7";
+                PINdigits++;
             }
-            PINdigits++;
         }, false);
         document.getElementById("eight").addEventListener("click", function() {
             if (PINdigits == 0) {
                 document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "8";
+                PINdigits++;
             }
-            PINdigits++;
         }, false);
         document.getElementById("nine").addEventListener("click", function() {
             if (PINdigits == 0) {
                 document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "9";
+                PINdigits++;
             }
-            PINdigits++;
         }, false);
         document.getElementById("zero").addEventListener("click", function() {
             if (PINdigits == 0) {
                 document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "0";
+                PINdigits++;
             }
-            PINdigits++;
         }, false);
     }
 }
