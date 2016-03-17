@@ -58,81 +58,121 @@
 	    function main() {
 	        _classCallCheck(this, main);
 
+	        main.hideAndRevealPIN();
 	        main.buttonHandler();
 	    }
 
 	    _createClass(main, null, [{
+	        key: "hideAndRevealPIN",
+	        value: function hideAndRevealPIN(cardNumberCharacters) {
+	            document.getElementById("PIN").style.display = "none";
+	            if (cardNumberCharacters == 3) {
+	                document.getElementById("PIN").style.display = "block";
+	                main.PINHandler();
+	            }
+	        }
+	    }, {
 	        key: "buttonHandler",
 	        value: function buttonHandler() {
 	            var cardNumberCharacters = 0;
 	            document.getElementById("one").addEventListener("click", function () {
-	                document.getElementById('cardNumber').innerHTML = document.getElementById('cardNumber').innerHTML + "1";
-	                cardNumberCharacters++;
+	                if (cardNumberCharacters != 3) {
+	                    document.getElementById('cardNumber').innerHTML = document.getElementById('cardNumber').innerHTML + "1";
+	                    cardNumberCharacters++;
+	                }
 	                if (cardNumberCharacters == 3) {
 	                    main.insertPIN();
+	                    main.hideAndRevealPIN(cardNumberCharacters);
 	                }
 	            }, false);
 	            document.getElementById("two").addEventListener("click", function () {
-	                document.getElementById('cardNumber').innerHTML = document.getElementById('cardNumber').innerHTML + "2";
-	                cardNumberCharacters++;
+	                if (cardNumberCharacters != 3) {
+	                    document.getElementById('cardNumber').innerHTML = document.getElementById('cardNumber').innerHTML + "2";
+	                    cardNumberCharacters++;
+	                }
 	                if (cardNumberCharacters == 3) {
 	                    main.insertPIN();
+	                    main.hideAndRevealPIN(cardNumberCharacters);
 	                }
 	            }, false);
 	            document.getElementById("three").addEventListener("click", function () {
-	                document.getElementById('cardNumber').innerHTML = document.getElementById('cardNumber').innerHTML + "3";
-	                cardNumberCharacters++;
+	                if (cardNumberCharacters != 3) {
+	                    document.getElementById('cardNumber').innerHTML = document.getElementById('cardNumber').innerHTML + "3";
+	                    cardNumberCharacters++;
+	                }
 	                if (cardNumberCharacters == 3) {
 	                    main.insertPIN();
+	                    main.hideAndRevealPIN(cardNumberCharacters);
 	                }
 	            }, false);
 	            document.getElementById("four").addEventListener("click", function () {
-	                document.getElementById('cardNumber').innerHTML = document.getElementById('cardNumber').innerHTML + "4";
-	                cardNumberCharacters++;
+	                if (cardNumberCharacters != 3) {
+	                    document.getElementById('cardNumber').innerHTML = document.getElementById('cardNumber').innerHTML + "4";
+	                    cardNumberCharacters++;
+	                }
 	                if (cardNumberCharacters == 3) {
 	                    main.insertPIN();
+	                    main.hideAndRevealPIN(cardNumberCharacters);
 	                }
 	            }, false);
 	            document.getElementById("five").addEventListener("click", function () {
-	                document.getElementById('cardNumber').innerHTML = document.getElementById('cardNumber').innerHTML + "5";
-	                cardNumberCharacters++;
+	                if (cardNumberCharacters != 3) {
+	                    document.getElementById('cardNumber').innerHTML = document.getElementById('cardNumber').innerHTML + "5";
+	                    cardNumberCharacters++;
+	                }
 	                if (cardNumberCharacters == 3) {
 	                    main.insertPIN();
+	                    main.hideAndRevealPIN(cardNumberCharacters);
 	                }
 	            }, false);
 	            document.getElementById("six").addEventListener("click", function () {
-	                document.getElementById('cardNumber').innerHTML = document.getElementById('cardNumber').innerHTML + "6";
-	                cardNumberCharacters++;
+	                if (cardNumberCharacters != 3) {
+	                    document.getElementById('cardNumber').innerHTML = document.getElementById('cardNumber').innerHTML + "6";
+	                    cardNumberCharacters++;
+	                }
 	                if (cardNumberCharacters == 3) {
 	                    main.insertPIN();
+	                    main.hideAndRevealPIN(cardNumberCharacters);
 	                }
 	            }, false);
 	            document.getElementById("seven").addEventListener("click", function () {
-	                document.getElementById('cardNumber').innerHTML = document.getElementById('cardNumber').innerHTML + "7";
-	                cardNumberCharacters++;
+	                if (cardNumberCharacters != 3) {
+	                    document.getElementById('cardNumber').innerHTML = document.getElementById('cardNumber').innerHTML + "7";
+	                    cardNumberCharacters++;
+	                }
 	                if (cardNumberCharacters == 3) {
 	                    main.insertPIN();
+	                    main.hideAndRevealPIN(cardNumberCharacters);
 	                }
 	            }, false);
 	            document.getElementById("eight").addEventListener("click", function () {
-	                document.getElementById('cardNumber').innerHTML = document.getElementById('cardNumber').innerHTML + "8";
-	                cardNumberCharacters++;
+	                if (cardNumberCharacters != 3) {
+	                    document.getElementById('cardNumber').innerHTML = document.getElementById('cardNumber').innerHTML + "8";
+	                    cardNumberCharacters++;
+	                }
 	                if (cardNumberCharacters == 3) {
 	                    main.insertPIN();
+	                    main.hideAndRevealPIN(cardNumberCharacters);
 	                }
 	            }, false);
 	            document.getElementById("nine").addEventListener("click", function () {
-	                document.getElementById('cardNumber').innerHTML = document.getElementById('cardNumber').innerHTML + "9";
-	                cardNumberCharacters++;
+	                if (cardNumberCharacters != 3) {
+	                    document.getElementById('cardNumber').innerHTML = document.getElementById('cardNumber').innerHTML + "9";
+	                    cardNumberCharacters++;
+	                }
 	                if (cardNumberCharacters == 3) {
 	                    main.insertPIN();
+	                    main.hideAndRevealPIN(cardNumberCharacters);
 	                }
 	            }, false);
 	            document.getElementById("zero").addEventListener("click", function () {
-	                document.getElementById('cardNumber').innerHTML = document.getElementById('cardNumber').innerHTML + "0";
-	                cardNumberCharacters++;
+	                if (cardNumberCharacters != 3) {
+	                    document.getElementById('cardNumber').innerHTML = document.getElementById('cardNumber').innerHTML + "0";
+	                    cardNumberCharacters++;
+	                }
 	                if (cardNumberCharacters == 3) {
 	                    main.insertPIN();
+	                    main.hideAndRevealPIN(cardNumberCharacters);
 	                }
 	            }, false);
 	        }
@@ -142,6 +182,40 @@
 	            var cardNumber = document.getElementById('cardNumber').innerHTML;
 	            document.getElementById('cardNumber').innerHTML = ">***";
 	            document.getElementById('askForCardNumberAndPIN').innerHTML = "Please insert the one-digit PIN number associated with this card into the keypad.";
+	        }
+	    }, {
+	        key: "PINHandler",
+	        value: function PINHandler() {
+	            document.getElementById("one").addEventListener("click", function () {
+	                document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "1";
+	            }, false);
+	            document.getElementById("two").addEventListener("click", function () {
+	                document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "2";
+	            }, false);
+	            document.getElementById("three").addEventListener("click", function () {
+	                document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "3";
+	            }, false);
+	            document.getElementById("four").addEventListener("click", function () {
+	                document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "4";
+	            }, false);
+	            document.getElementById("five").addEventListener("click", function () {
+	                document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "5";
+	            }, false);
+	            document.getElementById("six").addEventListener("click", function () {
+	                document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "6";
+	            }, false);
+	            document.getElementById("seven").addEventListener("click", function () {
+	                document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "7";
+	            }, false);
+	            document.getElementById("eight").addEventListener("click", function () {
+	                document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "8";
+	            }, false);
+	            document.getElementById("nine").addEventListener("click", function () {
+	                document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "9";
+	            }, false);
+	            document.getElementById("zero").addEventListener("click", function () {
+	                document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "0";
+	            }, false);
 	        }
 	    }]);
 
