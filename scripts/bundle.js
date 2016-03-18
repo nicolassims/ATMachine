@@ -58,6 +58,7 @@
 	    function main() {
 	        _classCallCheck(this, main);
 
+	        main.getValidNumberCombos();
 	        main.hideAndRevealPIN();
 	        main.buttonHandler();
 	    }
@@ -81,8 +82,7 @@
 	                    cardNumberCharacters++;
 	                }
 	                if (cardNumberCharacters == 3) {
-	                    main.insertPIN();
-	                    main.hideAndRevealPIN(cardNumberCharacters);
+	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
 	                }
 	            }, false);
 	            document.getElementById("two").addEventListener("click", function () {
@@ -91,8 +91,7 @@
 	                    cardNumberCharacters++;
 	                }
 	                if (cardNumberCharacters == 3) {
-	                    main.insertPIN();
-	                    main.hideAndRevealPIN(cardNumberCharacters);
+	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
 	                }
 	            }, false);
 	            document.getElementById("three").addEventListener("click", function () {
@@ -101,8 +100,7 @@
 	                    cardNumberCharacters++;
 	                }
 	                if (cardNumberCharacters == 3) {
-	                    main.insertPIN();
-	                    main.hideAndRevealPIN(cardNumberCharacters);
+	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
 	                }
 	            }, false);
 	            document.getElementById("four").addEventListener("click", function () {
@@ -111,8 +109,7 @@
 	                    cardNumberCharacters++;
 	                }
 	                if (cardNumberCharacters == 3) {
-	                    main.insertPIN();
-	                    main.hideAndRevealPIN(cardNumberCharacters);
+	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
 	                }
 	            }, false);
 	            document.getElementById("five").addEventListener("click", function () {
@@ -121,8 +118,7 @@
 	                    cardNumberCharacters++;
 	                }
 	                if (cardNumberCharacters == 3) {
-	                    main.insertPIN();
-	                    main.hideAndRevealPIN(cardNumberCharacters);
+	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
 	                }
 	            }, false);
 	            document.getElementById("six").addEventListener("click", function () {
@@ -131,8 +127,7 @@
 	                    cardNumberCharacters++;
 	                }
 	                if (cardNumberCharacters == 3) {
-	                    main.insertPIN();
-	                    main.hideAndRevealPIN(cardNumberCharacters);
+	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
 	                }
 	            }, false);
 	            document.getElementById("seven").addEventListener("click", function () {
@@ -141,8 +136,7 @@
 	                    cardNumberCharacters++;
 	                }
 	                if (cardNumberCharacters == 3) {
-	                    main.insertPIN();
-	                    main.hideAndRevealPIN(cardNumberCharacters);
+	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
 	                }
 	            }, false);
 	            document.getElementById("eight").addEventListener("click", function () {
@@ -151,8 +145,7 @@
 	                    cardNumberCharacters++;
 	                }
 	                if (cardNumberCharacters == 3) {
-	                    main.insertPIN();
-	                    main.hideAndRevealPIN(cardNumberCharacters);
+	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
 	                }
 	            }, false);
 	            document.getElementById("nine").addEventListener("click", function () {
@@ -161,8 +154,7 @@
 	                    cardNumberCharacters++;
 	                }
 	                if (cardNumberCharacters == 3) {
-	                    main.insertPIN();
-	                    main.hideAndRevealPIN(cardNumberCharacters);
+	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
 	                }
 	            }, false);
 	            document.getElementById("zero").addEventListener("click", function () {
@@ -170,6 +162,11 @@
 	                    document.getElementById('cardNumber').innerHTML = document.getElementById('cardNumber').innerHTML + "0";
 	                    cardNumberCharacters++;
 	                }
+	                if (cardNumberCharacters == 3) {
+	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
+	                }
+	            }, false);
+	            document.getElementById("buttonSix").addEventListener("click", function () {
 	                if (cardNumberCharacters == 3) {
 	                    main.insertPIN();
 	                    main.hideAndRevealPIN(cardNumberCharacters);
@@ -181,7 +178,9 @@
 	        value: function insertPIN() {
 	            var cardNumber = document.getElementById('cardNumber').innerHTML;
 	            document.getElementById('cardNumber').innerHTML = ">***";
+	            document.getElementById('buttonSix').innerHTML = "VI";
 	            document.getElementById('askForCardNumberAndPIN').innerHTML = "Please insert the one-digit PIN number associated with this card into the keypad.";
+	            main.validateNumbers(cardNumber);
 	        }
 	    }, {
 	        key: "PINHandler",
@@ -192,11 +191,23 @@
 	                    document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "1";
 	                    PINdigits++;
 	                }
+	                if (PINdigits == 1) {
+	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
+	                    var PIN = document.getElementById('PIN').innerHTML;
+	                    document.getElementById('PIN').innerHTML = ">*";
+	                    main.validateNumbers(PIN);
+	                }
 	            }, false);
 	            document.getElementById("two").addEventListener("click", function () {
 	                if (PINdigits == 0) {
 	                    document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "2";
 	                    PINdigits++;
+	                }
+	                if (PINdigits == 1) {
+	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
+	                    var PIN = document.getElementById('PIN').innerHTML;
+	                    document.getElementById('PIN').innerHTML = ">*";
+	                    main.validateNumbers(PIN);
 	                }
 	            }, false);
 	            document.getElementById("three").addEventListener("click", function () {
@@ -204,11 +215,23 @@
 	                    document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "3";
 	                    PINdigits++;
 	                }
+	                if (PINdigits == 1) {
+	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
+	                    var PIN = document.getElementById('PIN').innerHTML;
+	                    document.getElementById('PIN').innerHTML = ">*";
+	                    main.validateNumbers(PIN);
+	                }
 	            }, false);
 	            document.getElementById("four").addEventListener("click", function () {
 	                if (PINdigits == 0) {
 	                    document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "4";
 	                    PINdigits++;
+	                }
+	                if (PINdigits == 1) {
+	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
+	                    var PIN = document.getElementById('PIN').innerHTML;
+	                    document.getElementById('PIN').innerHTML = ">*";
+	                    main.validateNumbers(PIN);
 	                }
 	            }, false);
 	            document.getElementById("five").addEventListener("click", function () {
@@ -216,11 +239,23 @@
 	                    document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "5";
 	                    PINdigits++;
 	                }
+	                if (PINdigits == 1) {
+	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
+	                    var PIN = document.getElementById('PIN').innerHTML;
+	                    document.getElementById('PIN').innerHTML = ">*";
+	                    main.validateNumbers(PIN);
+	                }
 	            }, false);
 	            document.getElementById("six").addEventListener("click", function () {
 	                if (PINdigits == 0) {
 	                    document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "6";
 	                    PINdigits++;
+	                }
+	                if (PINdigits == 1) {
+	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
+	                    var PIN = document.getElementById('PIN').innerHTML;
+	                    document.getElementById('PIN').innerHTML = ">*";
+	                    main.validateNumbers(PIN);
 	                }
 	            }, false);
 	            document.getElementById("seven").addEventListener("click", function () {
@@ -228,11 +263,23 @@
 	                    document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "7";
 	                    PINdigits++;
 	                }
+	                if (PINdigits == 1) {
+	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
+	                    var PIN = document.getElementById('PIN').innerHTML;
+	                    document.getElementById('PIN').innerHTML = ">*";
+	                    main.validateNumbers(PIN);
+	                }
 	            }, false);
 	            document.getElementById("eight").addEventListener("click", function () {
 	                if (PINdigits == 0) {
 	                    document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "8";
 	                    PINdigits++;
+	                }
+	                if (PINdigits == 1) {
+	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
+	                    var PIN = document.getElementById('PIN').innerHTML;
+	                    document.getElementById('PIN').innerHTML = ">*";
+	                    main.validateNumbers(PIN);
 	                }
 	            }, false);
 	            document.getElementById("nine").addEventListener("click", function () {
@@ -240,13 +287,54 @@
 	                    document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "9";
 	                    PINdigits++;
 	                }
+	                if (PINdigits == 1) {
+	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
+	                    var PIN = document.getElementById('PIN').innerHTML;
+	                    document.getElementById('PIN').innerHTML = ">*";
+	                    main.validateNumbers(PIN);
+	                }
 	            }, false);
 	            document.getElementById("zero").addEventListener("click", function () {
 	                if (PINdigits == 0) {
 	                    document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "0";
 	                    PINdigits++;
 	                }
+	                if (PINdigits == 1) {
+	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
+	                    var PIN = document.getElementById('PIN').innerHTML;
+	                    document.getElementById('PIN').innerHTML = ">*";
+	                    main.validateNumbers(PIN);
+	                }
 	            }, false);
+	        }
+	    }, {
+	        key: "getValidNumberCombos",
+	        value: function getValidNumberCombos() {
+	            var request = new XMLHttpRequest();
+	            var filepath = "./data/cardnumbers_PINs.csv";
+	            request.open("GET", filepath, true);
+	            request.send();
+	            request.onload = function () {
+	                var COLUMNS = 2;
+	                var validCombos = [];
+	                if (request.readyState === 4 && request.status === 200) {
+	                    validCombos = request.responseText.split(/,/);
+	                }
+	                for (var i = 0; i < validCombos.length; i++) {
+	                    console.log(validCombos[i]);
+	                    main.validateNumbers(validCombos);
+	                }
+	            };
+	        }
+	    }, {
+	        key: "validateNumbers",
+	        value: function validateNumbers(validCombos, cardNumber, PIN) {
+	            for (var i = 0; i < validCombos.length; i++) {
+	                if (validCombos[i] == cardNumber && validCombos[i + 2] == PIN) {
+	                    var validID = true;
+	                    console.log(validID);
+	                }
+	            }
 	        }
 	    }]);
 
