@@ -60,7 +60,7 @@
 
 	        main.getValidNumberCombos();
 	        main.hideAndRevealPIN();
-	        main.buttonHandler();
+	        main.cardNumberHandler();
 	    }
 
 	    _createClass(main, null, [{
@@ -73,8 +73,8 @@
 	            }
 	        }
 	    }, {
-	        key: "buttonHandler",
-	        value: function buttonHandler() {
+	        key: "cardNumberHandler",
+	        value: function cardNumberHandler() {
 	            var cardNumberCharacters = 0;
 	            document.getElementById("one").addEventListener("click", function () {
 	                if (cardNumberCharacters != 3) {
@@ -168,19 +168,18 @@
 	            }, false);
 	            document.getElementById("buttonSix").addEventListener("click", function () {
 	                if (cardNumberCharacters == 3) {
-	                    main.insertPIN();
+	                    main.insertCardNumber();
 	                    main.hideAndRevealPIN(cardNumberCharacters);
 	                }
 	            }, false);
 	        }
 	    }, {
-	        key: "insertPIN",
-	        value: function insertPIN() {
+	        key: "insertCardNumber",
+	        value: function insertCardNumber() {
 	            var cardNumber = document.getElementById('cardNumber').innerHTML;
-	            document.getElementById('cardNumber').innerHTML = ">***";
 	            document.getElementById('buttonSix').innerHTML = "VI";
 	            document.getElementById('askForCardNumberAndPIN').innerHTML = "Please insert the one-digit PIN number associated with this card into the keypad.";
-	            main.validateNumbers(cardNumber);
+	            console.log(cardNumber);
 	        }
 	    }, {
 	        key: "PINHandler",
@@ -193,9 +192,7 @@
 	                }
 	                if (PINdigits == 1) {
 	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
-	                    var PIN = document.getElementById('PIN').innerHTML;
-	                    document.getElementById('PIN').innerHTML = ">*";
-	                    main.validateNumbers(PIN);
+	                    var _PIN = document.getElementById('PIN').innerHTML;
 	                }
 	            }, false);
 	            document.getElementById("two").addEventListener("click", function () {
@@ -205,9 +202,7 @@
 	                }
 	                if (PINdigits == 1) {
 	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
-	                    var PIN = document.getElementById('PIN').innerHTML;
-	                    document.getElementById('PIN').innerHTML = ">*";
-	                    main.validateNumbers(PIN);
+	                    var _PIN2 = document.getElementById('PIN').innerHTML;
 	                }
 	            }, false);
 	            document.getElementById("three").addEventListener("click", function () {
@@ -217,9 +212,7 @@
 	                }
 	                if (PINdigits == 1) {
 	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
-	                    var PIN = document.getElementById('PIN').innerHTML;
-	                    document.getElementById('PIN').innerHTML = ">*";
-	                    main.validateNumbers(PIN);
+	                    var _PIN3 = document.getElementById('PIN').innerHTML;
 	                }
 	            }, false);
 	            document.getElementById("four").addEventListener("click", function () {
@@ -229,9 +222,7 @@
 	                }
 	                if (PINdigits == 1) {
 	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
-	                    var PIN = document.getElementById('PIN').innerHTML;
-	                    document.getElementById('PIN').innerHTML = ">*";
-	                    main.validateNumbers(PIN);
+	                    var _PIN4 = document.getElementById('PIN').innerHTML;
 	                }
 	            }, false);
 	            document.getElementById("five").addEventListener("click", function () {
@@ -241,9 +232,7 @@
 	                }
 	                if (PINdigits == 1) {
 	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
-	                    var PIN = document.getElementById('PIN').innerHTML;
-	                    document.getElementById('PIN').innerHTML = ">*";
-	                    main.validateNumbers(PIN);
+	                    var _PIN5 = document.getElementById('PIN').innerHTML;
 	                }
 	            }, false);
 	            document.getElementById("six").addEventListener("click", function () {
@@ -253,9 +242,7 @@
 	                }
 	                if (PINdigits == 1) {
 	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
-	                    var PIN = document.getElementById('PIN').innerHTML;
-	                    document.getElementById('PIN').innerHTML = ">*";
-	                    main.validateNumbers(PIN);
+	                    var _PIN6 = document.getElementById('PIN').innerHTML;
 	                }
 	            }, false);
 	            document.getElementById("seven").addEventListener("click", function () {
@@ -265,9 +252,7 @@
 	                }
 	                if (PINdigits == 1) {
 	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
-	                    var PIN = document.getElementById('PIN').innerHTML;
-	                    document.getElementById('PIN').innerHTML = ">*";
-	                    main.validateNumbers(PIN);
+	                    var _PIN7 = document.getElementById('PIN').innerHTML;
 	                }
 	            }, false);
 	            document.getElementById("eight").addEventListener("click", function () {
@@ -277,9 +262,7 @@
 	                }
 	                if (PINdigits == 1) {
 	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
-	                    var PIN = document.getElementById('PIN').innerHTML;
-	                    document.getElementById('PIN').innerHTML = ">*";
-	                    main.validateNumbers(PIN);
+	                    var _PIN8 = document.getElementById('PIN').innerHTML;
 	                }
 	            }, false);
 	            document.getElementById("nine").addEventListener("click", function () {
@@ -289,9 +272,7 @@
 	                }
 	                if (PINdigits == 1) {
 	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
-	                    var PIN = document.getElementById('PIN').innerHTML;
-	                    document.getElementById('PIN').innerHTML = ">*";
-	                    main.validateNumbers(PIN);
+	                    var _PIN9 = document.getElementById('PIN').innerHTML;
 	                }
 	            }, false);
 	            document.getElementById("zero").addEventListener("click", function () {
@@ -301,9 +282,7 @@
 	                }
 	                if (PINdigits == 1) {
 	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
-	                    var PIN = document.getElementById('PIN').innerHTML;
-	                    document.getElementById('PIN').innerHTML = ">*";
-	                    main.validateNumbers(PIN);
+	                    var _PIN10 = document.getElementById('PIN').innerHTML;
 	                }
 	            }, false);
 	        }
@@ -322,17 +301,16 @@
 	                }
 	                for (var i = 0; i < validCombos.length; i++) {
 	                    console.log(validCombos[i]);
-	                    main.validateNumbers(validCombos);
 	                }
 	            };
 	        }
 	    }, {
 	        key: "validateNumbers",
-	        value: function validateNumbers(validCombos, cardNumber, PIN) {
+	        value: function validateNumbers() {
 	            for (var i = 0; i < validCombos.length; i++) {
 	                if (validCombos[i] == cardNumber && validCombos[i + 2] == PIN) {
-	                    var validID = true;
-	                    console.log(validID);
+	                    var validCombo = true;
+	                    console.log(validCombo);
 	                }
 	            }
 	        }

@@ -8,7 +8,7 @@ class main {
     constructor() {
         main.getValidNumberCombos();
         main.hideAndRevealPIN();
-        main.buttonHandler();
+        main.cardNumberHandler();
     }
 
     static hideAndRevealPIN(cardNumberCharacters) {
@@ -19,7 +19,7 @@ class main {
         }
     }
 
-    static buttonHandler() {
+    static cardNumberHandler() {
         let cardNumberCharacters = 0;
         document.getElementById("one").addEventListener("click", function() {
             if (cardNumberCharacters != 3) {
@@ -113,18 +113,17 @@ class main {
         }, false);
         document.getElementById("buttonSix").addEventListener("click", function() {
             if (cardNumberCharacters == 3) {
-                main.insertPIN();
+                main.insertCardNumber();
                 main.hideAndRevealPIN(cardNumberCharacters);
             }
         }, false);
     }
 
-    static insertPIN() {
+    static insertCardNumber() {
         let cardNumber = document.getElementById('cardNumber').innerHTML;
-        document.getElementById('cardNumber').innerHTML = ">***";
         document.getElementById('buttonSix').innerHTML = "VI";
         document.getElementById('askForCardNumberAndPIN').innerHTML = "Please insert the one-digit PIN number associated with this card into the keypad.";
-        main.validateNumbers(cardNumber);
+        console.log(cardNumber);
     }
 
     static PINHandler() {
@@ -137,8 +136,6 @@ class main {
             if (PINdigits == 1) {
                 document.getElementById('buttonSix').innerHTML = "SUBMIT";
                 let PIN = document.getElementById('PIN').innerHTML;
-                document.getElementById('PIN').innerHTML = ">*";
-                main.validateNumbers(PIN);
             }
         }, false);
         document.getElementById("two").addEventListener("click", function() {
@@ -149,8 +146,6 @@ class main {
             if (PINdigits == 1) {
                 document.getElementById('buttonSix').innerHTML = "SUBMIT";
                 let PIN = document.getElementById('PIN').innerHTML;
-                document.getElementById('PIN').innerHTML = ">*";
-                main.validateNumbers(PIN);
             }
         }, false);
         document.getElementById("three").addEventListener("click", function() {
@@ -161,8 +156,6 @@ class main {
             if (PINdigits == 1) {
                 document.getElementById('buttonSix').innerHTML = "SUBMIT";
                 let PIN = document.getElementById('PIN').innerHTML;
-                document.getElementById('PIN').innerHTML = ">*";
-                main.validateNumbers(PIN);
             }
         }, false);
         document.getElementById("four").addEventListener("click", function() {
@@ -173,8 +166,6 @@ class main {
             if (PINdigits == 1) {
                 document.getElementById('buttonSix').innerHTML = "SUBMIT";
                 let PIN = document.getElementById('PIN').innerHTML;
-                document.getElementById('PIN').innerHTML = ">*";
-                main.validateNumbers(PIN);
             }
         }, false);
         document.getElementById("five").addEventListener("click", function() {
@@ -185,8 +176,6 @@ class main {
             if (PINdigits == 1) {
                 document.getElementById('buttonSix').innerHTML = "SUBMIT";
                 let PIN = document.getElementById('PIN').innerHTML;
-                document.getElementById('PIN').innerHTML = ">*";
-                main.validateNumbers(PIN);
             }
         }, false);
         document.getElementById("six").addEventListener("click", function() {
@@ -197,8 +186,6 @@ class main {
             if (PINdigits == 1) {
                 document.getElementById('buttonSix').innerHTML = "SUBMIT";
                 let PIN = document.getElementById('PIN').innerHTML;
-                document.getElementById('PIN').innerHTML = ">*";
-                main.validateNumbers(PIN);
             }
         }, false);
         document.getElementById("seven").addEventListener("click", function() {
@@ -209,8 +196,6 @@ class main {
             if (PINdigits == 1) {
                 document.getElementById('buttonSix').innerHTML = "SUBMIT";
                 let PIN = document.getElementById('PIN').innerHTML;
-                document.getElementById('PIN').innerHTML = ">*";
-                main.validateNumbers(PIN);
             }
         }, false);
         document.getElementById("eight").addEventListener("click", function() {
@@ -221,8 +206,6 @@ class main {
             if (PINdigits == 1) {
                 document.getElementById('buttonSix').innerHTML = "SUBMIT";
                 let PIN = document.getElementById('PIN').innerHTML;
-                document.getElementById('PIN').innerHTML = ">*";
-                main.validateNumbers(PIN);
             }
         }, false);
         document.getElementById("nine").addEventListener("click", function() {
@@ -233,8 +216,6 @@ class main {
             if (PINdigits == 1) {
                 document.getElementById('buttonSix').innerHTML = "SUBMIT";
                 let PIN = document.getElementById('PIN').innerHTML;
-                document.getElementById('PIN').innerHTML = ">*";
-                main.validateNumbers(PIN);
             }
         }, false);
         document.getElementById("zero").addEventListener("click", function() {
@@ -245,8 +226,6 @@ class main {
             if (PINdigits == 1) {
                 document.getElementById('buttonSix').innerHTML = "SUBMIT";
                 let PIN = document.getElementById('PIN').innerHTML;
-                document.getElementById('PIN').innerHTML = ">*";
-                main.validateNumbers(PIN);
             }
         }, false);
     }
@@ -264,16 +243,15 @@ class main {
             }
             for (let i = 0; i < validCombos.length; i++) {
                 console.log(validCombos[i]);
-                main.validateNumbers(validCombos);
             }
         }
     }
 
-    static validateNumbers(validCombos, cardNumber, PIN) {
+    static validateNumbers() {
         for (let i = 0; i < validCombos.length; i++) {
             if (validCombos[i] == cardNumber && validCombos[i + 2] == PIN) {
-                let validID = true;
-                console.log(validID);
+                let validCombo = true;
+                console.log(validCombo);
             }
         }
     }
