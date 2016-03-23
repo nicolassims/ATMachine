@@ -55,29 +55,18 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	var main = function () {
-	    function main() {
+	    function main(validCombos) {
 	        _classCallCheck(this, main);
 
-	        var validCombos = [];
 	        var PIN = 0;
 	        var cardNumber = 0;
-	        main.getValidNumberCombos(validCombos);
 	        main.hideAndRevealPIN();
-	        main.cardNumberHandler(cardNumber, PIN);
-	        main.validateNumbers(cardNumber, PIN);
+	        main.cardNumberHandler(cardNumber, PIN, validCombos);
 	    }
 
 	    _createClass(main, null, [{
-	        key: "hideAndRevealPIN",
-	        value: function hideAndRevealPIN(cardNumberCharacters) {
-	            document.getElementById("PIN").style.display = "none";
-	            if (cardNumberCharacters == 3) {
-	                document.getElementById("PIN").style.display = "block";
-	            }
-	        }
-	    }, {
 	        key: "cardNumberHandler",
-	        value: function cardNumberHandler(cardNumber, PIN) {
+	        value: function cardNumberHandler(cardNumber, PIN, validCombos) {
 	            var cardNumberCharacters = 0;
 	            document.getElementById("one").addEventListener("click", function () {
 	                if (cardNumberCharacters != 3) {
@@ -171,15 +160,26 @@
 	            }, false);
 	            document.getElementById("buttonSix").addEventListener("click", function () {
 	                if (cardNumberCharacters == 3) {
-	                    main.insertCardNumber(cardNumber);
+	                    cardNumber = document.getElementById('cardNumber').innerHTML;
+	                    document.getElementById('buttonSix').innerHTML = "VI";
+	                    document.getElementById('askForCardNumberAndPIN').innerHTML = "Please insert the one-digit PIN number associated with this card into the keypad.";
+	                    console.log(cardNumber.slice(4, cardNumber.length));
 	                    main.hideAndRevealPIN(cardNumberCharacters);
-	                    main.PINHandler(PIN);
+	                    main.PINHandler(cardNumber, PIN, validCombos);
 	                }
 	            }, false);
 	        }
 	    }, {
+	        key: "hideAndRevealPIN",
+	        value: function hideAndRevealPIN(cardNumberCharacters) {
+	            document.getElementById("PIN").style.display = "none";
+	            if (cardNumberCharacters == 3) {
+	                document.getElementById("PIN").style.display = "block";
+	            }
+	        }
+	    }, {
 	        key: "PINHandler",
-	        value: function PINHandler(PIN) {
+	        value: function PINHandler(cardNumber, pin, validCombos) {
 	            var PINdigits = 0;
 	            document.getElementById("one").addEventListener("click", function () {
 	                if (PINdigits == 0) {
@@ -243,51 +243,24 @@
 	            }, false);
 	            document.getElementById("buttonSix").addEventListener("click", function () {
 	                if (PINdigits == 1) {
-	                    main.insertPIN(PIN);
+	                    pin = document.getElementById('PIN').innerHTML;
+	                    document.getElementById('buttonSix').innerHTML = "VI";
+	                    document.getElementById('askForCardNumberAndPIN').innerHTML = "PIN inserted.";
+	                    console.log(pin.slice(4, pin.length));
+	                    main.validateNumbers(cardNumber, pin, validCombos);
 	                }
 	            }, false);
 	        }
 	    }, {
-	        key: "insertCardNumber",
-	        value: function insertCardNumber(cardNumber) {
-	            cardNumber = document.getElementById('cardNumber').innerHTML;
-	            document.getElementById('buttonSix').innerHTML = "VI";
-	            document.getElementById('askForCardNumberAndPIN').innerHTML = "Please insert the one-digit PIN number associated with this card into the keypad.";
-	            console.log(cardNumber);
-	        }
-	    }, {
-	        key: "insertPIN",
-	        value: function insertPIN(PIN) {
-	            PIN = document.getElementById('PIN').innerHTML;
-	            document.getElementById('buttonSix').innerHTML = "VI";
-	            document.getElementById('askForCardNumberAndPIN').innerHTML = "PIN inserted.";
-	            console.log(PIN);
-	        }
-	    }, {
-	        key: "getValidNumberCombos",
-	        value: function getValidNumberCombos(validCombos) {
-	            var request = new XMLHttpRequest();
-	            var filepath = "./data/cardnumbers_PINs.csv";
-	            request.open("GET", filepath, true);
-	            request.send();
-	            request.onload = function () {
-	                if (request.readyState === 4 && request.status === 200) {
-	                    validCombos = request.responseText.split(/,/);
-	                }
-	                for (var i = 0; i < validCombos.length; i++) {
-	                    console.log(validCombos[i]);
-	                }
-	            };
-	            main.validateNumbers(validCombos);
-	        }
-	    }, {
 	        key: "validateNumbers",
-	        value: function validateNumbers(validCombos, cardNumber, PIN) {
+	        value: function validateNumbers(cardNumber, pin, validCombos) {
 	            var validCombo = void 0;
+	            cardNumber = cardNumber.slice(4, cardNumber.length);
+	            pin = pin.slice(4, pin.length);
 	            for (var i = 0; i < validCombos.length; i++) {
 	                if (validCombos[i] == cardNumber) {
 	                    var j = i + 2;
-	                    if (validCombos[j] == PIN) {
+	                    if (validCombos[j] == pin) {
 	                        validCombo = true;
 	                        console.log("TRUE");
 	                    }
@@ -300,7 +273,15 @@
 	}();
 
 	window.onload = function () {
-	    new main();
+	    var request = new XMLHttpRequest();
+	    var filepath = "./data/cardnumbers_PINs.csv";
+	    request.open("GET", filepath, true);
+	    request.send();
+	    request.onload = function () {
+	        if (request.readyState === 4 && request.status === 200) {
+	            new main(request.responseText.split(/,/));
+	        }
+	    };
 	};
 
 /***/ }

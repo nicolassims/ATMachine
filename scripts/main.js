@@ -5,24 +5,14 @@
 'use strict';
 
 class main {
-    constructor() {
-        let validCombos = [];
+    constructor(validCombos) {
         let PIN = 0;
         let cardNumber = 0;
-        main.getValidNumberCombos(validCombos);
         main.hideAndRevealPIN();
-        main.cardNumberHandler(cardNumber, PIN);
-        main.validateNumbers(cardNumber, PIN);
+        main.cardNumberHandler(cardNumber, PIN, validCombos);
     }
 
-    static hideAndRevealPIN(cardNumberCharacters) {
-        document.getElementById("PIN").style.display = "none";
-        if (cardNumberCharacters == 3) {
-            document.getElementById("PIN").style.display = "block";
-        }
-    }
-
-    static cardNumberHandler(cardNumber, PIN) {
+    static cardNumberHandler(cardNumber, PIN, validCombos) {
         let cardNumberCharacters = 0;
         document.getElementById("one").addEventListener("click", function() {
             if (cardNumberCharacters != 3) {
@@ -116,14 +106,24 @@ class main {
         }, false);
         document.getElementById("buttonSix").addEventListener("click", function() {
             if (cardNumberCharacters == 3) {
-                main.insertCardNumber(cardNumber);
+                cardNumber = document.getElementById('cardNumber').innerHTML;
+                document.getElementById('buttonSix').innerHTML = "VI";
+                document.getElementById('askForCardNumberAndPIN').innerHTML = "Please insert the one-digit PIN number associated with this card into the keypad.";
+                console.log(cardNumber.slice(4,cardNumber.length));
                 main.hideAndRevealPIN(cardNumberCharacters);
-                main.PINHandler(PIN);
+                main.PINHandler(cardNumber, PIN, validCombos);
             }
         }, false);
     }
 
-    static PINHandler(PIN) {
+    static hideAndRevealPIN(cardNumberCharacters) {
+        document.getElementById("PIN").style.display = "none";
+        if (cardNumberCharacters == 3) {
+            document.getElementById("PIN").style.display = "block";
+        }
+    }
+
+    static PINHandler(cardNumber, pin, validCombos) {
         let PINdigits = 0;
         document.getElementById("one").addEventListener("click", function() {
             if (PINdigits == 0) {
@@ -187,47 +187,23 @@ class main {
         }, false);
         document.getElementById("buttonSix").addEventListener("click", function() {
             if (PINdigits == 1) {
-                main.insertPIN(PIN);
+                pin = document.getElementById('PIN').innerHTML;
+                document.getElementById('buttonSix').innerHTML = "VI";
+                document.getElementById('askForCardNumberAndPIN').innerHTML = "PIN inserted.";
+                console.log(pin.slice(4, pin.length));
+                main.validateNumbers(cardNumber, pin, validCombos);
             }
         }, false);
     }
 
-    static insertCardNumber(cardNumber) {
-        cardNumber = document.getElementById('cardNumber').innerHTML;
-        document.getElementById('buttonSix').innerHTML = "VI";
-        document.getElementById('askForCardNumberAndPIN').innerHTML = "Please insert the one-digit PIN number associated with this card into the keypad.";
-        console.log(cardNumber);
-    }
-
-    static insertPIN(PIN) {
-        PIN = document.getElementById('PIN').innerHTML;
-        document.getElementById('buttonSix').innerHTML = "VI";
-        document.getElementById('askForCardNumberAndPIN').innerHTML = "PIN inserted.";
-        console.log(PIN);
-    }
-
-    static getValidNumberCombos(validCombos) {
-        let request = new XMLHttpRequest();
-        let filepath = "./data/cardnumbers_PINs.csv";
-        request.open("GET", filepath, true);
-        request.send();
-        request.onload = function() {
-            if (request.readyState === 4 && request.status === 200) {
-                validCombos = request.responseText.split(/,/);
-            }
-            for (let i = 0; i < validCombos.length; i++) {
-                console.log(validCombos[i]);
-            }
-        };
-        main.validateNumbers(validCombos);
-    }
-
-    static validateNumbers(validCombos, cardNumber, PIN) {
+    static validateNumbers(cardNumber, pin, validCombos) {
         let validCombo;
+        cardNumber =  cardNumber.slice(4, cardNumber.length);
+        pin =  pin.slice(4, pin.length);
         for (let i = 0; i < validCombos.length; i++) {
             if (validCombos[i] == cardNumber) {
                 let j = i + 2;
-                if (validCombos[j] == PIN) {
+                if (validCombos[j] == pin) {
                     validCombo = true;
                     console.log("TRUE");
                 }
@@ -237,5 +213,13 @@ class main {
 }
 
 window.onload = function() {
-    new main();
+    let request = new XMLHttpRequest();
+    let filepath = "./data/cardnumbers_PINs.csv";
+    request.open("GET", filepath, true);
+    request.send();
+    request.onload = function() {
+        if (request.readyState === 4 && request.status === 200) {
+            new main(request.responseText.split(/,/));
+        }
+    };
 };
