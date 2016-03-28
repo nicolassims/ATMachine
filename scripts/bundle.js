@@ -58,15 +58,15 @@
 	    function main(validCombos) {
 	        _classCallCheck(this, main);
 
-	        var PIN = 0;
+	        var pin = 0;
 	        var cardNumber = 0;
 	        main.hideAndRevealPIN();
-	        main.cardNumberHandler(cardNumber, PIN, validCombos);
+	        main.cardNumberHandler(cardNumber, pin, validCombos);
 	    }
 
 	    _createClass(main, null, [{
 	        key: "cardNumberHandler",
-	        value: function cardNumberHandler(cardNumber, PIN, validCombos) {
+	        value: function cardNumberHandler(cardNumber, pin, validCombos) {
 	            var cardNumberCharacters = 0;
 	            document.getElementById("one").addEventListener("click", function () {
 	                if (cardNumberCharacters != 3) {
@@ -162,10 +162,10 @@
 	                if (cardNumberCharacters == 3) {
 	                    cardNumber = document.getElementById('cardNumber').innerHTML;
 	                    document.getElementById('buttonSix').innerHTML = "VI";
-	                    document.getElementById('askForCardNumberAndPIN').innerHTML = "Please insert the one-digit PIN number associated with this card into the keypad.";
+	                    document.getElementById('askForCardNumberAndPIN').innerHTML = "Please insert the one-digit PIN associated with this card into the keypad.";
 	                    console.log(cardNumber.slice(4, cardNumber.length));
 	                    main.hideAndRevealPIN(cardNumberCharacters);
-	                    main.PINHandler(cardNumber, PIN, validCombos);
+	                    main.PINHandler(cardNumber, pin, validCombos);
 	                }
 	            }, false);
 	        }
@@ -245,7 +245,6 @@
 	                if (PINdigits == 1) {
 	                    pin = document.getElementById('PIN').innerHTML;
 	                    document.getElementById('buttonSix').innerHTML = "VI";
-	                    document.getElementById('askForCardNumberAndPIN').innerHTML = "PIN inserted.";
 	                    console.log(pin.slice(4, pin.length));
 	                    main.validateNumbers(cardNumber, pin, validCombos);
 	                }
@@ -266,6 +265,34 @@
 	                    }
 	                }
 	            }
+	            if (validCombo != true) {
+	                document.getElementById('askForCardNumberAndPIN').innerHTML = "Incorrect Input. Please try again.";
+	                document.getElementById('buttonSix').innerHTML = "Restart";
+	                document.getElementById("buttonSix").addEventListener("click", function () {
+	                    location.reload();
+	                }, false);
+	            } else {
+	                main.selectAccount();
+	            }
+	        }
+	    }, {
+	        key: "selectAccount",
+	        value: function selectAccount() {
+	            var accountType = void 0;
+	            var accountBalance = void 0;
+	            document.getElementById('askForCardNumberAndPIN').innerHTML = "Which account would you like to access at this time?";
+	            document.getElementById('buttonSix').innerHTML = "Savings";
+	            document.getElementById('buttonThree').innerHTML = "Checking";
+	            document.getElementById("buttonSix").addEventListener("click", function () {
+	                accountType = "Savings";
+	                accountBalance = Math.floor(Math.random() * 1000 + 1);
+	                document.getElementById('askForCardNumberAndPIN').innerHTML = "You have selected your Savings account, which has a balance of $" + accountBalance + ".";
+	            }, false);
+	            document.getElementById("buttonThree").addEventListener("click", function () {
+	                accountType = "Checking";
+	                accountBalance = Math.floor(Math.random() * 100 + 1);
+	                document.getElementById('askForCardNumberAndPIN').innerHTML = "You have selected your Checking account, which has a balance of $" + accountBalance + ".";
+	            }, false);
 	        }
 	    }]);
 
