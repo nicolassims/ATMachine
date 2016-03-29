@@ -211,6 +211,7 @@ class main {
                 pin = document.getElementById('PIN').innerHTML;
                 document.getElementById('buttonSix').innerHTML = "VI";
                 console.log(pin.slice(4, pin.length));
+                cardNumberCharacters++;
                 main.validateNumbers(cardNumber, pin, validCombos);
             }
         }, false);
