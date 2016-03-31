@@ -250,11 +250,12 @@ class main {
 
     static selectAccount(checkingAccountBalance, savingsAccountBalance) {
         let accountType = 0;
+        let isBusy = false;
         document.getElementById('promptCustomer').innerHTML = "Which account would you like to access at this time?";
         document.getElementById('buttonSix').innerHTML = "SAVINGS";
         document.getElementById('buttonThree').innerHTML = "CHECKING";
         document.getElementById("buttonSix").addEventListener("click", function() {
-            if (accountType == 0) {
+            if (accountType == 0 && isBusy == false) {
                 accountType = "savings";
                 document.getElementById('buttonSix').innerHTML = "VI";
                 document.getElementById('buttonThree').innerHTML = "III";
@@ -263,17 +264,17 @@ class main {
             }
         }, false);
         document.getElementById("buttonThree").addEventListener("click", function() {
-            if (accountType == 0) {
+            if (accountType == 0 && isBusy == false) {
                 accountType = "checking";
                 document.getElementById('buttonSix').innerHTML = "VI";
                 document.getElementById('buttonThree').innerHTML = "III";
                 document.getElementById('promptCustomer').innerHTML = "You have selected your " + accountType + " account, which has a balance of $" + checkingAccountBalance + ". Which action would you like to perform?";
-                return main.performAction(accountType, checkingAccountBalance, savingsAccountBalance);
+                return main.performAction(accountType, checkingAccountBalance, savingsAccountBalance, isBusy);
             }
         }, false);
     }
 
-    static performAction(accountType, checkingAccountBalance, savingsAccountBalance) {
+    static performAction(accountType, checkingAccountBalance, savingsAccountBalance, isBusy) {
         document.getElementById('buttonSix').innerHTML = "WITHDRAW";
         document.getElementById('buttonThree').innerHTML = "DEPOSIT";
         document.getElementById('buttonTwo').innerHTML = "TRANSFER";
@@ -288,11 +289,28 @@ class main {
             }
         }, false);
         document.getElementById("buttonThree").addEventListener("click", function() {
+            isBusy = true;
             document.getElementById('buttonTwo').innerHTML = "II";
             document.getElementById('buttonSix').innerHTML = "VI";
             document.getElementById('buttonThree').innerHTML = "III";
             document.getElementById('buttonFour').innerHTML = "III";
             return main.performDeposit(accountType, checkingAccountBalance, savingsAccountBalance)
+        }, false);
+        document.getElementById("buttonSix").addEventListener("click", function() {
+            isBusy = true;
+            document.getElementById('buttonTwo').innerHTML = "II";
+            document.getElementById('buttonSix').innerHTML = "VI";
+            document.getElementById('buttonThree').innerHTML = "III";
+            document.getElementById('buttonFour').innerHTML = "III";
+            return main.performWithdrawal(accountType, checkingAccountBalance, savingsAccountBalance)
+        }, false);
+        document.getElementById("buttonTwo").addEventListener("click", function() {
+            isBusy = true;
+            document.getElementById('buttonTwo').innerHTML = "II";
+            document.getElementById('buttonSix').innerHTML = "VI";
+            document.getElementById('buttonThree').innerHTML = "III";
+            document.getElementById('buttonFour').innerHTML = "III";
+            return main.performTransfer(accountType, checkingAccountBalance, savingsAccountBalance)
         }, false);
     }
 
@@ -340,11 +358,177 @@ class main {
             document.getElementById('buttonSix').innerHTML = "SUBMIT";
         }, false);
         document.getElementById("buttonSix").addEventListener("click", function () {
+            let moneyDeposited = document.getElementById("displayArea").innerHTML;
+            moneyDeposited = Number(moneyDeposited.slice(4, moneyDeposited.length));
+            if (accountType == "checking") {
+                checkingAccountBalance = Number(checkingAccountBalance) + moneyDeposited;
+                document.getElementById('promptCustomer').innerHTML = "The balance of your " + accountType + " account is now $" + checkingAccountBalance + ". Thank you for using this terminal.";
+            } else {
+                savingsAccountBalance = Number(savingsAccountBalance) + moneyDeposited;
+                document.getElementById('promptCustomer').innerHTML = "The balance of your " + accountType + " account is now $" + savingsAccountBalance + ". Thank you for using this terminal.";
+            }
+            document.getElementById('buttonSix').innerHTML = "RESTART";
+            document.getElementById("buttonSix").addEventListener("click", function() {
+                location.reload();
+            }, false);
+        }, false);
+    }
 
-            let moneyWithdrawn = document.getElementById("displayArea").innerHTML
-            moneyWithdrawn.slice(4, moneyWithdrawn.length);
-            document.getElementById('promptCustomer').innerHTML = "You have withdrawn $" + moneyWithdrawn + ".";
+    static performWithdrawal(accountType, checkingAccountBalance, savingsAccountBalance) {
+        document.getElementById('promptCustomer').innerHTML = "How much money would you like to withdraw from your " + accountType + " account?";
+        document.getElementById("displayArea").style.display = "block";
+        document.getElementById("one").addEventListener("click", function() {
+            document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "1";
+            document.getElementById('buttonSix').innerHTML = "SUBMIT";
+        }, false);
+        document.getElementById("two").addEventListener("click", function() {
+            document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "2";
+            document.getElementById('buttonSix').innerHTML = "SUBMIT";
+        }, false);
+        document.getElementById("three").addEventListener("click", function() {
+            document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "3";
+            document.getElementById('buttonSix').innerHTML = "SUBMIT";
+        }, false);
+        document.getElementById("four").addEventListener("click", function() {
+            document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "4";
+            document.getElementById('buttonSix').innerHTML = "SUBMIT";
+        }, false);
+        document.getElementById("five").addEventListener("click", function() {
+            document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "5";
+            document.getElementById('buttonSix').innerHTML = "SUBMIT";
+        }, false);
+        document.getElementById("six").addEventListener("click", function() {
+            document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "6";
+            document.getElementById('buttonSix').innerHTML = "SUBMIT";
+        }, false);
+        document.getElementById("seven").addEventListener("click", function() {
+            document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "7";
+            document.getElementById('buttonSix').innerHTML = "SUBMIT";
+        }, false);
+        document.getElementById("eight").addEventListener("click", function() {
+            document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "8";
+            document.getElementById('buttonSix').innerHTML = "SUBMIT";
+        }, false);
+        document.getElementById("nine").addEventListener("click", function() {
+            document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "9";
+            document.getElementById('buttonSix').innerHTML = "SUBMIT";
+        }, false);
+        document.getElementById("zero").addEventListener("click", function() {
+            document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "0";
+            document.getElementById('buttonSix').innerHTML = "SUBMIT";
+        }, false);
+        document.getElementById("buttonSix").addEventListener("click", function () {
+            let moneyWithdrawn = document.getElementById("displayArea").innerHTML;
+            moneyWithdrawn = Number(moneyWithdrawn.slice(4, moneyWithdrawn.length));
+            if (accountType == "checking") {
+                if (moneyWithdrawn <= checkingAccountBalance) {
+                    checkingAccountBalance = Number(checkingAccountBalance) - moneyWithdrawn;
+                    document.getElementById('promptCustomer').innerHTML = "The balance of your " + accountType + " account is now $" + checkingAccountBalance + ". Thank you for using this terminal.";
+                } else {
+                    document.getElementById('promptCustomer').innerHTML = "You do not have enough money to withdraw that amount. Please try again.";
+                    document.getElementById('buttonSix').innerHTML = "RESTART";
+                    document.getElementById("buttonSix").addEventListener("click", function() {
+                        location.reload();
+                    }, false);
+                }
+            } else {
+                if (moneyWithdrawn <= savingsAccountBalance) {
+                    savingsAccountBalance = Number(savingsAccountBalance) - moneyWithdrawn;
+                    document.getElementById('promptCustomer').innerHTML = "The balance of your " + accountType + " account is now $" + savingsAccountBalance + ". Thank you for using this terminal.";
+                } else {
+                    document.getElementById('promptCustomer').innerHTML = "You do not have enough money to withdraw that amount. Please try again.";
+                    document.getElementById('buttonSix').innerHTML = "RESTART";
+                    document.getElementById("buttonSix").addEventListener("click", function() {
+                        location.reload();
+                    }, false);
+                }
+            }
+            document.getElementById('buttonSix').innerHTML = "RESTART";
+            document.getElementById("buttonSix").addEventListener("click", function() {
+                location.reload();
+            }, false);
+        }, false);
+    }
 
+    static performTransfer(accountType, checkingAccountBalance, savingsAccountBalance) {
+        if (accountType == "checking") {
+            document.getElementById('promptCustomer').innerHTML = "How much money would you like to transfer from your checking account to your savings account?";
+        } else {
+            document.getElementById('promptCustomer').innerHTML = "How much money would you like to transfer from your savings account to your checking account?";
+        }
+        document.getElementById("displayArea").style.display = "block";
+        document.getElementById("one").addEventListener("click", function() {
+            document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "1";
+            document.getElementById('buttonSix').innerHTML = "SUBMIT";
+        }, false);
+        document.getElementById("two").addEventListener("click", function() {
+            document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "2";
+            document.getElementById('buttonSix').innerHTML = "SUBMIT";
+        }, false);
+        document.getElementById("three").addEventListener("click", function() {
+            document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "3";
+            document.getElementById('buttonSix').innerHTML = "SUBMIT";
+        }, false);
+        document.getElementById("four").addEventListener("click", function() {
+            document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "4";
+            document.getElementById('buttonSix').innerHTML = "SUBMIT";
+        }, false);
+        document.getElementById("five").addEventListener("click", function() {
+            document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "5";
+            document.getElementById('buttonSix').innerHTML = "SUBMIT";
+        }, false);
+        document.getElementById("six").addEventListener("click", function() {
+            document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "6";
+            document.getElementById('buttonSix').innerHTML = "SUBMIT";
+        }, false);
+        document.getElementById("seven").addEventListener("click", function() {
+            document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "7";
+            document.getElementById('buttonSix').innerHTML = "SUBMIT";
+        }, false);
+        document.getElementById("eight").addEventListener("click", function() {
+            document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "8";
+            document.getElementById('buttonSix').innerHTML = "SUBMIT";
+        }, false);
+        document.getElementById("nine").addEventListener("click", function() {
+            document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "9";
+            document.getElementById('buttonSix').innerHTML = "SUBMIT";
+        }, false);
+        document.getElementById("zero").addEventListener("click", function() {
+            document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "0";
+            document.getElementById('buttonSix').innerHTML = "SUBMIT";
+        }, false);
+        document.getElementById("buttonSix").addEventListener("click", function () {
+            let moneyTransferred = document.getElementById("displayArea").innerHTML;
+            moneyTransferred = Number(moneyTransferred.slice(4, moneyTransferred.length));
+            if (accountType == "checking") {
+                if (moneyTransferred <= checkingAccountBalance) {
+                    checkingAccountBalance = Number(checkingAccountBalance) - moneyTransferred;
+                    savingsAccountBalance = Number(savingsAccountBalance) + moneyTransferred;
+                    document.getElementById('promptCustomer').innerHTML = "The balance of your checking account is now $" + checkingAccountBalance + ". The balance of your savings account is now $" + savingsAccountBalance + ".";
+                } else {
+                    document.getElementById('promptCustomer').innerHTML = "You do not have enough money to transfer that amount. Please try again.";
+                    document.getElementById('buttonSix').innerHTML = "RESTART";
+                    document.getElementById("buttonSix").addEventListener("click", function() {
+                        location.reload();
+                    }, false);
+                }
+            } else {
+                if (moneyTransferred <= savingsAccountBalance) {
+                    checkingAccountBalance = Number(checkingAccountBalance) + moneyTransferred;
+                    savingsAccountBalance = Number(savingsAccountBalance) - moneyTransferred;
+                    document.getElementById('promptCustomer').innerHTML = "The balance of your checking account is now $" + checkingAccountBalance + ". The balance of your savings account is now $" + savingsAccountBalance + ".";
+                } else {
+                    document.getElementById('promptCustomer').innerHTML = "You do not have enough money to transfer that amount. Please try again.";
+                    document.getElementById('buttonSix').innerHTML = "RESTART";
+                    document.getElementById("buttonSix").addEventListener("click", function() {
+                        location.reload();
+                    }, false);
+                }
+            }
+            document.getElementById('buttonSix').innerHTML = "RESTART";
+            document.getElementById("buttonSix").addEventListener("click", function() {
+                location.reload();
+            }, false);
         }, false);
     }
 }
