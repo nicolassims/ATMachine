@@ -58,19 +58,19 @@ class app {
         const FORMIDABLE = require('formidable'), DO_NAMES = require('./node/NameClass');
         let formData = {};
         new FORMIDABLE.IncomingForm().parse(req)
-            .on('field', function(field, name) {
-                formData[field] = name;
-            })
-            .on('error', function(err) {
-                next(err);
-            })
-            .on('end', function() {
-                let finalName = new DO_NAMES(formData);
-                res.writeHead(200, {'content-type': 'text/plain'});
-                res.write('-= Received form: ');
-                res.end(finalName.getFirstName() + ' ' + finalName.getLastName());
-                finalName.writeData();
-            });
+        .on('field', function(field, name) {
+            formData[field] = name;
+        })
+        .on('error', function(err) {
+            next(err);
+        })
+        .on('end', function() {
+            let finalName = new DO_NAMES(formData);
+            res.writeHead(200, {'content-type': 'text/plain'});
+            res.write('-= Received form: ');
+            res.end(finalName.getFirstName() + ' ' + finalName.getLastName());
+            finalName.writeData();
+        });
     }
 }
 
