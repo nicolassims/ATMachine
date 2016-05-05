@@ -293,7 +293,7 @@ class main {
             document.getElementById('buttonTwo').innerHTML = "II";
             document.getElementById('buttonSix').innerHTML = "VI";
             document.getElementById('buttonThree').innerHTML = "III";
-            document.getElementById('buttonFour').innerHTML = "III";
+            document.getElementById('buttonFour').innerHTML = "IV";
             return main.performDeposit(accountType, checkingAccountBalance, savingsAccountBalance)
         }, false);
         document.getElementById("buttonSix").addEventListener("click", function() {
@@ -301,7 +301,7 @@ class main {
             document.getElementById('buttonTwo').innerHTML = "II";
             document.getElementById('buttonSix').innerHTML = "VI";
             document.getElementById('buttonThree').innerHTML = "III";
-            document.getElementById('buttonFour').innerHTML = "III";
+            document.getElementById('buttonFour').innerHTML = "IV";
             return main.performWithdrawal(accountType, checkingAccountBalance, savingsAccountBalance)
         }, false);
         document.getElementById("buttonTwo").addEventListener("click", function() {
@@ -309,7 +309,7 @@ class main {
             document.getElementById('buttonTwo').innerHTML = "II";
             document.getElementById('buttonSix').innerHTML = "VI";
             document.getElementById('buttonThree').innerHTML = "III";
-            document.getElementById('buttonFour').innerHTML = "III";
+            document.getElementById('buttonFour').innerHTML = "IV";
             return main.performTransfer(accountType, checkingAccountBalance, savingsAccountBalance)
         }, false);
     }
