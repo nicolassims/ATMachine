@@ -15,13 +15,13 @@ class app {
             SERVER = HTTP.createServer(function(req, res) {
                 let httpHandler = function(err, str, contentType) {
                     if (err) {
-                        res.writeHead(500, { 'Content-Type': 'text/plain' });
+                        res.writeHead(500, { 'Content-Type': 'text/plain'});
                         res.end('An error has occurred: ' + err.message);
                     } else if (contentType.indexOf('image') >= 0) {
-                        res.writeHead(200, { 'Content-Type': contentType });
+                        res.writeHead(200, { 'Content-Type': contentType});
                         res.end(str, 'binary');
                     } else {
-                        res.writeHead(200, { 'Content-Type': contentType });
+                        res.writeHead(200, { 'Content-Type': contentType});
                         res.end(str);
                     }
                 };
@@ -55,7 +55,7 @@ class app {
     }
 
     static getFormData(req, res) {
-        const FORMIDABLE = require('formidable'), DO_NAMES = require('./node/NameClass');
+        const FORMIDABLE = require('formidable'), DO_CARDNUMBERS = require('./node/outputCardnumbers_PINs.js');
         let formData = {};
         new FORMIDABLE.IncomingForm().parse(req)
         .on('field', function(field, name) {
@@ -65,11 +65,11 @@ class app {
             next(err);
         })
         .on('end', function() {
-            let finalName = new DO_NAMES(formData);
+            let finalNumbers = new DO_CARDNUMBERS(formData);
             res.writeHead(200, {'content-type': 'text/plain'});
             res.write('-= Received form: ');
-            res.end(finalName.getFirstName() + ' ' + finalName.getLastName());
-            finalName.writeData();
+            res.end(finalNumbers.getCardnumber() + ' ' + finalNumbers.getPIN());
+            finalNumbers.writeData();
         });
     }
 }
