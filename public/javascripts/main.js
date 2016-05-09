@@ -9,8 +9,8 @@ class main {
         let pin = 0;
         let cardNumber = 0;
         let cardNumberCharacters = 0;
-         main.hideAndRevealDivs();
-         main.cardNumberHandler(cardNumber, pin, validCombos, cardNumberCharacters);
+        main.hideAndRevealDivs();
+        main.cardNumberHandler(cardNumber, pin, validCombos, cardNumberCharacters);
     }
 
     static cardNumberHandler(cardNumber, pin, validCombos, cardNumberCharacters) {

@@ -2,6 +2,8 @@
  * Created by root on 5/3/2016.
  */
 
+//Create an eventlistening AJAX request in the main.js file.
+
 "use strict";
 
 class app {
