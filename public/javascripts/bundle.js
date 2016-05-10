@@ -295,12 +295,17 @@
 	                    location.reload();
 	                }, false);
 	            } else {
-	                return main.generateMoney();
+	                return main.getMoney();
 	            }
 	        }
 	    }, {
-	        key: "generateMoney",
-	        value: function generateMoney() {
+	        key: "getMoney",
+	        value: function getMoney() {
+	            var httpRequest = new XMLHttpRequest();
+	            httpRequest.onreadystatechange = main.retrieveNumbers(httpRequest);
+	            httpRequest.open('POST', '../views/data/cardnumbers_PINs.csv', true);
+	            httpRequest.send(null);
+
 	            var checkingAccountBalance = Math.floor(Math.random() * 100 + 1);
 	            var savingsAccountBalance = Math.floor(Math.random() * 1000 + 1);
 	            return main.selectAccount(checkingAccountBalance, savingsAccountBalance);
@@ -593,6 +598,20 @@
 	                    location.reload();
 	                }, false);
 	            }, false);
+	        }
+	    }, {
+	        key: "retrieveNumbers",
+	        value: function retrieveNumbers(httpRequest) {
+	            if (httpRequest.readyState === XMLHttpRequest.DONE) {
+	                // everything is good, the response is received
+	                if (httpRequest.status === 200) {
+	                    // perfect!
+	                } else {
+	                        alert('There was a problem with the request.');
+	                    }
+	            } else {
+	                alert('Thre was a problem earlier than the other problem');
+	            }
 	        }
 	    }]);
 

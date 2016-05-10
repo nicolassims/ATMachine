@@ -2,6 +2,8 @@
  * Created by Administrator on 3/14/2016.
  */
 
+//Figure out how to get data from CSV
+
 'use strict';
 
 class main {
@@ -238,11 +240,15 @@ class main {
                location.reload();
             }, false);
         } else {
-            return main.generateMoney();
+            return main.getMoney();
         }
     }
 
-    static generateMoney() {
+    static getMoney() {
+        let httpRequest = new XMLHttpRequest();
+        httpRequest.onreadystatechange = main.retrieveNumbers(httpRequest);
+        httpRequest.open('POST', '../views/data/cardnumbers_PINs.csv', true);
+        httpRequest.send(null);
         let checkingAccountBalance = Math.floor((Math.random() * 100) + 1);
         let savingsAccountBalance = Math.floor((Math.random() * 1000) + 1);
         return main.selectAccount(checkingAccountBalance, savingsAccountBalance);
@@ -530,6 +536,19 @@ class main {
                 location.reload();
             }, false);
         }, false);
+    }
+
+    static retrieveNumbers(httpRequest) {
+        if (httpRequest.readyState === XMLHttpRequest.DONE) {
+            // everything is good, the response is received
+            if (httpRequest.status === 200) {
+                // perfect!
+            } else {
+                alert('There was a problem with the request.');
+            }
+        } else {
+            alert('Thre was a problem earlier than the other problem');
+        }
     }
 }
 

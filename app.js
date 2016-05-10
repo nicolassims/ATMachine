@@ -7,6 +7,7 @@
 "use strict";
 
 class app {
+
     constructor() {
         app.loadServer();
     }
