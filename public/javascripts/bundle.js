@@ -48,6 +48,8 @@
 	 * Created by Administrator on 3/14/2016.
 	 */
 
+	//Figure out how to get data from CSV
+
 	'use strict';
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -301,6 +303,7 @@
 	    }, {
 	        key: "getMoney",
 	        value: function getMoney() {
+
 	            var httpRequest = new XMLHttpRequest();
 	            httpRequest.onreadystatechange = main.retrieveNumbers(httpRequest);
 	            httpRequest.open('POST', '../views/data/cardnumbers_PINs.csv', true);
@@ -599,20 +602,20 @@
 	                }, false);
 	            }, false);
 	        }
-	    }, {
-	        key: "retrieveNumbers",
-	        value: function retrieveNumbers(httpRequest) {
-	            if (httpRequest.readyState === XMLHttpRequest.DONE) {
-	                // everything is good, the response is received
-	                if (httpRequest.status === 200) {
-	                    // perfect!
-	                } else {
-	                        alert('There was a problem with the request.');
-	                    }
-	            } else {
-	                alert('Thre was a problem earlier than the other problem');
-	            }
-	        }
+
+	        // static retrieveNumbers(httpRequest) {
+	        //     if (httpRequest.readyState === XMLHttpRequest.DONE) {
+	        //         // everything is good, the response is received
+	        //         if (httpRequest.status === 200) {
+	        //             // perfect!
+	        //         } else {
+	        //             alert('There was a problem with the request.');
+	        //         }
+	        //     } else {
+	        //         alert('There was a problem earlier than the other problem');
+	        //     }
+	        // }
+
 	    }]);
 
 	    return main;
