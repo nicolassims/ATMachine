@@ -7,11 +7,30 @@
 'use strict';
 
 class main {
-    constructor(validCombos) {
+    constructor() {
         let pin = 0;
         let cardNumber = 0;
         let cardNumberCharacters = 0;
         main.hideAndRevealDivs();
+        main.retrieveClientInformation(cardNumber, pin, cardNumberCharacters);
+    }
+
+    static retrieveClientInformation(cardNumber, pin, cardNumberCharacters) {
+        let filePath = '../data/cardnumbers_PINs.csv';
+        let request = new XMLHttpRequest();
+        request.open("GET", filePath, true);
+        request.send();
+        request.onload = function() {
+            const COLUMNS = 4;
+            if (request.readyState === 4 && request.status === 200) {
+                for (let i = 0; i < COLUMNS; i++) {
+                    let validCombos = request.responseText.split(/,/);
+                }
+                for (let i = 0; i < COLUMNS; i++) {
+                    let validCombos[i][1] = request.responseText.split(/,/);
+                }
+            }
+        };
         main.cardNumberHandler(cardNumber, pin, validCombos, cardNumberCharacters);
     }
 
@@ -123,7 +142,7 @@ class main {
                 document.getElementById('promptCustomer').innerHTML = "Please insert the one-digit PIN associated with this card into the keypad.";
                 console.log(cardNumber.slice(4,cardNumber.length));
                 cardNumberCharacters++;
-                 main.hideAndRevealDivs(cardNumberCharacters);
+                main.hideAndRevealDivs(cardNumberCharacters);
                 return main.PINHandler(cardNumber, pin, validCombos, cardNumberCharacters);
             }
         }, false);
@@ -240,19 +259,14 @@ class main {
                location.reload();
             }, false);
         } else {
-            return main.getMoney();
+            return main.getAccountBalances();
         }
     }
 
-    static getMoney() {
+    static getAccountBalances() {
 
-        let httpRequest = new XMLHttpRequest();
-        httpRequest.onreadystatechange = main.retrieveNumbers(httpRequest);
-        httpRequest.open('POST', '../views/data/cardnumbers_PINs.csv', true);
-        httpRequest.send(null);
+        //Set account balances here.
 
-        let checkingAccountBalance = Math.floor((Math.random() * 100) + 1);
-        let savingsAccountBalance = Math.floor((Math.random() * 1000) + 1);
         return main.selectAccount(checkingAccountBalance, savingsAccountBalance);
     }
 
@@ -539,29 +553,8 @@ class main {
             }, false);
         }, false);
     }
-
-    // static retrieveNumbers(httpRequest) {
-    //     if (httpRequest.readyState === XMLHttpRequest.DONE) {
-    //         // everything is good, the response is received
-    //         if (httpRequest.status === 200) {
-    //             // perfect!
-    //         } else {
-    //             alert('There was a problem with the request.');
-    //         }
-    //     } else {
-    //         alert('There was a problem earlier than the other problem');
-    //     }
-    // }
 }
 
 window.onload = function() {
-    let request = new XMLHttpRequest();
-    let filepath = "./data/cardnumbers_PINs.csv";
-    request.open("GET", filepath, true);
-    request.send();
-    request.onload = function() {
-        if (request.readyState === 4 && request.status === 200) {
-            new main(request.responseText.split(/,/));
-        }
-    };
+    new main();
 };
