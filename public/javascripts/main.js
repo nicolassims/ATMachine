@@ -16,18 +16,20 @@ class main {
     }
 
     static retrieveClientInformation(cardNumber, pin, cardNumberCharacters) {
-        let filePath = '../data/cardnumbers_PINs.csv';
+        let filePath = '../views/data/cardnumbers_PINs.csv';
         let request = new XMLHttpRequest();
+        let validCombos = [];
         request.open("GET", filePath, true);
         request.send();
         request.onload = function() {
+            const ROWS = 2;
             const COLUMNS = 4;
             if (request.readyState === 4 && request.status === 200) {
                 for (let i = 0; i < COLUMNS; i++) {
-                    let validCombos = request.responseText.split(/,/);
-                }
-                for (let i = 0; i < COLUMNS; i++) {
-                    let validCombos[i][1] = request.responseText.split(/,/);
+                    validCombos[i] = [];
+                    for (let j = 0; j < ROWS; j++) {
+                        validCombos[i][j] = request.responseText.split(/,/);
+                    }
                 }
             }
         };

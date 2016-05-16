@@ -70,18 +70,20 @@
 	    _createClass(main, null, [{
 	        key: 'retrieveClientInformation',
 	        value: function retrieveClientInformation(cardNumber, pin, cardNumberCharacters) {
-	            var filePath = '../data/cardnumbers_PINs.csv';
+	            var filePath = '../views/data/cardnumbers_PINs.csv';
 	            var request = new XMLHttpRequest();
+	            var validCombos = [];
 	            request.open("GET", filePath, true);
 	            request.send();
 	            request.onload = function () {
+	                var ROWS = 2;
 	                var COLUMNS = 4;
 	                if (request.readyState === 4 && request.status === 200) {
 	                    for (var i = 0; i < COLUMNS; i++) {
-	                        var _validCombos = request.responseText.split(/,/);
-	                    }
-	                    for (var _i = 0; _i < COLUMNS; _i++) {
-	                        validCombos[_i][1] = request.responseText.split(/,/);
+
+	                        for (var j = 0; j < ROWS; j++) {
+	                            validCombos[i][j] = request.responseText.split(/,/);
+	                        }
 	                    }
 	                }
 	            };
