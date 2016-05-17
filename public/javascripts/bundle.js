@@ -48,8 +48,6 @@
 	 * Created by Administrator on 3/14/2016.
 	 */
 
-	//Figure out how to get data from CSV
-
 	'use strict';
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -64,30 +62,57 @@
 	        var cardNumber = 0;
 	        var cardNumberCharacters = 0;
 	        main.hideAndRevealDivs();
-	        main.retrieveClientInformation(cardNumber, pin, cardNumberCharacters);
+	        main.loadData(cardNumber, pin, cardNumberCharacters);
 	    }
 
+	    // static retrieveClientInformation(cardNumber, pin, cardNumberCharacters) {
+	    //     let filePath = '../views/data/cardnumbers_PINs.csv';
+	    //     let request = new XMLHttpRequest();
+	    //     let validCombos = [];
+	    //     request.open("GET", filePath, true);
+	    //     request.send();
+	    //     request.onload = function() {
+	    //         const ROWS = 2;
+	    //         const COLUMNS = 4;
+	    //         if (request.readyState === 4 && request.status === 200) {
+	    //             for (let i = 0; i < COLUMNS; i++) {
+	    //                 validCombos[i] = [];
+	    //                 for (let j = 0; j < ROWS; j++) {
+	    //                     validCombos[i][j] = request.responseText.split(/,/);
+	    //                 }
+	    //             }
+	    //         }
+	    //     };
+
 	    _createClass(main, null, [{
-	        key: 'retrieveClientInformation',
-	        value: function retrieveClientInformation(cardNumber, pin, cardNumberCharacters) {
+	        key: 'loadData',
+	        value: function loadData(cardNumber, pin, cardNumberCharacters) {
 	            var filePath = '../views/data/cardnumbers_PINs.csv';
 	            var request = new XMLHttpRequest();
-	            var validCombos = [];
 	            request.open("GET", filePath, true);
 	            request.send();
 	            request.onload = function () {
-	                var ROWS = 2;
 	                var COLUMNS = 4;
+	                var data = void 0,
+	                    middleData = void 0,
+	                    validCombos = [];
 	                if (request.readyState === 4 && request.status === 200) {
-	                    for (var i = 0; i < COLUMNS; i++) {
-
-	                        for (var j = 0; j < ROWS; j++) {
-	                            validCombos[i][j] = request.responseText.split(/,/);
-	                        }
+	                    data = request.responseText.split(/\n/);
+	                }
+	                for (var i = 0; i < data.length; i++) {
+	                    middleData = data[i].split(/,/);
+	                    validCombos[i] = [];
+	                    for (var j = 0; j < COLUMNS; j++) {
+	                        validCombos[i][j] = middleData[j];
 	                    }
 	                }
+	                for (var _i = 0; _i < validCombos.length; _i++) {
+	                    for (var _j = 0; _j < COLUMNS; _j++) {
+	                        console.log(validCombos[_i][_j]);
+	                    }
+	                }
+	                return main.cardNumberHandler(cardNumber, pin, validCombos, cardNumberCharacters);
 	            };
-	            main.cardNumberHandler(cardNumber, pin, validCombos, cardNumberCharacters);
 	        }
 	    }, {
 	        key: 'cardNumberHandler',
@@ -301,17 +326,22 @@
 	        key: 'validateNumbers',
 	        value: function validateNumbers(cardNumber, pin, validCombos) {
 	            var validCombo = void 0;
+	            var COLUMNS = 4;
 	            cardNumber = cardNumber.slice(4, cardNumber.length);
 	            pin = pin.slice(4, pin.length);
 	            for (var i = 0; i < validCombos.length; i++) {
-	                if (validCombos[i] == cardNumber) {
-	                    var j = i + 2;
-	                    if (validCombos[j] == pin) {
-	                        validCombo = true;
-	                        console.log("TRUE");
+	                for (var j = 0; j < COLUMNS; j++) {
+	                    if (validCombos[i] == cardNumber) {
+	                        var _j2 = i + 1;
+	                        console.log(matchedCardNumber);
+	                        if (validCombos[_j2] == pin) {
+	                            validCombo = true;
+	                            console.log("TRUE");
+	                        }
 	                    }
 	                }
 	            }
+
 	            if (validCombo != true) {
 	                document.getElementById('promptCustomer').innerHTML = "Incorrect Input. Please try again.";
 	                document.getElementById('buttonSix').innerHTML = "RESTART";

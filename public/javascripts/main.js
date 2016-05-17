@@ -2,8 +2,6 @@
  * Created by Administrator on 3/14/2016.
  */
 
-//Figure out how to get data from CSV
-
 'use strict';
 
 class main {
@@ -12,28 +10,53 @@ class main {
         let cardNumber = 0;
         let cardNumberCharacters = 0;
         main.hideAndRevealDivs();
-        main.retrieveClientInformation(cardNumber, pin, cardNumberCharacters);
+        main.loadData (cardNumber, pin, cardNumberCharacters);
     }
 
-    static retrieveClientInformation(cardNumber, pin, cardNumberCharacters) {
+    // static retrieveClientInformation(cardNumber, pin, cardNumberCharacters) {
+    //     let filePath = '../views/data/cardnumbers_PINs.csv';
+    //     let request = new XMLHttpRequest();
+    //     let validCombos = [];
+    //     request.open("GET", filePath, true);
+    //     request.send();
+    //     request.onload = function() {
+    //         const ROWS = 2;
+    //         const COLUMNS = 4;
+    //         if (request.readyState === 4 && request.status === 200) {
+    //             for (let i = 0; i < COLUMNS; i++) {
+    //                 validCombos[i] = [];
+    //                 for (let j = 0; j < ROWS; j++) {
+    //                     validCombos[i][j] = request.responseText.split(/,/);
+    //                 }
+    //             }
+    //         }
+    //     };
+
+    static loadData (cardNumber, pin, cardNumberCharacters) {
         let filePath = '../views/data/cardnumbers_PINs.csv';
         let request = new XMLHttpRequest();
-        let validCombos = [];
         request.open("GET", filePath, true);
         request.send();
         request.onload = function() {
-            const ROWS = 2;
             const COLUMNS = 4;
+            let data, middleData, validCombos = [];
             if (request.readyState === 4 && request.status === 200) {
-                for (let i = 0; i < COLUMNS; i++) {
-                    validCombos[i] = [];
-                    for (let j = 0; j < ROWS; j++) {
-                        validCombos[i][j] = request.responseText.split(/,/);
-                    }
+                data = request.responseText.split(/\n/);
+            }
+            for (let i = 0; i < data.length; i++) {
+                middleData = data[i].split(/,/);
+                validCombos[i] = [];
+                for (let j = 0; j < COLUMNS; j++) {
+                    validCombos[i][j] = middleData[j];
                 }
             }
+            for (let i = 0; i < validCombos.length; i++) {
+                for (let j = 0; j < COLUMNS; j++) {
+                    console.log(validCombos[i][j]);
+                }
+            }
+            return main.cardNumberHandler(cardNumber, pin, validCombos, cardNumberCharacters);
         };
-        main.cardNumberHandler(cardNumber, pin, validCombos, cardNumberCharacters);
     }
 
     static cardNumberHandler(cardNumber, pin, validCombos, cardNumberCharacters) {
@@ -243,17 +266,23 @@ class main {
 
     static validateNumbers(cardNumber, pin, validCombos) {
         let validCombo;
+        const COLUMNS = 4;
         cardNumber =  cardNumber.slice(4, cardNumber.length);
         pin =  pin.slice(4, pin.length);
         for (let i = 0; i < validCombos.length; i++) {
-            if (validCombos[i] == cardNumber) {
-                let j = i + 2;
-                if (validCombos[j] == pin) {
-                    validCombo = true;
-                    console.log("TRUE");
+            for (let j = 0; j < COLUMNS; j++) {
+                if (validCombos[i] == cardNumber) {
+                    let j = i + 1;
+                    console.log(matchedCardNumber);
+                    if (validCombos[j] == pin) {
+                        validCombo = true;
+                        console.log("TRUE");
+                    }
                 }
             }
         }
+
+
         if (validCombo != true) {
             document.getElementById('promptCustomer').innerHTML = "Incorrect Input. Please try again.";
             document.getElementById('buttonSix').innerHTML = "RESTART";
