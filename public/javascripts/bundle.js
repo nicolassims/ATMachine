@@ -65,25 +65,6 @@
 	        main.loadData(cardNumber, pin, cardNumberCharacters);
 	    }
 
-	    // static retrieveClientInformation(cardNumber, pin, cardNumberCharacters) {
-	    //     let filePath = '../views/data/cardnumbers_PINs.csv';
-	    //     let request = new XMLHttpRequest();
-	    //     let validCombos = [];
-	    //     request.open("GET", filePath, true);
-	    //     request.send();
-	    //     request.onload = function() {
-	    //         const ROWS = 2;
-	    //         const COLUMNS = 4;
-	    //         if (request.readyState === 4 && request.status === 200) {
-	    //             for (let i = 0; i < COLUMNS; i++) {
-	    //                 validCombos[i] = [];
-	    //                 for (let j = 0; j < ROWS; j++) {
-	    //                     validCombos[i][j] = request.responseText.split(/,/);
-	    //                 }
-	    //             }
-	    //         }
-	    //     };
-
 	    _createClass(main, null, [{
 	        key: 'loadData',
 	        value: function loadData(cardNumber, pin, cardNumberCharacters) {
@@ -241,7 +222,7 @@
 	    }, {
 	        key: 'PINHandler',
 	        value: function PINHandler(cardNumber, pin, validCombos, cardNumberCharacters) {
-	            console.log(cardNumberCharacters);
+	            console.log('cardNumberCharacters=' + cardNumberCharacters);
 	            document.getElementById("one").addEventListener("click", function () {
 	                if (cardNumberCharacters == 5) {
 	                    document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "1";
@@ -316,7 +297,6 @@
 	                if (cardNumberCharacters == 6) {
 	                    pin = document.getElementById('PIN').innerHTML;
 	                    document.getElementById('buttonSix').innerHTML = "VI";
-	                    console.log(pin.slice(4, pin.length));
 	                    cardNumberCharacters++;
 	                    return main.validateNumbers(cardNumber, pin, validCombos);
 	                }
@@ -326,22 +306,21 @@
 	        key: 'validateNumbers',
 	        value: function validateNumbers(cardNumber, pin, validCombos) {
 	            var validCombo = void 0;
-	            var COLUMNS = 4;
+	            var checkingAccountBalance = void 0;
+	            var savingsAccountBalance = void 0;
+	            var ROWS = 2;
 	            cardNumber = cardNumber.slice(4, cardNumber.length);
 	            pin = pin.slice(4, pin.length);
-	            for (var i = 0; i < validCombos.length; i++) {
-	                for (var j = 0; j < COLUMNS; j++) {
-	                    if (validCombos[i] == cardNumber) {
-	                        var _j2 = i + 1;
-	                        console.log(matchedCardNumber);
-	                        if (validCombos[_j2] == pin) {
-	                            validCombo = true;
-	                            console.log("TRUE");
-	                        }
-	                    }
+	            console.log('cardNumber=' + cardNumber);
+	            console.log('pin=' + pin);
+	            for (var i = 0; i < ROWS; i++) {
+	                if (validCombos[i][0] == cardNumber && validCombos[i][1] == pin) {
+	                    validCombo = true;
+	                    console.log("TRUE");
+	                    checkingAccountBalance = validCombos[i][2];
+	                    savingsAccountBalance = validCombos[i][3];
 	                }
 	            }
-
 	            if (validCombo != true) {
 	                document.getElementById('promptCustomer').innerHTML = "Incorrect Input. Please try again.";
 	                document.getElementById('buttonSix').innerHTML = "RESTART";
@@ -349,16 +328,8 @@
 	                    location.reload();
 	                }, false);
 	            } else {
-	                return main.getAccountBalances();
+	                return main.selectAccount(checkingAccountBalance, savingsAccountBalance);
 	            }
-	        }
-	    }, {
-	        key: 'getAccountBalances',
-	        value: function getAccountBalances() {
-
-	            //Set account balances here.
-
-	            return main.selectAccount(checkingAccountBalance, savingsAccountBalance);
 	        }
 	    }, {
 	        key: 'selectAccount',
@@ -483,10 +454,7 @@
 	                    savingsAccountBalance = Number(savingsAccountBalance) + moneyDeposited;
 	                    document.getElementById('promptCustomer').innerHTML = "The balance of your " + accountType + " account is now $" + savingsAccountBalance + ". Thank you for using this terminal.";
 	                }
-	                document.getElementById('buttonSix').innerHTML = "RESTART";
-	                document.getElementById("buttonSix").addEventListener("click", function () {
-	                    location.reload();
-	                }, false);
+	                return main.exitApplication(checkingAccountbalance, savingsAccountBalance);
 	            }, false);
 	        }
 	    }, {
@@ -560,10 +528,7 @@
 	                        }, false);
 	                    }
 	                }
-	                document.getElementById('buttonSix').innerHTML = "RESTART";
-	                document.getElementById("buttonSix").addEventListener("click", function () {
-	                    location.reload();
-	                }, false);
+	                return main.exitApplication(checkingAccountbalance, savingsAccountBalance);
 	            }, false);
 	        }
 	    }, {
@@ -625,10 +590,7 @@
 	                        document.getElementById('promptCustomer').innerHTML = "The balance of your checking account is now $" + checkingAccountBalance + ". The balance of your savings account is now $" + savingsAccountBalance + ".";
 	                    } else {
 	                        document.getElementById('promptCustomer').innerHTML = "You do not have enough money to transfer that amount. Please try again.";
-	                        document.getElementById('buttonSix').innerHTML = "RESTART";
-	                        document.getElementById("buttonSix").addEventListener("click", function () {
-	                            location.reload();
-	                        }, false);
+	                        return main.exitApplication(checkingAccountbalance, savingsAccountBalance);
 	                    }
 	                } else {
 	                    if (moneyTransferred <= savingsAccountBalance) {
@@ -637,16 +599,19 @@
 	                        document.getElementById('promptCustomer').innerHTML = "The balance of your checking account is now $" + checkingAccountBalance + ". The balance of your savings account is now $" + savingsAccountBalance + ".";
 	                    } else {
 	                        document.getElementById('promptCustomer').innerHTML = "You do not have enough money to transfer that amount. Please try again.";
-	                        document.getElementById('buttonSix').innerHTML = "RESTART";
-	                        document.getElementById("buttonSix").addEventListener("click", function () {
-	                            location.reload();
-	                        }, false);
+	                        return main.exitApplication(checkingAccountbalance, savingsAccountBalance);
 	                    }
 	                }
-	                document.getElementById('buttonSix').innerHTML = "RESTART";
-	                document.getElementById("buttonSix").addEventListener("click", function () {
-	                    location.reload();
-	                }, false);
+	            }, false);
+	        }
+	    }, {
+	        key: 'exitApplication',
+	        value: function exitApplication(checkingAccountBalance, savingsAccountBalance) {
+	            console.log(checkingAccountBalance);
+	            console.log(savingsAccountBalance);
+	            document.getElementById('buttonSix').innerHTML = "RESTART";
+	            document.getElementById("buttonSix").addEventListener("click", function () {
+	                location.reload();
 	            }, false);
 	        }
 	    }]);
