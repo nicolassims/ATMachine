@@ -1,13 +1,10 @@
 /**
- * Created by root on 5/3/2016.
+ * Created by root on 5/19/2016.
  */
-
-//Create an eventlistening AJAX request in the main.js file.
 
 "use strict";
 
 class app {
-
     constructor() {
         app.loadServer();
     }
@@ -18,16 +15,17 @@ class app {
             SERVER = HTTP.createServer(function(req, res) {
                 let httpHandler = function(err, str, contentType) {
                     if (err) {
-                        res.writeHead(500, { 'Content-Type': 'text/plain'});
+                        res.writeHead(500, { 'Content-Type': 'text/plain' });
                         res.end('An error has occurred: ' + err.message);
                     } else if (contentType.indexOf('image') >= 0) {
-                        res.writeHead(200, { 'Content-Type': contentType});
+                        res.writeHead(200, { 'Content-Type': contentType });
                         res.end(str, 'binary');
                     } else {
-                        res.writeHead(200, { 'Content-Type': contentType});
+                        res.writeHead(200, { 'Content-Type': contentType });
                         res.end(str);
                     }
                 };
+
                 if (req.headers['x-requested-with'] === 'XMLHttpRequest') {
                     if (req.method == 'POST') {
                         app.getFormData(req, res);
@@ -45,6 +43,7 @@ class app {
                 } else {
                     app.render('public/views/index.html', 'text/html', httpHandler, 'utf-8');
                 }
+
             }).listen(PORT, function() {
                 console.log('-= Francis Server Listening at http://127.0.0.1:' + PORT + ' =-');
             });
@@ -58,22 +57,23 @@ class app {
     }
 
     static getFormData(req, res) {
-        const FORMIDABLE = require('formidable'), DO_CARDNUMBERS = require('./node/outputCardnumbers_PINs.js');
+        const FORMIDABLE = require('formidable'),
+            DO_NAMES = require('./node/NameClass');
         let formData = {};
         new FORMIDABLE.IncomingForm().parse(req)
-        .on('field', function(field, name) {
-            formData[field] = name;
-        })
-        .on('error', function(err) {
-            next(err);
-        })
-        .on('end', function() {
-            let finalNumbers = new DO_CARDNUMBERS(formData);
-            res.writeHead(200, {'content-type': 'text/plain'});
-            res.write('-= Received form: ');
-            res.end(finalNumbers.getCardnumber() + ' ' + finalNumbers.getPIN());
-            finalNumbers.writeData();
-        });
+            .on('field', function(field, name) {
+                formData[field] = name;
+            })
+            .on('error', function(err) {
+                next(err);
+            })
+            .on('end', function() {
+                let finalName = new DO_NAMES(formData);
+                res.writeHead(200, {'content-type': 'text/plain'});
+                res.write('-= Received form: ');
+                res.end(finalName.getFirstName() + ' ' + finalName.getLastName());
+                finalName.writeData();
+            });
     }
 }
 

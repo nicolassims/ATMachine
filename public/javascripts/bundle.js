@@ -323,10 +323,7 @@
 	            }
 	            if (validCombo != true) {
 	                document.getElementById('promptCustomer').innerHTML = "Incorrect Input. Please try again.";
-	                document.getElementById('buttonSix').innerHTML = "RESTART";
-	                document.getElementById("buttonSix").addEventListener("click", function () {
-	                    location.reload();
-	                }, false);
+	                return main.exitApplication(checkingAccountBalance, savingsAccountBalance);
 	            } else {
 	                return main.selectAccount(checkingAccountBalance, savingsAccountBalance);
 	            }
@@ -454,7 +451,7 @@
 	                    savingsAccountBalance = Number(savingsAccountBalance) + moneyDeposited;
 	                    document.getElementById('promptCustomer').innerHTML = "The balance of your " + accountType + " account is now $" + savingsAccountBalance + ". Thank you for using this terminal.";
 	                }
-	                return main.exitApplication(checkingAccountbalance, savingsAccountBalance);
+	                return main.exitApplication(checkingAccountBalance, savingsAccountBalance);
 	            }, false);
 	        }
 	    }, {
@@ -511,10 +508,6 @@
 	                        document.getElementById('promptCustomer').innerHTML = "The balance of your " + accountType + " account is now $" + checkingAccountBalance + ". Thank you for using this terminal.";
 	                    } else {
 	                        document.getElementById('promptCustomer').innerHTML = "You do not have enough money to withdraw that amount. Please try again.";
-	                        document.getElementById('buttonSix').innerHTML = "RESTART";
-	                        document.getElementById("buttonSix").addEventListener("click", function () {
-	                            location.reload();
-	                        }, false);
 	                    }
 	                } else {
 	                    if (moneyWithdrawn <= savingsAccountBalance) {
@@ -522,13 +515,9 @@
 	                        document.getElementById('promptCustomer').innerHTML = "The balance of your " + accountType + " account is now $" + savingsAccountBalance + ". Thank you for using this terminal.";
 	                    } else {
 	                        document.getElementById('promptCustomer').innerHTML = "You do not have enough money to withdraw that amount. Please try again.";
-	                        document.getElementById('buttonSix').innerHTML = "RESTART";
-	                        document.getElementById("buttonSix").addEventListener("click", function () {
-	                            location.reload();
-	                        }, false);
 	                    }
 	                }
-	                return main.exitApplication(checkingAccountbalance, savingsAccountBalance);
+	                return main.exitApplication(checkingAccountBalance, savingsAccountBalance);
 	            }, false);
 	        }
 	    }, {
@@ -588,18 +577,20 @@
 	                        checkingAccountBalance = Number(checkingAccountBalance) - moneyTransferred;
 	                        savingsAccountBalance = Number(savingsAccountBalance) + moneyTransferred;
 	                        document.getElementById('promptCustomer').innerHTML = "The balance of your checking account is now $" + checkingAccountBalance + ". The balance of your savings account is now $" + savingsAccountBalance + ".";
+	                        return main.exitApplication(checkingAccountBalance, savingsAccountBalance);
 	                    } else {
 	                        document.getElementById('promptCustomer').innerHTML = "You do not have enough money to transfer that amount. Please try again.";
-	                        return main.exitApplication(checkingAccountbalance, savingsAccountBalance);
+	                        return main.exitApplication(checkingAccountBalance, savingsAccountBalance);
 	                    }
 	                } else {
 	                    if (moneyTransferred <= savingsAccountBalance) {
 	                        checkingAccountBalance = Number(checkingAccountBalance) + moneyTransferred;
 	                        savingsAccountBalance = Number(savingsAccountBalance) - moneyTransferred;
 	                        document.getElementById('promptCustomer').innerHTML = "The balance of your checking account is now $" + checkingAccountBalance + ". The balance of your savings account is now $" + savingsAccountBalance + ".";
+	                        return main.exitApplication(checkingAccountBalance, savingsAccountBalance);
 	                    } else {
 	                        document.getElementById('promptCustomer').innerHTML = "You do not have enough money to transfer that amount. Please try again.";
-	                        return main.exitApplication(checkingAccountbalance, savingsAccountBalance);
+	                        return main.exitApplication(checkingAccountBalance, savingsAccountBalance);
 	                    }
 	                }
 	            }, false);
