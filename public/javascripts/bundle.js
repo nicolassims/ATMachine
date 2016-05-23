@@ -214,6 +214,8 @@
 	        key: 'hideAndRevealDivs',
 	        value: function hideAndRevealDivs(cardNumberCharacters) {
 	            document.getElementById("displayArea").style.display = "none";
+	            document.getElementById("cardNumberInput").style.display = "none";
+	            document.getElementById("pinInput").style.display = "none";
 	            document.getElementById("PIN").style.display = "none";
 	            if (cardNumberCharacters == 5) {
 	                document.getElementById("PIN").style.display = "block";
@@ -317,8 +319,10 @@
 	                if (validCombos[i][0] == cardNumber && validCombos[i][1] == pin) {
 	                    validCombo = true;
 	                    console.log("TRUE");
-	                    checkingAccountBalance = validCombos[i][2];
-	                    savingsAccountBalance = validCombos[i][3];
+	                    if (checkingAccountBalance == undefined || savingsAccountBalance == undefined) {
+	                        checkingAccountBalance = validCombos[i][2];
+	                        savingsAccountBalance = validCombos[i][3];
+	                    }
 	                }
 	            }
 	            if (validCombo != true) {
@@ -600,6 +604,7 @@
 	        value: function exitApplication(checkingAccountBalance, savingsAccountBalance) {
 	            console.log(checkingAccountBalance);
 	            console.log(savingsAccountBalance);
+	            //document.getElementById('cardNumberInput').innerHTML = "Incorrect Input. Please try again."
 	            document.getElementById('buttonSix').innerHTML = "RESTART";
 	            document.getElementById("buttonSix").addEventListener("click", function () {
 	                location.reload();

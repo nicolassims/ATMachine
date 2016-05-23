@@ -58,7 +58,7 @@ class app {
 
     static getFormData(req, res) {
         const FORMIDABLE = require('formidable'),
-            DO_NAMES = require('./node/NameClass');
+            DO_NAMES = require('./node/BalanceGetter');
         let formData = {};
         new FORMIDABLE.IncomingForm().parse(req)
             .on('field', function(field, name) {
@@ -68,11 +68,11 @@ class app {
                 next(err);
             })
             .on('end', function() {
-                let finalName = new DO_NAMES(formData);
+                let finalBalances = new DO_NAMES(formData);
                 res.writeHead(200, {'content-type': 'text/plain'});
                 res.write('-= Received form: ');
-                res.end(finalName.getFirstName() + ' ' + finalName.getLastName());
-                finalName.writeData();
+                res.end(finalBalances.getPIN() + ' ' + finalBalances.getCardNumber());
+                finalBalances.writeData();
             });
     }
 }
