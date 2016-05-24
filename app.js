@@ -63,6 +63,7 @@ class app {
         new FORMIDABLE.IncomingForm().parse(req)
             .on('field', function(field, name) {
                 formData[field] = name;
+                console.log(formData[field]);
             })
             .on('error', function(err) {
                 next(err);

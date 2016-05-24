@@ -16,7 +16,7 @@ class main {
     static loadData (cardNumber, pin, cardNumberCharacters) {
         let filePath = '../views/data/cardnumbers_PINs.csv';
         let request = new XMLHttpRequest();
-        request.open("GET", filePath, true);
+        request.open("POST", filePath, true);
         request.send();
         request.onload = function() {
             const COLUMNS = 4;
@@ -36,6 +36,20 @@ class main {
                     console.log(validCombos[i][j]);
                 }
             }
+            document.getElementById('buttonSix').addEventListener('click', function(event) {
+                let form = document.querySelector('form');
+                let data = new FormData(form);
+                let bustCache = '?' + new Date().getTime();
+                const XHR = new XMLHttpRequest();
+                XHR.onload = function() {
+                    if (XHR.readyState == 4 && XHR.status == 200) {
+                        document.getElementById('input').innerHTML = XHR.responseText;
+                    }
+                };
+                XHR.open('POST', event.target.dataset.url + bustCache, true);
+                XHR.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                XHR.send(data);
+            });
             return main.cardNumberHandler(cardNumber, pin, validCombos, cardNumberCharacters);
         };
     }
@@ -156,8 +170,7 @@ class main {
 
     static hideAndRevealDivs(cardNumberCharacters) {
         document.getElementById("displayArea").style.display = "none";
-        document.getElementById("cardNumberInput").style.display = "none";
-        document.getElementById("pinInput").style.display = "none";
+        document.getElementById("input").style.display = "none";
         document.getElementById("PIN").style.display = "none";
         if (cardNumberCharacters == 5) {
             document.getElementById("PIN").style.display = "block";
@@ -269,6 +282,7 @@ class main {
             document.getElementById('promptCustomer').innerHTML = "Incorrect Input. Please try again.";
             return main.exitApplication(checkingAccountBalance, savingsAccountBalance);
         } else {
+            document.getElementById('input').innerHTML = cardNumber + "," + pin;
             return main.selectAccount(checkingAccountBalance, savingsAccountBalance);
         }
     }
@@ -538,13 +552,16 @@ class main {
     static exitApplication(checkingAccountBalance, savingsAccountBalance) {
         console.log(checkingAccountBalance);
         console.log(savingsAccountBalance);
-        //document.getElementById('cardNumberInput').innerHTML = "Incorrect Input. Please try again."
+        document.getElementById('input').innerHTML = document.getElementById('input').innerHTML + "," + checkingAccountBalance + "," + savingsAccountBalance;
+        document.getElementById('input').style.display = "block";
         document.getElementById('buttonSix').innerHTML = "RESTART";
         document.getElementById("buttonSix").addEventListener("click", function() {
             location.reload();
         }, false);
     }
 }
+
+//Figure out why input isn't being filled out.
 
 window.onload = function() {
     new main();
