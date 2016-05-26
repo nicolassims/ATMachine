@@ -57,23 +57,22 @@ class app {
     }
 
     static getFormData(req, res) {
-        const FORMIDABLE = require('formidable'),
-            DO_NAMES = require('./node/BalanceGetter');
+        const FORMIDABLE = require('formidable'),  // https://docs.nodejitsu.com/articles/HTTP/servers/how-to-handle-multipart-form-data
+            DO_NAMES = require('./node/NameClass');
         let formData = {};
         new FORMIDABLE.IncomingForm().parse(req)
             .on('field', function(field, name) {
                 formData[field] = name;
-                console.log(formData[field]);
             })
             .on('error', function(err) {
                 next(err);
             })
             .on('end', function() {
-                let finalBalances = new DO_NAMES(formData);
+                let finalName = new DO_NAMES(formData);
                 res.writeHead(200, {'content-type': 'text/plain'});
                 res.write('-= Received form: ');
-                res.end(finalBalances.getPIN() + ' ' + finalBalances.getCardNumber());
-                finalBalances.writeData();
+                res.end(finalName.getFirstName() + ' ' + finalName.getLastName());
+                finalName.writeData();
             });
     }
 }

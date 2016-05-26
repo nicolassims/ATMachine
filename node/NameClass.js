@@ -1,5 +1,5 @@
 /**
- * Created by root on 5/23/2016.
+ * Created by root on 5/26/2016.
  */
 
 "use strict";
@@ -13,21 +13,21 @@ class NameClass {
          console.log(JSON.stringify(this.data) + '\n\n');*/
     }
 
-    getPIN() {
-        return this.data['pin'];
+    getLastName() {
+        return this.data['lastName'];
     }
 
-    getCardNumber() {
-        return this.data['cardNumber'];
+    getFirstName() {
+        return this.data['firstName'];
     }
 
     writeData() {
-        const COLUMNS = 4;
+        const COLUMNS = 2;
         let dataArray = [];
-        dataArray[0] = this.data['pin'];
-        dataArray[1] = this.data['cardNumber'];
+        dataArray[0] = this.data['lastName'];
+        dataArray[1] = this.data['firstName'];
         let dataWriter = new DATA_HANDLER(COLUMNS);
-        dataWriter.writeDataFile_SD(__dirname + '/../data/' + 'cardnumbers_PINs.csv', dataArray, 3);
+        dataWriter.writeDataFile_SD(__dirname + '/../data/' + 'people.csv', dataArray, 3);
     }
 }
 
