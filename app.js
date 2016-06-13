@@ -12,7 +12,7 @@ class app {
     static loadServer() {
         const HTTP = require('http'),
             PORT = 1337,
-            SERVER = HTTP.createServer(function(req, res) {
+            SERVER = HTTP.createServer( (req, res) => {
                 let httpHandler = function(err, str, contentType) {
                     if (err) {
                         res.writeHead(500, { 'Content-Type': 'text/plain' });
@@ -25,10 +25,12 @@ class app {
                         res.end(str);
                     }
                 };
+                if (req.method == 'POST') {
+                    if (req.headers['x-requested-load'] === 'XMLHttpRequest0') {
+                        app.loadData(req, res);
 
-                if (req.headers['x-requested-with'] === 'XMLHttpRequest') {
-                    if (req.method == 'POST') {
-                        app.getFormData(req, res);
+                    } else if (req.headers['x-requested-with'] === 'XMLHttpRequest1') {
+                        app.setData(req, res);
                     } else {
                         console.log("[405] " + req.method + " to " + req.url);
                         res.writeHead(405, "Method not supported", { 'Content-Type': 'text/html' });
@@ -43,7 +45,6 @@ class app {
                 } else {
                     app.render('public/views/index.html', 'text/html', httpHandler, 'utf-8');
                 }
-
             }).listen(PORT, function() {
                 console.log('-= Francis Server Listening at http://127.0.0.1:' + PORT + ' =-');
             });
@@ -56,25 +57,27 @@ class app {
         });
     }
 
-    static getFormData(req, res) {
-        const FORMIDABLE = require('formidable'),  // https://docs.nodejitsu.com/articles/HTTP/servers/how-to-handle-multipart-form-data
-            DO_NAMES = require('./node/NameClass');
-        let formData = {};
-        new FORMIDABLE.IncomingForm().parse(req)
-            .on('field', function(field, name) {
-                formData[field] = name;
-            })
-            .on('error', function(err) {
-                next(err);
-            })
-            .on('end', function() {
-                let finalName = new DO_NAMES(formData);
-                res.writeHead(200, {'content-type': 'text/plain'});
-                res.write('-= Received form: ');
-                res.end(finalName.getFirstName() + ' ' + finalName.getLastName());
-                finalName.writeData();
-            });
+    static loadData (req, res) {
+        let balances = '';
+        req.on ('data', (chunk) => {
+            balances += chunk;
+        });
+        req.on ('end', () => {
+            res.end(balances);
+        });
     }
+
+    /*
+    static setData (req, res) {
+        let data = '';
+        req.on ('data', (chunk) => {
+            data = chunk;
+        });
+        req.on ('end', () => {
+            res.end(data);
+        });
+    }
+    */
 }
 
 module.exports = app;

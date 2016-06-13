@@ -66,37 +66,38 @@
 	    }
 
 	    _createClass(main, null, [{
-	        key: 'loadData',
+	        key: "loadData",
 	        value: function loadData(cardNumber, pin, cardNumberCharacters) {
-	            var filePath = '../views/data/cardnumbers_PINs.csv';
-	            var request = new XMLHttpRequest();
+	            /* //
+	            let filePath = '../views/data/cardnumbers_PINs.csv';
+	            let request = new XMLHttpRequest();
 	            request.open("POST", filePath, true);
+	            request.setRequestHeader('x-requested-with', 'XMLHttpRequest1');
 	            request.send();
-	            request.onload = function () {
-	                var COLUMNS = 4;
-	                var data = void 0,
-	                    middleData = void 0,
-	                    validCombos = [];
+	            request.onload = () => {
+	                const COLUMNS = 4;
+	                let data, middleData, validCombos = [];
 	                if (request.readyState === 4 && request.status === 200) {
 	                    data = request.responseText.split(/\n/);
 	                }
-	                for (var i = 0; i < data.length; i++) {
+	                for (let i = 0; i < data.length; i++) {
 	                    middleData = data[i].split(/,/);
 	                    validCombos[i] = [];
-	                    for (var j = 0; j < COLUMNS; j++) {
+	                    for (let j = 0; j < COLUMNS; j++) {
 	                        validCombos[i][j] = middleData[j];
 	                    }
 	                }
-	                for (var _i = 0; _i < validCombos.length; _i++) {
-	                    for (var _j = 0; _j < COLUMNS; _j++) {
-	                        console.log(validCombos[_i][_j]);
+	                for (let i = 0; i < validCombos.length; i++) {
+	                    for (let j = 0; j < COLUMNS; j++) {
+	                        console.log(validCombos[i][j]);
 	                    }
 	                }
 	                return main.cardNumberHandler(cardNumber, pin, validCombos, cardNumberCharacters);
 	            };
+	            */
 	        }
 	    }, {
-	        key: 'cardNumberHandler',
+	        key: "cardNumberHandler",
 	        value: function cardNumberHandler(cardNumber, pin, validCombos, cardNumberCharacters) {
 	            document.getElementById("one").addEventListener("click", function () {
 	                if (cardNumberCharacters < 3) {
@@ -211,7 +212,7 @@
 	            }, false);
 	        }
 	    }, {
-	        key: 'hideAndRevealDivs',
+	        key: "hideAndRevealDivs",
 	        value: function hideAndRevealDivs(cardNumberCharacters) {
 	            document.getElementById("displayArea").style.display = "none";
 	            document.getElementById("input").style.display = "none";
@@ -221,7 +222,7 @@
 	            }
 	        }
 	    }, {
-	        key: 'PINHandler',
+	        key: "PINHandler",
 	        value: function PINHandler(cardNumber, pin, validCombos, cardNumberCharacters) {
 	            console.log('cardNumberCharacters=' + cardNumberCharacters);
 	            document.getElementById("one").addEventListener("click", function () {
@@ -304,7 +305,7 @@
 	            }, false);
 	        }
 	    }, {
-	        key: 'validateNumbers',
+	        key: "validateNumbers",
 	        value: function validateNumbers(cardNumber, pin, validCombos) {
 	            var validCombo = void 0;
 	            var checkingAccountBalance = void 0;
@@ -333,7 +334,7 @@
 	            }
 	        }
 	    }, {
-	        key: 'selectAccount',
+	        key: "selectAccount",
 	        value: function selectAccount(checkingAccountBalance, savingsAccountBalance) {
 	            var accountType = 0;
 	            var isBusy = false;
@@ -360,7 +361,7 @@
 	            }, false);
 	        }
 	    }, {
-	        key: 'performAction',
+	        key: "performAction",
 	        value: function performAction(accountType, checkingAccountBalance, savingsAccountBalance, isBusy) {
 	            document.getElementById('buttonSix').innerHTML = "WITHDRAW";
 	            document.getElementById('buttonThree').innerHTML = "DEPOSIT";
@@ -401,7 +402,7 @@
 	            }, false);
 	        }
 	    }, {
-	        key: 'performDeposit',
+	        key: "performDeposit",
 	        value: function performDeposit(accountType, checkingAccountBalance, savingsAccountBalance) {
 	            document.getElementById('promptCustomer').innerHTML = "How much money would you like to deposit into your " + accountType + " account?";
 	            document.getElementById("displayArea").style.display = "block";
@@ -459,7 +460,7 @@
 	            }, false);
 	        }
 	    }, {
-	        key: 'performWithdrawal',
+	        key: "performWithdrawal",
 	        value: function performWithdrawal(accountType, checkingAccountBalance, savingsAccountBalance) {
 	            document.getElementById('promptCustomer').innerHTML = "How much money would you like to withdraw from your " + accountType + " account?";
 	            document.getElementById("displayArea").style.display = "block";
@@ -525,7 +526,7 @@
 	            }, false);
 	        }
 	    }, {
-	        key: 'performTransfer',
+	        key: "performTransfer",
 	        value: function performTransfer(accountType, checkingAccountBalance, savingsAccountBalance) {
 	            if (accountType == "checking") {
 	                document.getElementById('promptCustomer').innerHTML = "How much money would you like to transfer from your checking account to your savings account?";
@@ -600,19 +601,27 @@
 	            }, false);
 	        }
 	    }, {
-	        key: 'exitApplication',
+	        key: "exitApplication",
 	        value: function exitApplication(checkingAccountBalance, savingsAccountBalance) {
 	            console.log(checkingAccountBalance);
 	            console.log(savingsAccountBalance);
 	            document.getElementById('input').value = document.getElementById('input').value + "," + checkingAccountBalance + "," + savingsAccountBalance;
 	            document.getElementById('input').style.display = "block";
-	            var form = document.querySelector('form');
-	            var data = new FormData(form);
-	            var bustCache = '?' + new Date().getTime();
-	            var XHR = new XMLHttpRequest();
-	            XHR.open('POST', event.target.dataset.url + bustCache, true);
-	            XHR.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-	            XHR.send(data);
+	            /* //
+	            
+	                    const XHR = new XMLHttpRequest();
+	                    let balances = checkingAccountBalance + ',' + savingsAccountBalance;
+	                    console.log(balances);
+	                    XHR.open('POST', document.url, true);
+	                    XHR.setRequestHeader('x-requested-load', 'XMLHttpRequest0');
+	                    XHR.send(balances);
+	                    XHR.onload = () => {
+	                        if (XHR.readyState == 4 && XHR.status == 200) {
+	                            alert(XHR.responseText);
+	                        }
+	                    };
+	            */
+
 	            document.getElementById('buttonSix').innerHTML = "RESTART";
 	            document.getElementById("buttonSix").addEventListener("click", function () {
 	                location.reload();

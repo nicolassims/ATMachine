@@ -14,11 +14,13 @@ class main {
     }
 
     static loadData (cardNumber, pin, cardNumberCharacters) {
+        /* //
         let filePath = '../views/data/cardnumbers_PINs.csv';
         let request = new XMLHttpRequest();
         request.open("POST", filePath, true);
+        request.setRequestHeader('x-requested-with', 'XMLHttpRequest1');
         request.send();
-        request.onload = function() {
+        request.onload = () => {
             const COLUMNS = 4;
             let data, middleData, validCombos = [];
             if (request.readyState === 4 && request.status === 200) {
@@ -38,10 +40,11 @@ class main {
             }
             return main.cardNumberHandler(cardNumber, pin, validCombos, cardNumberCharacters);
         };
+        */
     }
 
     static cardNumberHandler(cardNumber, pin, validCombos, cardNumberCharacters) {
-        document.getElementById("one").addEventListener("click", function() {
+        document.getElementById("one").addEventListener("click", () => {
             if (cardNumberCharacters < 3) {
                 document.getElementById('cardNumber').innerHTML = document.getElementById('cardNumber').innerHTML + "1";
                 cardNumberCharacters++;
@@ -51,7 +54,7 @@ class main {
                 cardNumberCharacters++;
             }
         }, false);
-        document.getElementById("two").addEventListener("click", function() {
+        document.getElementById("two").addEventListener("click", () => {
             if (cardNumberCharacters < 3) {
                 document.getElementById('cardNumber').innerHTML = document.getElementById('cardNumber').innerHTML + "2";
                 cardNumberCharacters++;
@@ -61,7 +64,7 @@ class main {
                 cardNumberCharacters++;
             }
         }, false);
-        document.getElementById("three").addEventListener("click", function() {
+        document.getElementById("three").addEventListener("click", () => {
             if (cardNumberCharacters < 3) {
                 document.getElementById('cardNumber').innerHTML = document.getElementById('cardNumber').innerHTML + "3";
                 cardNumberCharacters++;
@@ -71,7 +74,7 @@ class main {
                 cardNumberCharacters++;
             }
         }, false);
-        document.getElementById("four").addEventListener("click", function() {
+        document.getElementById("four").addEventListener("click", () => {
             if (cardNumberCharacters < 3) {
                 document.getElementById('cardNumber').innerHTML = document.getElementById('cardNumber').innerHTML + "4";
                 cardNumberCharacters++;
@@ -81,7 +84,7 @@ class main {
                 cardNumberCharacters++;
             }
         }, false);
-        document.getElementById("five").addEventListener("click", function() {
+        document.getElementById("five").addEventListener("click", () => {
             if (cardNumberCharacters < 3) {
                 document.getElementById('cardNumber').innerHTML = document.getElementById('cardNumber').innerHTML + "5";
                 cardNumberCharacters++;
@@ -91,7 +94,7 @@ class main {
                 cardNumberCharacters++;
             }
         }, false);
-        document.getElementById("six").addEventListener("click", function() {
+        document.getElementById("six").addEventListener("click", () => {
             if (cardNumberCharacters < 3) {
                 document.getElementById('cardNumber').innerHTML = document.getElementById('cardNumber').innerHTML + "6";
                 cardNumberCharacters++;
@@ -101,7 +104,7 @@ class main {
                 cardNumberCharacters++;
             }
         }, false);
-        document.getElementById("seven").addEventListener("click", function() {
+        document.getElementById("seven").addEventListener("click", () => {
             if (cardNumberCharacters < 3) {
                 document.getElementById('cardNumber').innerHTML = document.getElementById('cardNumber').innerHTML + "7";
                 cardNumberCharacters++;
@@ -111,7 +114,7 @@ class main {
                 cardNumberCharacters++;
             }
         }, false);
-        document.getElementById("eight").addEventListener("click", function() {
+        document.getElementById("eight").addEventListener("click", () => {
             if (cardNumberCharacters < 3) {
                 document.getElementById('cardNumber').innerHTML = document.getElementById('cardNumber').innerHTML + "8";
                 cardNumberCharacters++;
@@ -121,7 +124,7 @@ class main {
                 cardNumberCharacters++;
             }
         }, false);
-        document.getElementById("nine").addEventListener("click", function() {
+        document.getElementById("nine").addEventListener("click", () => {
             if (cardNumberCharacters < 3) {
                 document.getElementById('cardNumber').innerHTML = document.getElementById('cardNumber').innerHTML + "9";
                 cardNumberCharacters++;
@@ -131,7 +134,7 @@ class main {
                 cardNumberCharacters++;
             }
         }, false);
-        document.getElementById("zero").addEventListener("click", function() {
+        document.getElementById("zero").addEventListener("click", () => {
             if (cardNumberCharacters < 3) {
                 document.getElementById('cardNumber').innerHTML = document.getElementById('cardNumber').innerHTML + "0";
                 cardNumberCharacters++;
@@ -141,7 +144,7 @@ class main {
                 cardNumberCharacters++;
             }
         }, false);
-        document.getElementById("buttonSix").addEventListener("click", function() {
+        document.getElementById("buttonSix").addEventListener("click", () => {
             if (cardNumberCharacters == 4) {
                 cardNumber = document.getElementById('cardNumber').innerHTML;
                 document.getElementById('buttonSix').innerHTML = "VI";
@@ -165,77 +168,77 @@ class main {
 
     static PINHandler(cardNumber, pin, validCombos, cardNumberCharacters) {
         console.log('cardNumberCharacters=' + cardNumberCharacters);
-        document.getElementById("one").addEventListener("click", function() {
+        document.getElementById("one").addEventListener("click", () => {
             if (cardNumberCharacters == 5) {
                 document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "1";
                 document.getElementById('buttonSix').innerHTML = "SUBMIT";
                 cardNumberCharacters++;
             }
         }, false);
-        document.getElementById("two").addEventListener("click", function() {
+        document.getElementById("two").addEventListener("click", () => {
             if (cardNumberCharacters == 5) {
                 document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "2";
                 document.getElementById('buttonSix').innerHTML = "SUBMIT";
                 cardNumberCharacters++;
             }
         }, false);
-        document.getElementById("three").addEventListener("click", function() {
+        document.getElementById("three").addEventListener("click", () => {
             if (cardNumberCharacters == 5) {
                 document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "3";
                 document.getElementById('buttonSix').innerHTML = "SUBMIT";
                 cardNumberCharacters++;
             }
         }, false);
-        document.getElementById("four").addEventListener("click", function() {
+        document.getElementById("four").addEventListener("click", () => {
             if (cardNumberCharacters == 5) {
                 document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "4";
                 document.getElementById('buttonSix').innerHTML = "SUBMIT";
                 cardNumberCharacters++;
             }
         }, false);
-        document.getElementById("five").addEventListener("click", function() {
+        document.getElementById("five").addEventListener("click", () => {
             if (cardNumberCharacters == 5) {
                 document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "5";
                 document.getElementById('buttonSix').innerHTML = "SUBMIT";
                 cardNumberCharacters++;
             }
         }, false);
-        document.getElementById("six").addEventListener("click", function() {
+        document.getElementById("six").addEventListener("click", () => {
             if (cardNumberCharacters == 5) {
                 document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "6";
                 document.getElementById('buttonSix').innerHTML = "SUBMIT";
                 cardNumberCharacters++;
             }
         }, false);
-        document.getElementById("seven").addEventListener("click", function() {
+        document.getElementById("seven").addEventListener("click", () => {
             if (cardNumberCharacters == 5) {
                 document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "7";
                 document.getElementById('buttonSix').innerHTML = "SUBMIT";
                 cardNumberCharacters++;
             }
         }, false);
-        document.getElementById("eight").addEventListener("click", function() {
+        document.getElementById("eight").addEventListener("click", () => {
             if (cardNumberCharacters == 5) {
                 document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "8";
                 document.getElementById('buttonSix').innerHTML = "SUBMIT";
                 cardNumberCharacters++;
             }
         }, false);
-        document.getElementById("nine").addEventListener("click", function() {
+        document.getElementById("nine").addEventListener("click", () => {
             if (cardNumberCharacters == 5) {
                 document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "9";
                 document.getElementById('buttonSix').innerHTML = "SUBMIT";
                 cardNumberCharacters++;
             }
         }, false);
-        document.getElementById("zero").addEventListener("click", function() {
+        document.getElementById("zero").addEventListener("click", () => {
             if (cardNumberCharacters == 5) {
                 document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "0";
                 document.getElementById('buttonSix').innerHTML = "SUBMIT";
                 cardNumberCharacters++;
             }
         }, false);
-        document.getElementById("buttonSix").addEventListener("click", function () {
+        document.getElementById("buttonSix").addEventListener("click", () => {
             if (cardNumberCharacters == 6) {
                 pin = document.getElementById('PIN').innerHTML;
                 document.getElementById('buttonSix').innerHTML = "VI";
@@ -279,7 +282,7 @@ class main {
         document.getElementById('promptCustomer').innerHTML = "Which account would you like to access at this time?";
         document.getElementById('buttonSix').innerHTML = "SAVINGS";
         document.getElementById('buttonThree').innerHTML = "CHECKING";
-        document.getElementById("buttonSix").addEventListener("click", function() {
+        document.getElementById("buttonSix").addEventListener("click", () => {
             if (accountType == 0 && isBusy == false) {
                 accountType = "savings";
                 document.getElementById('buttonSix').innerHTML = "VI";
@@ -288,7 +291,7 @@ class main {
                 return main.performAction(accountType, checkingAccountBalance, savingsAccountBalance);
             }
         }, false);
-        document.getElementById("buttonThree").addEventListener("click", function() {
+        document.getElementById("buttonThree").addEventListener("click", () => {
             if (accountType == 0 && isBusy == false) {
                 accountType = "checking";
                 document.getElementById('buttonSix').innerHTML = "VI";
@@ -304,7 +307,7 @@ class main {
         document.getElementById('buttonThree').innerHTML = "DEPOSIT";
         document.getElementById('buttonTwo').innerHTML = "TRANSFER";
         document.getElementById('buttonFour').innerHTML = "SWITCH ACC.";
-        document.getElementById("buttonFour").addEventListener("click", function() {
+        document.getElementById("buttonFour").addEventListener("click", () => {
             if (accountType == "checking") {
                 accountType = "savings";
                 document.getElementById('promptCustomer').innerHTML = "You have selected your " + accountType + " account, which has a balance of $" + savingsAccountBalance + ". Which action would you like to perform?";
@@ -313,7 +316,7 @@ class main {
                 document.getElementById('promptCustomer').innerHTML = "You have selected your " + accountType + " account, which has a balance of $" + checkingAccountBalance + ". Which action would you like to perform?";
             }
         }, false);
-        document.getElementById("buttonThree").addEventListener("click", function() {
+        document.getElementById("buttonThree").addEventListener("click", () => {
             isBusy = true;
             document.getElementById('buttonTwo').innerHTML = "II";
             document.getElementById('buttonSix').innerHTML = "VI";
@@ -321,7 +324,7 @@ class main {
             document.getElementById('buttonFour').innerHTML = "IV";
             return main.performDeposit(accountType, checkingAccountBalance, savingsAccountBalance)
         }, false);
-        document.getElementById("buttonSix").addEventListener("click", function() {
+        document.getElementById("buttonSix").addEventListener("click", () => {
             isBusy = true;
             document.getElementById('buttonTwo').innerHTML = "II";
             document.getElementById('buttonSix').innerHTML = "VI";
@@ -329,7 +332,7 @@ class main {
             document.getElementById('buttonFour').innerHTML = "IV";
             return main.performWithdrawal(accountType, checkingAccountBalance, savingsAccountBalance)
         }, false);
-        document.getElementById("buttonTwo").addEventListener("click", function() {
+        document.getElementById("buttonTwo").addEventListener("click", () => {
             isBusy = true;
             document.getElementById('buttonTwo').innerHTML = "II";
             document.getElementById('buttonSix').innerHTML = "VI";
@@ -342,47 +345,47 @@ class main {
     static performDeposit(accountType, checkingAccountBalance, savingsAccountBalance) {
         document.getElementById('promptCustomer').innerHTML = "How much money would you like to deposit into your " + accountType + " account?";
         document.getElementById("displayArea").style.display = "block";
-        document.getElementById("one").addEventListener("click", function() {
+        document.getElementById("one").addEventListener("click", () => {
             document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "1";
             document.getElementById('buttonSix').innerHTML = "SUBMIT";
         }, false);
-        document.getElementById("two").addEventListener("click", function() {
+        document.getElementById("two").addEventListener("click", () => {
             document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "2";
             document.getElementById('buttonSix').innerHTML = "SUBMIT";
         }, false);
-        document.getElementById("three").addEventListener("click", function() {
+        document.getElementById("three").addEventListener("click", () => {
             document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "3";
             document.getElementById('buttonSix').innerHTML = "SUBMIT";
         }, false);
-        document.getElementById("four").addEventListener("click", function() {
+        document.getElementById("four").addEventListener("click", () => {
             document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "4";
             document.getElementById('buttonSix').innerHTML = "SUBMIT";
         }, false);
-        document.getElementById("five").addEventListener("click", function() {
+        document.getElementById("five").addEventListener("click", () => {
             document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "5";
             document.getElementById('buttonSix').innerHTML = "SUBMIT";
         }, false);
-        document.getElementById("six").addEventListener("click", function() {
+        document.getElementById("six").addEventListener("click", () => {
             document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "6";
             document.getElementById('buttonSix').innerHTML = "SUBMIT";
         }, false);
-        document.getElementById("seven").addEventListener("click", function() {
+        document.getElementById("seven").addEventListener("click", () => {
             document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "7";
             document.getElementById('buttonSix').innerHTML = "SUBMIT";
         }, false);
-        document.getElementById("eight").addEventListener("click", function() {
+        document.getElementById("eight").addEventListener("click", () => {
             document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "8";
             document.getElementById('buttonSix').innerHTML = "SUBMIT";
         }, false);
-        document.getElementById("nine").addEventListener("click", function() {
+        document.getElementById("nine").addEventListener("click", () => {
             document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "9";
             document.getElementById('buttonSix').innerHTML = "SUBMIT";
         }, false);
-        document.getElementById("zero").addEventListener("click", function() {
+        document.getElementById("zero").addEventListener("click", () => {
             document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "0";
             document.getElementById('buttonSix').innerHTML = "SUBMIT";
         }, false);
-        document.getElementById("buttonSix").addEventListener("click", function () {
+        document.getElementById("buttonSix").addEventListener("click", () => {
             let moneyDeposited = document.getElementById("displayArea").innerHTML;
             moneyDeposited = Number(moneyDeposited.slice(4, moneyDeposited.length));
             if (accountType == "checking") {
@@ -399,47 +402,47 @@ class main {
     static performWithdrawal(accountType, checkingAccountBalance, savingsAccountBalance) {
         document.getElementById('promptCustomer').innerHTML = "How much money would you like to withdraw from your " + accountType + " account?";
         document.getElementById("displayArea").style.display = "block";
-        document.getElementById("one").addEventListener("click", function() {
+        document.getElementById("one").addEventListener("click", () => {
             document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "1";
             document.getElementById('buttonSix').innerHTML = "SUBMIT";
         }, false);
-        document.getElementById("two").addEventListener("click", function() {
+        document.getElementById("two").addEventListener("click", () => {
             document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "2";
             document.getElementById('buttonSix').innerHTML = "SUBMIT";
         }, false);
-        document.getElementById("three").addEventListener("click", function() {
+        document.getElementById("three").addEventListener("click", () => {
             document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "3";
             document.getElementById('buttonSix').innerHTML = "SUBMIT";
         }, false);
-        document.getElementById("four").addEventListener("click", function() {
+        document.getElementById("four").addEventListener("click", () => {
             document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "4";
             document.getElementById('buttonSix').innerHTML = "SUBMIT";
         }, false);
-        document.getElementById("five").addEventListener("click", function() {
+        document.getElementById("five").addEventListener("click", () => {
             document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "5";
             document.getElementById('buttonSix').innerHTML = "SUBMIT";
         }, false);
-        document.getElementById("six").addEventListener("click", function() {
+        document.getElementById("six").addEventListener("click", () => {
             document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "6";
             document.getElementById('buttonSix').innerHTML = "SUBMIT";
         }, false);
-        document.getElementById("seven").addEventListener("click", function() {
+        document.getElementById("seven").addEventListener("click", () => {
             document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "7";
             document.getElementById('buttonSix').innerHTML = "SUBMIT";
         }, false);
-        document.getElementById("eight").addEventListener("click", function() {
+        document.getElementById("eight").addEventListener("click", () => {
             document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "8";
             document.getElementById('buttonSix').innerHTML = "SUBMIT";
         }, false);
-        document.getElementById("nine").addEventListener("click", function() {
+        document.getElementById("nine").addEventListener("click", () => {
             document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "9";
             document.getElementById('buttonSix').innerHTML = "SUBMIT";
         }, false);
-        document.getElementById("zero").addEventListener("click", function() {
+        document.getElementById("zero").addEventListener("click", () => {
             document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "0";
             document.getElementById('buttonSix').innerHTML = "SUBMIT";
         }, false);
-        document.getElementById("buttonSix").addEventListener("click", function () {
+        document.getElementById("buttonSix").addEventListener("click", () => {
             let moneyWithdrawn = document.getElementById("displayArea").innerHTML;
             moneyWithdrawn = Number(moneyWithdrawn.slice(4, moneyWithdrawn.length));
             if (accountType == "checking") {
@@ -468,47 +471,47 @@ class main {
             document.getElementById('promptCustomer').innerHTML = "How much money would you like to transfer from your savings account to your checking account?";
         }
         document.getElementById("displayArea").style.display = "block";
-        document.getElementById("one").addEventListener("click", function() {
+        document.getElementById("one").addEventListener("click", () => {
             document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "1";
             document.getElementById('buttonSix').innerHTML = "SUBMIT";
         }, false);
-        document.getElementById("two").addEventListener("click", function() {
+        document.getElementById("two").addEventListener("click", () => {
             document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "2";
             document.getElementById('buttonSix').innerHTML = "SUBMIT";
         }, false);
-        document.getElementById("three").addEventListener("click", function() {
+        document.getElementById("three").addEventListener("click", () => {
             document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "3";
             document.getElementById('buttonSix').innerHTML = "SUBMIT";
         }, false);
-        document.getElementById("four").addEventListener("click", function() {
+        document.getElementById("four").addEventListener("click", () => {
             document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "4";
             document.getElementById('buttonSix').innerHTML = "SUBMIT";
         }, false);
-        document.getElementById("five").addEventListener("click", function() {
+        document.getElementById("five").addEventListener("click", () => {
             document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "5";
             document.getElementById('buttonSix').innerHTML = "SUBMIT";
         }, false);
-        document.getElementById("six").addEventListener("click", function() {
+        document.getElementById("six").addEventListener("click", () => {
             document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "6";
             document.getElementById('buttonSix').innerHTML = "SUBMIT";
         }, false);
-        document.getElementById("seven").addEventListener("click", function() {
+        document.getElementById("seven").addEventListener("click", () => {
             document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "7";
             document.getElementById('buttonSix').innerHTML = "SUBMIT";
         }, false);
-        document.getElementById("eight").addEventListener("click", function() {
+        document.getElementById("eight").addEventListener("click", () => {
             document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "8";
             document.getElementById('buttonSix').innerHTML = "SUBMIT";
         }, false);
-        document.getElementById("nine").addEventListener("click", function() {
+        document.getElementById("nine").addEventListener("click", () => {
             document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "9";
             document.getElementById('buttonSix').innerHTML = "SUBMIT";
         }, false);
-        document.getElementById("zero").addEventListener("click", function() {
+        document.getElementById("zero").addEventListener("click", () => {
             document.getElementById("displayArea").innerHTML = document.getElementById("displayArea").innerHTML + "0";
             document.getElementById('buttonSix').innerHTML = "SUBMIT";
         }, false);
-        document.getElementById("buttonSix").addEventListener("click", function () {
+        document.getElementById("buttonSix").addEventListener("click", () => {
             let moneyTransferred = document.getElementById("displayArea").innerHTML;
             moneyTransferred = Number(moneyTransferred.slice(4, moneyTransferred.length));
             if (accountType == "checking") {
@@ -540,20 +543,28 @@ class main {
         console.log(savingsAccountBalance);
         document.getElementById('input').value = document.getElementById('input').value + "," + checkingAccountBalance + "," + savingsAccountBalance;
         document.getElementById('input').style.display = "block";
-            let form = document.querySelector('form');
-            let data = new FormData(form);
-            let bustCache = '?' + new Date().getTime();
-            const XHR = new XMLHttpRequest();
-            XHR.open('POST', event.target.dataset.url + bustCache, true);
-            XHR.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-            XHR.send(data);
+/* //
+
+        const XHR = new XMLHttpRequest();
+        let balances = checkingAccountBalance + ',' + savingsAccountBalance;
+        console.log(balances);
+        XHR.open('POST', document.url, true);
+        XHR.setRequestHeader('x-requested-load', 'XMLHttpRequest0');
+        XHR.send(balances);
+        XHR.onload = () => {
+            if (XHR.readyState == 4 && XHR.status == 200) {
+                alert(XHR.responseText);
+            }
+        };
+*/
+
         document.getElementById('buttonSix').innerHTML = "RESTART";
-        document.getElementById("buttonSix").addEventListener("click", function() {
+        document.getElementById("buttonSix").addEventListener("click", () => {
             location.reload();
         }, false);
     }
 }
 
-window.onload = function() {
+window.onload = () => {
     new main();
 };
