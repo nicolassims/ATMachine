@@ -14,7 +14,6 @@ class main {
     }
 
     static loadData (cardNumber, pin, cardNumberCharacters) {
-        /* //
         let filePath = '../views/data/cardnumbers_PINs.csv';
         let request = new XMLHttpRequest();
         request.open("POST", filePath, true);
@@ -40,7 +39,6 @@ class main {
             }
             return main.cardNumberHandler(cardNumber, pin, validCombos, cardNumberCharacters);
         };
-        */
     }
 
     static cardNumberHandler(cardNumber, pin, validCombos, cardNumberCharacters) {
@@ -257,14 +255,27 @@ class main {
         pin = pin.slice(4, pin.length);
         console.log('cardNumber=' + cardNumber);
         console.log('pin=' + pin);
+        let that = this;
         for (let i = 0; i < ROWS; i++) {
             if (validCombos[i][0] == cardNumber && validCombos[i][1] == pin) {
                 validCombo = true;
                 console.log("TRUE");
-                if (checkingAccountBalance == undefined || savingsAccountBalance == undefined) {
-                    checkingAccountBalance = validCombos[i][2];
-                    savingsAccountBalance = validCombos[i][3];
-                }
+                const XHR = new XMLHttpRequest();
+                XHR.open('POST', document.url, true);
+                XHR.setRequestHeader('x-requested-load', 'XMLHttpRequest0');
+                XHR.send();
+                XHR.onload = () => {
+                    if (XHR.readyState == 4 && XHR.status == 200) {
+                        console.log('XHR.responseText = ' + XHR.responseText);
+                        if (XHR.responseText == '') {
+                            checkingAccountBalance = validCombos[i][2];
+                            savingsAccountBalance = validCombos[i][3];
+                        } else {
+                            console.log('ResponseText is not blank');
+                            //
+                        }
+                    }
+                };
             }
         }
         if (validCombo != true) {
@@ -543,20 +554,18 @@ class main {
         console.log(savingsAccountBalance);
         document.getElementById('input').value = document.getElementById('input').value + "," + checkingAccountBalance + "," + savingsAccountBalance;
         document.getElementById('input').style.display = "block";
-/* //
 
         const XHR = new XMLHttpRequest();
-        let balances = checkingAccountBalance + ',' + savingsAccountBalance;
+        let balances =  document.getElementById('input').value;
         console.log(balances);
         XHR.open('POST', document.url, true);
         XHR.setRequestHeader('x-requested-load', 'XMLHttpRequest0');
         XHR.send(balances);
         XHR.onload = () => {
             if (XHR.readyState == 4 && XHR.status == 200) {
-                alert(XHR.responseText);
+                console.log('New XHR.responseText = ' + XHR.responseText);
             }
         };
-*/
 
         document.getElementById('buttonSix').innerHTML = "RESTART";
         document.getElementById("buttonSix").addEventListener("click", () => {
