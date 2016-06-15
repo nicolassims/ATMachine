@@ -338,6 +338,7 @@
 	                            }
 	                        };
 	                        console.log('1-' + _this.checkingAccountBalance + ' 1-' + _this.savingsAccountBalance);
+	                        //
 	                    })();
 	                }
 	            };

@@ -274,6 +274,7 @@ class main {
                     }
                 };
                 console.log('1-' + this.checkingAccountBalance + ' 1-' + this.savingsAccountBalance);
+                //
             }
         }
         if (validCombo != true) {
