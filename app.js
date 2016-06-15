@@ -46,13 +46,13 @@ class app {
                     app.render('public/views/index.html', 'text/html', httpHandler, 'utf-8');
                 }
             }).listen(PORT, function() {
-                console.log('-= Francis Server Listening at http://127.0.0.1:' + PORT + ' =-');
+                console.log('-= Strong Capitalist Server Listening at http://127.0.0.1:' + PORT + ' =-');
             });
     }
 
     static render(path, contentType, callback, encoding) {
         const FS = require('fs');
-        FS.readFile(__dirname + '/' + path, encoding ? encoding : 'utf-8', function(err, str) { // ternary
+        FS.readFile(__dirname + '/' + path, encoding ? encoding : 'utf-8', function(err, str) {
             callback(err, str, contentType);
         });
     }
@@ -67,17 +67,12 @@ class app {
         });
     }
 
-    /*
+
     static setData (req, res) {
-        let data = '';
-        req.on ('data', (chunk) => {
-            data = chunk;
-        });
-        req.on ('end', () => {
-            res.end(data);
-        });
+        const FS = require('fs');
+        res.end(FS.readFileSync('./data/cardnumbers_PINs.csv', 'utf-8'));
     }
-    */
+
 }
 
 module.exports = app;

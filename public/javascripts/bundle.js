@@ -66,38 +66,38 @@
 	    }
 
 	    _createClass(main, null, [{
-	        key: "loadData",
+	        key: 'loadData',
 	        value: function loadData(cardNumber, pin, cardNumberCharacters) {
-	            /* //
-	            let filePath = '../views/data/cardnumbers_PINs.csv';
-	            let request = new XMLHttpRequest();
+	            var filePath = '../views/data/cardnumbers_PINs.csv';
+	            var request = new XMLHttpRequest();
 	            request.open("POST", filePath, true);
 	            request.setRequestHeader('x-requested-with', 'XMLHttpRequest1');
 	            request.send();
-	            request.onload = () => {
-	                const COLUMNS = 4;
-	                let data, middleData, validCombos = [];
+	            request.onload = function () {
+	                var COLUMNS = 4;
+	                var data = void 0,
+	                    middleData = void 0,
+	                    validCombos = [];
 	                if (request.readyState === 4 && request.status === 200) {
 	                    data = request.responseText.split(/\n/);
 	                }
-	                for (let i = 0; i < data.length; i++) {
+	                for (var i = 0; i < data.length; i++) {
 	                    middleData = data[i].split(/,/);
 	                    validCombos[i] = [];
-	                    for (let j = 0; j < COLUMNS; j++) {
+	                    for (var j = 0; j < COLUMNS; j++) {
 	                        validCombos[i][j] = middleData[j];
 	                    }
 	                }
-	                for (let i = 0; i < validCombos.length; i++) {
-	                    for (let j = 0; j < COLUMNS; j++) {
-	                        console.log(validCombos[i][j]);
+	                for (var _i = 0; _i < validCombos.length; _i++) {
+	                    for (var _j = 0; _j < COLUMNS; _j++) {
+	                        console.log(validCombos[_i][_j]);
 	                    }
 	                }
 	                return main.cardNumberHandler(cardNumber, pin, validCombos, cardNumberCharacters);
 	            };
-	            */
 	        }
 	    }, {
-	        key: "cardNumberHandler",
+	        key: 'cardNumberHandler',
 	        value: function cardNumberHandler(cardNumber, pin, validCombos, cardNumberCharacters) {
 	            document.getElementById("one").addEventListener("click", function () {
 	                if (cardNumberCharacters < 3) {
@@ -212,7 +212,7 @@
 	            }, false);
 	        }
 	    }, {
-	        key: "hideAndRevealDivs",
+	        key: 'hideAndRevealDivs',
 	        value: function hideAndRevealDivs(cardNumberCharacters) {
 	            document.getElementById("displayArea").style.display = "none";
 	            document.getElementById("input").style.display = "none";
@@ -222,7 +222,7 @@
 	            }
 	        }
 	    }, {
-	        key: "PINHandler",
+	        key: 'PINHandler',
 	        value: function PINHandler(cardNumber, pin, validCombos, cardNumberCharacters) {
 	            console.log('cardNumberCharacters=' + cardNumberCharacters);
 	            document.getElementById("one").addEventListener("click", function () {
@@ -305,36 +305,56 @@
 	            }, false);
 	        }
 	    }, {
-	        key: "validateNumbers",
+	        key: 'validateNumbers',
 	        value: function validateNumbers(cardNumber, pin, validCombos) {
+	            var _this = this;
+
 	            var validCombo = void 0;
-	            var checkingAccountBalance = void 0;
-	            var savingsAccountBalance = void 0;
 	            var ROWS = 2;
 	            cardNumber = cardNumber.slice(4, cardNumber.length);
 	            pin = pin.slice(4, pin.length);
 	            console.log('cardNumber=' + cardNumber);
 	            console.log('pin=' + pin);
-	            for (var i = 0; i < ROWS; i++) {
+
+	            var _loop = function _loop(i) {
 	                if (validCombos[i][0] == cardNumber && validCombos[i][1] == pin) {
-	                    validCombo = true;
-	                    console.log("TRUE");
-	                    if (checkingAccountBalance == undefined || savingsAccountBalance == undefined) {
-	                        checkingAccountBalance = validCombos[i][2];
-	                        savingsAccountBalance = validCombos[i][3];
-	                    }
+	                    (function () {
+	                        validCombo = true;
+	                        console.log("TRUE");
+	                        var XHR = new XMLHttpRequest();
+	                        XHR.open('POST', document.url, true);
+	                        XHR.setRequestHeader('x-requested-load', 'XMLHttpRequest0');
+	                        XHR.send();
+	                        XHR.onload = function () {
+	                            if (XHR.readyState == 4 && XHR.status == 200) {
+	                                console.log('XHR.responseText = ' + XHR.responseText);
+	                                if (XHR.responseText == '') {
+	                                    _this.checkingAccountBalance = validCombos[i][2];
+	                                    _this.savingsAccountBalance = validCombos[i][3];
+	                                } else {
+	                                    console.log('ResponseText is not blank');
+	                                    //
+	                                }
+	                            }
+	                        };
+	                        console.log('1-' + _this.checkingAccountBalance + ' 1-' + _this.savingsAccountBalance);
+	                    })();
 	                }
+	            };
+
+	            for (var i = 0; i < ROWS; i++) {
+	                _loop(i);
 	            }
 	            if (validCombo != true) {
 	                document.getElementById('promptCustomer').innerHTML = "Incorrect Input. Please try again.";
-	                return main.exitApplication(checkingAccountBalance, savingsAccountBalance);
+	                return main.exitApplication(this.checkingAccountBalance, this.savingsAccountBalance);
 	            } else {
 	                document.getElementById('input').value = cardNumber + "," + pin;
-	                return main.selectAccount(checkingAccountBalance, savingsAccountBalance);
+	                return main.selectAccount(this.checkingAccountBalance, this.savingsAccountBalance);
 	            }
 	        }
 	    }, {
-	        key: "selectAccount",
+	        key: 'selectAccount',
 	        value: function selectAccount(checkingAccountBalance, savingsAccountBalance) {
 	            var accountType = 0;
 	            var isBusy = false;
@@ -361,7 +381,7 @@
 	            }, false);
 	        }
 	    }, {
-	        key: "performAction",
+	        key: 'performAction',
 	        value: function performAction(accountType, checkingAccountBalance, savingsAccountBalance, isBusy) {
 	            document.getElementById('buttonSix').innerHTML = "WITHDRAW";
 	            document.getElementById('buttonThree').innerHTML = "DEPOSIT";
@@ -402,7 +422,7 @@
 	            }, false);
 	        }
 	    }, {
-	        key: "performDeposit",
+	        key: 'performDeposit',
 	        value: function performDeposit(accountType, checkingAccountBalance, savingsAccountBalance) {
 	            document.getElementById('promptCustomer').innerHTML = "How much money would you like to deposit into your " + accountType + " account?";
 	            document.getElementById("displayArea").style.display = "block";
@@ -460,7 +480,7 @@
 	            }, false);
 	        }
 	    }, {
-	        key: "performWithdrawal",
+	        key: 'performWithdrawal',
 	        value: function performWithdrawal(accountType, checkingAccountBalance, savingsAccountBalance) {
 	            document.getElementById('promptCustomer').innerHTML = "How much money would you like to withdraw from your " + accountType + " account?";
 	            document.getElementById("displayArea").style.display = "block";
@@ -526,7 +546,7 @@
 	            }, false);
 	        }
 	    }, {
-	        key: "performTransfer",
+	        key: 'performTransfer',
 	        value: function performTransfer(accountType, checkingAccountBalance, savingsAccountBalance) {
 	            if (accountType == "checking") {
 	                document.getElementById('promptCustomer').innerHTML = "How much money would you like to transfer from your checking account to your savings account?";
@@ -601,26 +621,24 @@
 	            }, false);
 	        }
 	    }, {
-	        key: "exitApplication",
+	        key: 'exitApplication',
 	        value: function exitApplication(checkingAccountBalance, savingsAccountBalance) {
 	            console.log(checkingAccountBalance);
 	            console.log(savingsAccountBalance);
 	            document.getElementById('input').value = document.getElementById('input').value + "," + checkingAccountBalance + "," + savingsAccountBalance;
 	            document.getElementById('input').style.display = "block";
-	            /* //
-	            
-	                    const XHR = new XMLHttpRequest();
-	                    let balances = checkingAccountBalance + ',' + savingsAccountBalance;
-	                    console.log(balances);
-	                    XHR.open('POST', document.url, true);
-	                    XHR.setRequestHeader('x-requested-load', 'XMLHttpRequest0');
-	                    XHR.send(balances);
-	                    XHR.onload = () => {
-	                        if (XHR.readyState == 4 && XHR.status == 200) {
-	                            alert(XHR.responseText);
-	                        }
-	                    };
-	            */
+
+	            var XHR = new XMLHttpRequest();
+	            var balances = document.getElementById('input').value;
+	            console.log(balances);
+	            XHR.open('POST', document.url, true);
+	            XHR.setRequestHeader('x-requested-load', 'XMLHttpRequest0');
+	            XHR.send(balances);
+	            XHR.onload = function () {
+	                if (XHR.readyState == 4 && XHR.status == 200) {
+	                    console.log('New XHR.responseText = ' + XHR.responseText);
+	                }
+	            };
 
 	            document.getElementById('buttonSix').innerHTML = "RESTART";
 	            document.getElementById("buttonSix").addEventListener("click", function () {

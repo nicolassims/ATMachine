@@ -14,7 +14,6 @@ class main {
     }
 
     static loadData (cardNumber, pin, cardNumberCharacters) {
-        /* //
         let filePath = '../views/data/cardnumbers_PINs.csv';
         let request = new XMLHttpRequest();
         request.open("POST", filePath, true);
@@ -40,7 +39,6 @@ class main {
             }
             return main.cardNumberHandler(cardNumber, pin, validCombos, cardNumberCharacters);
         };
-        */
     }
 
     static cardNumberHandler(cardNumber, pin, validCombos, cardNumberCharacters) {
@@ -250,8 +248,6 @@ class main {
 
     static validateNumbers(cardNumber, pin, validCombos) {
         let validCombo;
-        let checkingAccountBalance;
-        let savingsAccountBalance;
         const ROWS = 2;
         cardNumber = cardNumber.slice(4, cardNumber.length);
         pin = pin.slice(4, pin.length);
@@ -261,18 +257,31 @@ class main {
             if (validCombos[i][0] == cardNumber && validCombos[i][1] == pin) {
                 validCombo = true;
                 console.log("TRUE");
-                if (checkingAccountBalance == undefined || savingsAccountBalance == undefined) {
-                    checkingAccountBalance = validCombos[i][2];
-                    savingsAccountBalance = validCombos[i][3];
-                }
+                const XHR = new XMLHttpRequest();
+                XHR.open('POST', document.url, true);
+                XHR.setRequestHeader('x-requested-load', 'XMLHttpRequest0');
+                XHR.send();
+                XHR.onload = () => {
+                    if (XHR.readyState == 4 && XHR.status == 200) {
+                        console.log('XHR.responseText = ' + XHR.responseText);
+                        if (XHR.responseText == '') {
+                            this.checkingAccountBalance = validCombos[i][2];
+                            this.savingsAccountBalance = validCombos[i][3];
+                        } else {
+                            console.log('ResponseText is not blank');
+                            //
+                        }
+                    }
+                };
+                console.log('1-' + this.checkingAccountBalance + ' 1-' + this.savingsAccountBalance);
             }
         }
         if (validCombo != true) {
             document.getElementById('promptCustomer').innerHTML = "Incorrect Input. Please try again.";
-            return main.exitApplication(checkingAccountBalance, savingsAccountBalance);
+            return main.exitApplication(this.checkingAccountBalance, this.savingsAccountBalance);
         } else {
             document.getElementById('input').value = cardNumber + "," + pin;
-            return main.selectAccount(checkingAccountBalance, savingsAccountBalance);
+            return main.selectAccount(this.checkingAccountBalance, this.savingsAccountBalance);
         }
     }
 
@@ -543,20 +552,18 @@ class main {
         console.log(savingsAccountBalance);
         document.getElementById('input').value = document.getElementById('input').value + "," + checkingAccountBalance + "," + savingsAccountBalance;
         document.getElementById('input').style.display = "block";
-/* //
 
         const XHR = new XMLHttpRequest();
-        let balances = checkingAccountBalance + ',' + savingsAccountBalance;
+        let balances =  document.getElementById('input').value;
         console.log(balances);
         XHR.open('POST', document.url, true);
         XHR.setRequestHeader('x-requested-load', 'XMLHttpRequest0');
         XHR.send(balances);
         XHR.onload = () => {
             if (XHR.readyState == 4 && XHR.status == 200) {
-                alert(XHR.responseText);
+                console.log('New XHR.responseText = ' + XHR.responseText);
             }
         };
-*/
 
         document.getElementById('buttonSix').innerHTML = "RESTART";
         document.getElementById("buttonSix").addEventListener("click", () => {
