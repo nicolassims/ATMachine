@@ -9,11 +9,13 @@ class main {
         let pin = 0;
         let cardNumber = 0;
         let cardNumberCharacters = 0;
+        let checkingAccountBalance ='';
+        let savingsAccountBalance ='';
         main.hideAndRevealDivs();
-        main.loadData (cardNumber, pin, cardNumberCharacters);
+        main.loadData (cardNumber, pin, cardNumberCharacters, checkingAccountBalance, savingsAccountBalance);
     }
 
-    static loadData (cardNumber, pin, cardNumberCharacters) {
+    static loadData (cardNumber, pin, cardNumberCharacters, checkingAccountBalance, savingsAccountBalance) {
         let filePath = '../views/data/cardnumbers_PINs.csv';
         let request = new XMLHttpRequest();
         request.open("POST", filePath, true);
@@ -37,11 +39,11 @@ class main {
                     console.log(validCombos[i][j]);
                 }
             }
-            return main.cardNumberHandler(cardNumber, pin, validCombos, cardNumberCharacters);
+            return main.cardNumberHandler(cardNumber, pin, validCombos, cardNumberCharacters, checkingAccountBalance, savingsAccountBalance);
         };
     }
 
-    static cardNumberHandler(cardNumber, pin, validCombos, cardNumberCharacters) {
+    static cardNumberHandler(cardNumber, pin, validCombos, cardNumberCharacters, checkingAccountBalance, savingsAccountBalance) {
         document.getElementById("one").addEventListener("click", () => {
             if (cardNumberCharacters < 3) {
                 document.getElementById('cardNumber').innerHTML = document.getElementById('cardNumber').innerHTML + "1";
@@ -150,7 +152,7 @@ class main {
                 console.log(cardNumber.slice(4,cardNumber.length));
                 cardNumberCharacters++;
                 main.hideAndRevealDivs(cardNumberCharacters);
-                return main.PINHandler(cardNumber, pin, validCombos, cardNumberCharacters);
+                return main.PINHandler(cardNumber, pin, validCombos, cardNumberCharacters, checkingAccountBalance, savingsAccountBalance);
             }
         }, false);
     }
@@ -164,7 +166,7 @@ class main {
         }
     }
 
-    static PINHandler(cardNumber, pin, validCombos, cardNumberCharacters) {
+    static PINHandler(cardNumber, pin, validCombos, cardNumberCharacters, checkingAccountBalance, savingsAccountBalance) {
         console.log('cardNumberCharacters=' + cardNumberCharacters);
         document.getElementById("one").addEventListener("click", () => {
             if (cardNumberCharacters == 5) {
@@ -241,49 +243,44 @@ class main {
                 pin = document.getElementById('PIN').innerHTML;
                 document.getElementById('buttonSix').innerHTML = "VI";
                 cardNumberCharacters++;
-                return main.validateNumbers(cardNumber, pin, validCombos);
+                return main.validateNumbers(cardNumber, pin, validCombos, checkingAccountBalance, savingsAccountBalance);
             }
         }, false);
     }
 
-    static validateNumbers(cardNumber, pin, validCombos) {
+    static validateNumbers(cardNumber, pin, validCombos, checkingAccountBalance, savingsAccountBalance) {
         let validCombo;
         const ROWS = 2;
         cardNumber = cardNumber.slice(4, cardNumber.length);
         pin = pin.slice(4, pin.length);
-        console.log('cardNumber=' + cardNumber);
-        console.log('pin=' + pin);
         for (let i = 0; i < ROWS; i++) {
             if (validCombos[i][0] == cardNumber && validCombos[i][1] == pin) {
                 validCombo = true;
-                console.log("TRUE");
                 const XHR = new XMLHttpRequest();
                 XHR.open('POST', document.url, true);
                 XHR.setRequestHeader('x-requested-load', 'XMLHttpRequest0');
                 XHR.send();
                 XHR.onload = () => {
                     if (XHR.readyState == 4 && XHR.status == 200) {
-                        console.log('XHR.responseText = ' + XHR.responseText);
                         if (XHR.responseText == '') {
-                            this.checkingAccountBalance = validCombos[i][2];
-                            this.savingsAccountBalance = validCombos[i][3];
+                            checkingAccountBalance = validCombos[i][2];
+                            savingsAccountBalance = validCombos[i][3];
                         } else {
                             console.log('ResponseText is not blank');
                             //
                         }
                     }
+                    if (validCombo != true) {
+                        document.getElementById('promptCustomer').innerHTML = "Incorrect Input. Please try again.";
+                        return main.exitApplication(checkingAccountBalance, savingsAccountBalance);
+                    } else {
+                        document.getElementById('input').value = cardNumber + "," + pin;
+                        return main.selectAccount(checkingAccountBalance, savingsAccountBalance);
+                    }
                 };
-                console.log('1-' + this.checkingAccountBalance + ' 1-' + this.savingsAccountBalance);
-                //
             }
         }
-        if (validCombo != true) {
-            document.getElementById('promptCustomer').innerHTML = "Incorrect Input. Please try again.";
-            return main.exitApplication(this.checkingAccountBalance, this.savingsAccountBalance);
-        } else {
-            document.getElementById('input').value = cardNumber + "," + pin;
-            return main.selectAccount(this.checkingAccountBalance, this.savingsAccountBalance);
-        }
+
     }
 
     static selectAccount(checkingAccountBalance, savingsAccountBalance) {
@@ -549,22 +546,15 @@ class main {
     }
 
     static exitApplication(checkingAccountBalance, savingsAccountBalance) {
-        console.log(checkingAccountBalance);
-        console.log(savingsAccountBalance);
         document.getElementById('input').value = document.getElementById('input').value + "," + checkingAccountBalance + "," + savingsAccountBalance;
         document.getElementById('input').style.display = "block";
 
         const XHR = new XMLHttpRequest();
         let balances =  document.getElementById('input').value;
-        console.log(balances);
         XHR.open('POST', document.url, true);
         XHR.setRequestHeader('x-requested-load', 'XMLHttpRequest0');
+        console.log('balances = ' + balances);
         XHR.send(balances);
-        XHR.onload = () => {
-            if (XHR.readyState == 4 && XHR.status == 200) {
-                console.log('New XHR.responseText = ' + XHR.responseText);
-            }
-        };
 
         document.getElementById('buttonSix').innerHTML = "RESTART";
         document.getElementById("buttonSix").addEventListener("click", () => {
