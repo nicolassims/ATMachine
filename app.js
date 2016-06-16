@@ -6,6 +6,7 @@
 
 class app {
     constructor() {
+        this.accountBalances = [];
         app.loadServer();
     }
 
@@ -29,7 +30,7 @@ class app {
                     if (req.headers['x-requested-load'] === 'XMLHttpRequest0') {
                         app.loadData(req, res);
 
-                    } else if (req.headers['x-requested-with'] === 'XMLHttpRequest1') {
+                    } else if (req.headers['x-requested-set'] === 'XMLHttpRequest1') {
                         app.setData(req, res);
                     } else {
                         console.log("[405] " + req.method + " to " + req.url);
@@ -57,21 +58,25 @@ class app {
         });
     }
 
+    static setData (req, res) {
+        const FS = require('fs');
+        res.end(FS.readFileSync('./data/cardnumbers_PINs.csv', 'utf-8'));
+    }
+
     static loadData (req, res) {
         let balances = '';
         req.on ('data', (chunk) => {
             balances += chunk;
         });
         req.on ('end', () => {
+            if (balances != '') {
+                this.accountBalances = balances.split(/,/);
+                balances = this.accountBalances[2] + ',' + this.accountBalances[3];
+            }
             res.end(balances);
         });
     }
 
-
-    static setData (req, res) {
-        const FS = require('fs');
-        res.end(FS.readFileSync('./data/cardnumbers_PINs.csv', 'utf-8'));
-    }
 
 }
 

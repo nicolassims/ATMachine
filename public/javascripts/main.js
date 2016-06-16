@@ -11,6 +11,7 @@ class main {
         let cardNumberCharacters = 0;
         let checkingAccountBalance ='';
         let savingsAccountBalance ='';
+        this.exitCalled = false;
         main.hideAndRevealDivs();
         main.loadData (cardNumber, pin, cardNumberCharacters, checkingAccountBalance, savingsAccountBalance);
     }
@@ -19,7 +20,7 @@ class main {
         let filePath = '../views/data/cardnumbers_PINs.csv';
         let request = new XMLHttpRequest();
         request.open("POST", filePath, true);
-        request.setRequestHeader('x-requested-with', 'XMLHttpRequest1');
+        request.setRequestHeader('x-requested-set', 'XMLHttpRequest1');
         request.send();
         request.onload = () => {
             const COLUMNS = 4;
@@ -260,19 +261,22 @@ class main {
                 XHR.open('POST', document.url, true);
                 XHR.setRequestHeader('x-requested-load', 'XMLHttpRequest0');
                 XHR.send();
-                XHR.onload = () => {
+                XHR.onload = (balances) => {
                     if (XHR.readyState == 4 && XHR.status == 200) {
                         if (XHR.responseText == '') {
                             checkingAccountBalance = validCombos[i][2];
                             savingsAccountBalance = validCombos[i][3];
                         } else {
-                            console.log('ResponseText is not blank');
-                            //
+                            let accountBalances = balances.split(/,/);
+                            checkingAccountBalance = accountBalances[0];
+                            savingsAccountBalance = accountBalances[1];
                         }
                     }
                     if (validCombo != true) {
                         document.getElementById('promptCustomer').innerHTML = "Incorrect Input. Please try again.";
-                        return main.exitApplication(checkingAccountBalance, savingsAccountBalance);
+                        if (this.exitCalled == false) {
+                            return main.exitApplication(checkingAccountBalance, savingsAccountBalance);
+                        }
                     } else {
                         document.getElementById('input').value = cardNumber + "," + pin;
                         return main.selectAccount(checkingAccountBalance, savingsAccountBalance);
@@ -402,7 +406,9 @@ class main {
                 savingsAccountBalance = Number(savingsAccountBalance) + moneyDeposited;
                 document.getElementById('promptCustomer').innerHTML = "The balance of your " + accountType + " account is now $" + savingsAccountBalance + ". Thank you for using this terminal.";
             }
-            return main.exitApplication(checkingAccountBalance, savingsAccountBalance);
+            if (this.exitCalled == false) {
+                return main.exitApplication(checkingAccountBalance, savingsAccountBalance);
+            }
         }, false);
     }
 
@@ -467,7 +473,9 @@ class main {
                     document.getElementById('promptCustomer').innerHTML = "You do not have enough money to withdraw that amount. Please try again.";
                 }
             }
-            return main.exitApplication(checkingAccountBalance, savingsAccountBalance);
+            if (this.exitCalled == false) {
+                return main.exitApplication(checkingAccountBalance, savingsAccountBalance);
+            }
         }, false);
     }
 
@@ -526,26 +534,36 @@ class main {
                     checkingAccountBalance = Number(checkingAccountBalance) - moneyTransferred;
                     savingsAccountBalance = Number(savingsAccountBalance) + moneyTransferred;
                     document.getElementById('promptCustomer').innerHTML = "The balance of your checking account is now $" + checkingAccountBalance + ". The balance of your savings account is now $" + savingsAccountBalance + ".";
-                    return main.exitApplication(checkingAccountBalance, savingsAccountBalance);
+                    if (this.exitCalled == false) {
+                        return main.exitApplication(checkingAccountBalance, savingsAccountBalance);
+                    }
+
                 } else {
                     document.getElementById('promptCustomer').innerHTML = "You do not have enough money to transfer that amount. Please try again.";
-                    return main.exitApplication(checkingAccountBalance, savingsAccountBalance);
+                    if (this.exitCalled == false) {
+                        return main.exitApplication(checkingAccountBalance, savingsAccountBalance);
+                    }
                 }
             } else {
                 if (moneyTransferred <= savingsAccountBalance) {
                     checkingAccountBalance = Number(checkingAccountBalance) + moneyTransferred;
                     savingsAccountBalance = Number(savingsAccountBalance) - moneyTransferred;
                     document.getElementById('promptCustomer').innerHTML = "The balance of your checking account is now $" + checkingAccountBalance + ". The balance of your savings account is now $" + savingsAccountBalance + ".";
-                    return main.exitApplication(checkingAccountBalance, savingsAccountBalance);
+                    if (this.exitCalled == false) {
+                        return main.exitApplication(checkingAccountBalance, savingsAccountBalance);
+                    }
                 } else {
                     document.getElementById('promptCustomer').innerHTML = "You do not have enough money to transfer that amount. Please try again.";
-                    return main.exitApplication(checkingAccountBalance, savingsAccountBalance);
+                    if (this.exitCalled == false) {
+                        return main.exitApplication(checkingAccountBalance, savingsAccountBalance);
+                    }
                 }
             }
         }, false);
     }
 
     static exitApplication(checkingAccountBalance, savingsAccountBalance) {
+        this.exitCalled = true;
         document.getElementById('input').value = document.getElementById('input').value + "," + checkingAccountBalance + "," + savingsAccountBalance;
         document.getElementById('input').style.display = "block";
 

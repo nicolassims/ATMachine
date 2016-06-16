@@ -63,6 +63,7 @@
 	        var cardNumberCharacters = 0;
 	        var checkingAccountBalance = '';
 	        var savingsAccountBalance = '';
+	        this.exitCalled = false;
 	        main.hideAndRevealDivs();
 	        main.loadData(cardNumber, pin, cardNumberCharacters, checkingAccountBalance, savingsAccountBalance);
 	    }
@@ -73,7 +74,7 @@
 	            var filePath = '../views/data/cardnumbers_PINs.csv';
 	            var request = new XMLHttpRequest();
 	            request.open("POST", filePath, true);
-	            request.setRequestHeader('x-requested-with', 'XMLHttpRequest1');
+	            request.setRequestHeader('x-requested-set', 'XMLHttpRequest1');
 	            request.send();
 	            request.onload = function () {
 	                var COLUMNS = 4;
@@ -309,6 +310,8 @@
 	    }, {
 	        key: 'validateNumbers',
 	        value: function validateNumbers(cardNumber, pin, validCombos, checkingAccountBalance, savingsAccountBalance) {
+	            var _this = this;
+
 	            var validCombo = void 0;
 	            var ROWS = 2;
 	            cardNumber = cardNumber.slice(4, cardNumber.length);
@@ -322,19 +325,22 @@
 	                        XHR.open('POST', document.url, true);
 	                        XHR.setRequestHeader('x-requested-load', 'XMLHttpRequest0');
 	                        XHR.send();
-	                        XHR.onload = function () {
+	                        XHR.onload = function (balances) {
 	                            if (XHR.readyState == 4 && XHR.status == 200) {
 	                                if (XHR.responseText == '') {
 	                                    checkingAccountBalance = validCombos[i][2];
 	                                    savingsAccountBalance = validCombos[i][3];
 	                                } else {
-	                                    console.log('ResponseText is not blank');
-	                                    //
+	                                    var accountBalances = balances.split(/,/);
+	                                    checkingAccountBalance = accountBalances[0];
+	                                    savingsAccountBalance = accountBalances[1];
 	                                }
 	                            }
 	                            if (validCombo != true) {
 	                                document.getElementById('promptCustomer').innerHTML = "Incorrect Input. Please try again.";
-	                                return main.exitApplication(checkingAccountBalance, savingsAccountBalance);
+	                                if (_this.exitCalled == false) {
+	                                    return main.exitApplication(checkingAccountBalance, savingsAccountBalance);
+	                                }
 	                            } else {
 	                                document.getElementById('input').value = cardNumber + "," + pin;
 	                                return main.selectAccount(checkingAccountBalance, savingsAccountBalance);
@@ -419,6 +425,8 @@
 	    }, {
 	        key: 'performDeposit',
 	        value: function performDeposit(accountType, checkingAccountBalance, savingsAccountBalance) {
+	            var _this2 = this;
+
 	            document.getElementById('promptCustomer').innerHTML = "How much money would you like to deposit into your " + accountType + " account?";
 	            document.getElementById("displayArea").style.display = "block";
 	            document.getElementById("one").addEventListener("click", function () {
@@ -471,12 +479,16 @@
 	                    savingsAccountBalance = Number(savingsAccountBalance) + moneyDeposited;
 	                    document.getElementById('promptCustomer').innerHTML = "The balance of your " + accountType + " account is now $" + savingsAccountBalance + ". Thank you for using this terminal.";
 	                }
-	                return main.exitApplication(checkingAccountBalance, savingsAccountBalance);
+	                if (_this2.exitCalled == false) {
+	                    return main.exitApplication(checkingAccountBalance, savingsAccountBalance);
+	                }
 	            }, false);
 	        }
 	    }, {
 	        key: 'performWithdrawal',
 	        value: function performWithdrawal(accountType, checkingAccountBalance, savingsAccountBalance) {
+	            var _this3 = this;
+
 	            document.getElementById('promptCustomer').innerHTML = "How much money would you like to withdraw from your " + accountType + " account?";
 	            document.getElementById("displayArea").style.display = "block";
 	            document.getElementById("one").addEventListener("click", function () {
@@ -537,12 +549,16 @@
 	                        document.getElementById('promptCustomer').innerHTML = "You do not have enough money to withdraw that amount. Please try again.";
 	                    }
 	                }
-	                return main.exitApplication(checkingAccountBalance, savingsAccountBalance);
+	                if (_this3.exitCalled == false) {
+	                    return main.exitApplication(checkingAccountBalance, savingsAccountBalance);
+	                }
 	            }, false);
 	        }
 	    }, {
 	        key: 'performTransfer',
 	        value: function performTransfer(accountType, checkingAccountBalance, savingsAccountBalance) {
+	            var _this4 = this;
+
 	            if (accountType == "checking") {
 	                document.getElementById('promptCustomer').innerHTML = "How much money would you like to transfer from your checking account to your savings account?";
 	            } else {
@@ -597,20 +613,28 @@
 	                        checkingAccountBalance = Number(checkingAccountBalance) - moneyTransferred;
 	                        savingsAccountBalance = Number(savingsAccountBalance) + moneyTransferred;
 	                        document.getElementById('promptCustomer').innerHTML = "The balance of your checking account is now $" + checkingAccountBalance + ". The balance of your savings account is now $" + savingsAccountBalance + ".";
-	                        return main.exitApplication(checkingAccountBalance, savingsAccountBalance);
+	                        if (_this4.exitCalled == false) {
+	                            return main.exitApplication(checkingAccountBalance, savingsAccountBalance);
+	                        }
 	                    } else {
 	                        document.getElementById('promptCustomer').innerHTML = "You do not have enough money to transfer that amount. Please try again.";
-	                        return main.exitApplication(checkingAccountBalance, savingsAccountBalance);
+	                        if (_this4.exitCalled == false) {
+	                            return main.exitApplication(checkingAccountBalance, savingsAccountBalance);
+	                        }
 	                    }
 	                } else {
 	                    if (moneyTransferred <= savingsAccountBalance) {
 	                        checkingAccountBalance = Number(checkingAccountBalance) + moneyTransferred;
 	                        savingsAccountBalance = Number(savingsAccountBalance) - moneyTransferred;
 	                        document.getElementById('promptCustomer').innerHTML = "The balance of your checking account is now $" + checkingAccountBalance + ". The balance of your savings account is now $" + savingsAccountBalance + ".";
-	                        return main.exitApplication(checkingAccountBalance, savingsAccountBalance);
+	                        if (_this4.exitCalled == false) {
+	                            return main.exitApplication(checkingAccountBalance, savingsAccountBalance);
+	                        }
 	                    } else {
 	                        document.getElementById('promptCustomer').innerHTML = "You do not have enough money to transfer that amount. Please try again.";
-	                        return main.exitApplication(checkingAccountBalance, savingsAccountBalance);
+	                        if (_this4.exitCalled == false) {
+	                            return main.exitApplication(checkingAccountBalance, savingsAccountBalance);
+	                        }
 	                    }
 	                }
 	            }, false);
@@ -618,6 +642,7 @@
 	    }, {
 	        key: 'exitApplication',
 	        value: function exitApplication(checkingAccountBalance, savingsAccountBalance) {
+	            this.exitCalled = true;
 	            document.getElementById('input').value = document.getElementById('input').value + "," + checkingAccountBalance + "," + savingsAccountBalance;
 	            document.getElementById('input').style.display = "block";
 
