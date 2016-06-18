@@ -340,8 +340,8 @@
 	                                    _this3.savingsAccountBalance = Number(validCombos[i][3]);
 	                                    defaultsSet = true;
 	                                } else {
-	                                    _this3.checkingAccountBalance = _this3.balances[2];
-	                                    _this3.savingsAccountBalance = _this3.balances[3];
+	                                    _this3.checkingAccountBalance = _this3.balances[0];
+	                                    _this3.savingsAccountBalance = _this3.balances[1];
 	                                }
 	                            }
 	                            if (validCombo != true) {
@@ -665,9 +665,7 @@
 	            XHR.open('POST', document.url, true);
 	            XHR.setRequestHeader('x-requested-load', 'XMLHttpRequest0');
 	            XHR.send(balances);
-	            XHR.onload = function (balances) {
-	                console.log('balances = ' + balances);
-	                console.log('XHR.responseText = ' + XHR.responseText);
+	            XHR.onload = function () {
 	                _this9.balances = XHR.responseText.split(/,/);
 	            };
 	            document.getElementById('buttonSix').innerHTML = "RESTART";

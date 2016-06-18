@@ -272,8 +272,8 @@ class main {
                             this.savingsAccountBalance = Number(validCombos[i][3]);
                             defaultsSet = true;
                         } else {
-                            this.checkingAccountBalance = this.balances[2];
-                            this.savingsAccountBalance = this.balances[3];
+                            this.checkingAccountBalance = this.balances[0];
+                            this.savingsAccountBalance = this.balances[1];
                         }
                     }
                     if (validCombo != true) {
@@ -575,9 +575,7 @@ class main {
         XHR.open('POST', document.url, true);
         XHR.setRequestHeader('x-requested-load', 'XMLHttpRequest0');
         XHR.send(balances);
-        XHR.onload = (balances) => {
-            console.log('balances = ' + balances);
-            console.log('XHR.responseText = ' + XHR.responseText);
+        XHR.onload = () => {
             this.balances = XHR.responseText.split(/,/);
         };
         document.getElementById('buttonSix').innerHTML = "RESTART";
