@@ -69,15 +69,11 @@ class app {
             balances += chunk;
         });
         req.on ('end', () => {
-            if (balances != '') {
-                this.accountBalances = balances.split(/,/);
-                balances = this.accountBalances[2] + ',' + this.accountBalances[3];
-            }
+            this.accountBalances = balances.split(/,/);
+            balances = this.accountBalances[2] + ',' + this.accountBalances[3];
             res.end(balances);
         });
     }
-
-
 }
 
 module.exports = app;

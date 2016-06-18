@@ -58,19 +58,20 @@
 	    function main() {
 	        _classCallCheck(this, main);
 
-	        var pin = 0;
-	        var cardNumber = 0;
-	        var cardNumberCharacters = 0;
-	        var checkingAccountBalance = '';
-	        var savingsAccountBalance = '';
-	        this.exitCalled = false;
+	        this.pin = 0;
+	        this.cardNumber = 0;
+	        this.checkingAccountBalance = 0;
+	        this.savingsAccountBalance = 0;
+	        this.balances = [];
+	        var defaultsSet = false;
+	        var exitCalled = false;
 	        main.hideAndRevealDivs();
-	        main.loadData(cardNumber, pin, cardNumberCharacters, checkingAccountBalance, savingsAccountBalance);
+	        main.loadData(exitCalled, defaultsSet);
 	    }
 
 	    _createClass(main, null, [{
 	        key: 'loadData',
-	        value: function loadData(cardNumber, pin, cardNumberCharacters, checkingAccountBalance, savingsAccountBalance) {
+	        value: function loadData(exitCalled, defaultsSet) {
 	            var filePath = '../views/data/cardnumbers_PINs.csv';
 	            var request = new XMLHttpRequest();
 	            request.open("POST", filePath, true);
@@ -96,254 +97,261 @@
 	                        console.log(validCombos[_i][_j]);
 	                    }
 	                }
-	                return main.cardNumberHandler(cardNumber, pin, validCombos, cardNumberCharacters, checkingAccountBalance, savingsAccountBalance);
+	                return main.cardNumberHandler(validCombos, exitCalled, defaultsSet);
 	            };
 	        }
 	    }, {
 	        key: 'cardNumberHandler',
-	        value: function cardNumberHandler(cardNumber, pin, validCombos, cardNumberCharacters, checkingAccountBalance, savingsAccountBalance) {
+	        value: function cardNumberHandler(validCombos, exitCalled, defaultsSet) {
+	            var _this = this;
+
+	            var cardCharacters = 0;
 	            document.getElementById("one").addEventListener("click", function () {
-	                if (cardNumberCharacters < 3) {
+	                if (cardCharacters < 3) {
 	                    document.getElementById('cardNumber').innerHTML = document.getElementById('cardNumber').innerHTML + "1";
-	                    cardNumberCharacters++;
+	                    cardCharacters++;
 	                }
-	                if (cardNumberCharacters == 3) {
+	                if (cardCharacters == 3) {
 	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
-	                    cardNumberCharacters++;
+	                    cardCharacters++;
 	                }
 	            }, false);
 	            document.getElementById("two").addEventListener("click", function () {
-	                if (cardNumberCharacters < 3) {
+	                if (cardCharacters < 3) {
 	                    document.getElementById('cardNumber').innerHTML = document.getElementById('cardNumber').innerHTML + "2";
-	                    cardNumberCharacters++;
+	                    cardCharacters++;
 	                }
-	                if (cardNumberCharacters == 3) {
+	                if (cardCharacters == 3) {
 	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
-	                    cardNumberCharacters++;
+	                    cardCharacters++;
 	                }
 	            }, false);
 	            document.getElementById("three").addEventListener("click", function () {
-	                if (cardNumberCharacters < 3) {
+	                if (cardCharacters < 3) {
 	                    document.getElementById('cardNumber').innerHTML = document.getElementById('cardNumber').innerHTML + "3";
-	                    cardNumberCharacters++;
+	                    cardCharacters++;
 	                }
-	                if (cardNumberCharacters == 3) {
+	                if (cardCharacters == 3) {
 	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
-	                    cardNumberCharacters++;
+	                    cardCharacters++;
 	                }
 	            }, false);
 	            document.getElementById("four").addEventListener("click", function () {
-	                if (cardNumberCharacters < 3) {
+	                if (cardCharacters < 3) {
 	                    document.getElementById('cardNumber').innerHTML = document.getElementById('cardNumber').innerHTML + "4";
-	                    cardNumberCharacters++;
+	                    cardCharacters++;
 	                }
-	                if (cardNumberCharacters == 3) {
+	                if (cardCharacters == 3) {
 	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
-	                    cardNumberCharacters++;
+	                    cardCharacters++;
 	                }
 	            }, false);
 	            document.getElementById("five").addEventListener("click", function () {
-	                if (cardNumberCharacters < 3) {
+	                if (cardCharacters < 3) {
 	                    document.getElementById('cardNumber').innerHTML = document.getElementById('cardNumber').innerHTML + "5";
-	                    cardNumberCharacters++;
+	                    cardCharacters++;
 	                }
-	                if (cardNumberCharacters == 3) {
+	                if (cardCharacters == 3) {
 	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
-	                    cardNumberCharacters++;
+	                    cardCharacters++;
 	                }
 	            }, false);
 	            document.getElementById("six").addEventListener("click", function () {
-	                if (cardNumberCharacters < 3) {
+	                if (cardCharacters < 3) {
 	                    document.getElementById('cardNumber').innerHTML = document.getElementById('cardNumber').innerHTML + "6";
-	                    cardNumberCharacters++;
+	                    cardCharacters++;
 	                }
-	                if (cardNumberCharacters == 3) {
+	                if (cardCharacters == 3) {
 	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
-	                    cardNumberCharacters++;
+	                    cardCharacters++;
 	                }
 	            }, false);
 	            document.getElementById("seven").addEventListener("click", function () {
-	                if (cardNumberCharacters < 3) {
+	                if (cardCharacters < 3) {
 	                    document.getElementById('cardNumber').innerHTML = document.getElementById('cardNumber').innerHTML + "7";
-	                    cardNumberCharacters++;
+	                    cardCharacters++;
 	                }
-	                if (cardNumberCharacters == 3) {
+	                if (cardCharacters == 3) {
 	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
-	                    cardNumberCharacters++;
+	                    cardCharacters++;
 	                }
 	            }, false);
 	            document.getElementById("eight").addEventListener("click", function () {
-	                if (cardNumberCharacters < 3) {
+	                if (cardCharacters < 3) {
 	                    document.getElementById('cardNumber').innerHTML = document.getElementById('cardNumber').innerHTML + "8";
-	                    cardNumberCharacters++;
+	                    cardCharacters++;
 	                }
-	                if (cardNumberCharacters == 3) {
+	                if (cardCharacters == 3) {
 	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
-	                    cardNumberCharacters++;
+	                    cardCharacters++;
 	                }
 	            }, false);
 	            document.getElementById("nine").addEventListener("click", function () {
-	                if (cardNumberCharacters < 3) {
+	                if (cardCharacters < 3) {
 	                    document.getElementById('cardNumber').innerHTML = document.getElementById('cardNumber').innerHTML + "9";
-	                    cardNumberCharacters++;
+	                    cardCharacters++;
 	                }
-	                if (cardNumberCharacters == 3) {
+	                if (cardCharacters == 3) {
 	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
-	                    cardNumberCharacters++;
+	                    cardCharacters++;
 	                }
 	            }, false);
 	            document.getElementById("zero").addEventListener("click", function () {
-	                if (cardNumberCharacters < 3) {
+	                if (cardCharacters < 3) {
 	                    document.getElementById('cardNumber').innerHTML = document.getElementById('cardNumber').innerHTML + "0";
-	                    cardNumberCharacters++;
+	                    cardCharacters++;
 	                }
-	                if (cardNumberCharacters == 3) {
+	                if (cardCharacters == 3) {
 	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
-	                    cardNumberCharacters++;
+	                    cardCharacters++;
 	                }
 	            }, false);
 	            document.getElementById("buttonSix").addEventListener("click", function () {
-	                if (cardNumberCharacters == 4) {
-	                    cardNumber = document.getElementById('cardNumber').innerHTML;
+	                if (cardCharacters == 4) {
+	                    _this.cardNumber = document.getElementById('cardNumber').innerHTML;
 	                    document.getElementById('buttonSix').innerHTML = "VI";
 	                    document.getElementById('promptCustomer').innerHTML = "Please insert the one-digit PIN associated with this card into the keypad.";
-	                    console.log(cardNumber.slice(4, cardNumber.length));
-	                    cardNumberCharacters++;
-	                    main.hideAndRevealDivs(cardNumberCharacters);
-	                    return main.PINHandler(cardNumber, pin, validCombos, cardNumberCharacters, checkingAccountBalance, savingsAccountBalance);
+	                    console.log(_this.cardNumber.slice(4, _this.cardNumber.length));
+	                    cardCharacters++;
+	                    main.hideAndRevealDivs(cardCharacters);
+	                    return main.PINHandler(validCombos, cardCharacters, exitCalled, defaultsSet);
 	                }
 	            }, false);
 	        }
 	    }, {
 	        key: 'hideAndRevealDivs',
-	        value: function hideAndRevealDivs(cardNumberCharacters) {
-	            document.getElementById("displayArea").style.display = "none";
-	            document.getElementById("input").style.display = "none";
-	            document.getElementById("PIN").style.display = "none";
-	            if (cardNumberCharacters == 5) {
-	                document.getElementById("PIN").style.display = "block";
+	        value: function hideAndRevealDivs(cardCharacters) {
+	            if (cardCharacters == 5) {
+	                document.getElementById('PIN').style.display = 'block';
+	            } else {
+	                document.getElementById('displayArea').style.display = 'none';
+	                document.getElementById('input').style.display = 'none';
+	                document.getElementById('PIN').style.display = 'none';
 	            }
 	        }
 	    }, {
 	        key: 'PINHandler',
-	        value: function PINHandler(cardNumber, pin, validCombos, cardNumberCharacters, checkingAccountBalance, savingsAccountBalance) {
-	            console.log('cardNumberCharacters=' + cardNumberCharacters);
+	        value: function PINHandler(validCombos, cardCharacters, exitCalled, defaultsSet) {
+	            var _this2 = this;
+
+	            console.log('cardCharacters=' + cardCharacters);
 	            document.getElementById("one").addEventListener("click", function () {
-	                if (cardNumberCharacters == 5) {
+	                if (cardCharacters == 5) {
 	                    document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "1";
 	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
-	                    cardNumberCharacters++;
+	                    cardCharacters++;
 	                }
 	            }, false);
 	            document.getElementById("two").addEventListener("click", function () {
-	                if (cardNumberCharacters == 5) {
+	                if (cardCharacters == 5) {
 	                    document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "2";
 	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
-	                    cardNumberCharacters++;
+	                    cardCharacters++;
 	                }
 	            }, false);
 	            document.getElementById("three").addEventListener("click", function () {
-	                if (cardNumberCharacters == 5) {
+	                if (cardCharacters == 5) {
 	                    document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "3";
 	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
-	                    cardNumberCharacters++;
+	                    cardCharacters++;
 	                }
 	            }, false);
 	            document.getElementById("four").addEventListener("click", function () {
-	                if (cardNumberCharacters == 5) {
+	                if (cardCharacters == 5) {
 	                    document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "4";
 	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
-	                    cardNumberCharacters++;
+	                    cardCharacters++;
 	                }
 	            }, false);
 	            document.getElementById("five").addEventListener("click", function () {
-	                if (cardNumberCharacters == 5) {
+	                if (cardCharacters == 5) {
 	                    document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "5";
 	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
-	                    cardNumberCharacters++;
+	                    cardCharacters++;
 	                }
 	            }, false);
 	            document.getElementById("six").addEventListener("click", function () {
-	                if (cardNumberCharacters == 5) {
+	                if (cardCharacters == 5) {
 	                    document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "6";
 	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
-	                    cardNumberCharacters++;
+	                    cardCharacters++;
 	                }
 	            }, false);
 	            document.getElementById("seven").addEventListener("click", function () {
-	                if (cardNumberCharacters == 5) {
+	                if (cardCharacters == 5) {
 	                    document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "7";
 	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
-	                    cardNumberCharacters++;
+	                    cardCharacters++;
 	                }
 	            }, false);
 	            document.getElementById("eight").addEventListener("click", function () {
-	                if (cardNumberCharacters == 5) {
+	                if (cardCharacters == 5) {
 	                    document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "8";
 	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
-	                    cardNumberCharacters++;
+	                    cardCharacters++;
 	                }
 	            }, false);
 	            document.getElementById("nine").addEventListener("click", function () {
-	                if (cardNumberCharacters == 5) {
+	                if (cardCharacters == 5) {
 	                    document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "9";
 	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
-	                    cardNumberCharacters++;
+	                    cardCharacters++;
 	                }
 	            }, false);
 	            document.getElementById("zero").addEventListener("click", function () {
-	                if (cardNumberCharacters == 5) {
+	                if (cardCharacters == 5) {
 	                    document.getElementById('PIN').innerHTML = document.getElementById('PIN').innerHTML + "0";
 	                    document.getElementById('buttonSix').innerHTML = "SUBMIT";
-	                    cardNumberCharacters++;
+	                    cardCharacters++;
 	                }
 	            }, false);
 	            document.getElementById("buttonSix").addEventListener("click", function () {
-	                if (cardNumberCharacters == 6) {
-	                    pin = document.getElementById('PIN').innerHTML;
+	                if (cardCharacters == 6) {
+	                    _this2.pin = document.getElementById('PIN').innerHTML;
 	                    document.getElementById('buttonSix').innerHTML = "VI";
-	                    cardNumberCharacters++;
-	                    return main.validateNumbers(cardNumber, pin, validCombos, checkingAccountBalance, savingsAccountBalance);
+	                    cardCharacters++;
+	                    return main.validateNumbers(validCombos, exitCalled, defaultsSet);
 	                }
 	            }, false);
 	        }
 	    }, {
 	        key: 'validateNumbers',
-	        value: function validateNumbers(cardNumber, pin, validCombos, checkingAccountBalance, savingsAccountBalance) {
-	            var _this = this;
+	        value: function validateNumbers(validCombos, exitCalled, defaultsSet) {
+	            var _this3 = this;
 
 	            var validCombo = void 0;
 	            var ROWS = 2;
-	            cardNumber = cardNumber.slice(4, cardNumber.length);
-	            pin = pin.slice(4, pin.length);
+	            this.cardNumber = this.cardNumber.slice(4, this.cardNumber.length);
+	            this.pin = this.pin.slice(4, this.pin.length);
 
 	            var _loop = function _loop(i) {
-	                if (validCombos[i][0] == cardNumber && validCombos[i][1] == pin) {
+	                if (validCombos[i][0] == _this3.cardNumber && validCombos[i][1] == _this3.pin) {
 	                    (function () {
 	                        validCombo = true;
 	                        var XHR = new XMLHttpRequest();
 	                        XHR.open('POST', document.url, true);
 	                        XHR.setRequestHeader('x-requested-load', 'XMLHttpRequest0');
 	                        XHR.send();
-	                        XHR.onload = function (balances) {
+	                        XHR.onload = function () {
 	                            if (XHR.readyState == 4 && XHR.status == 200) {
-	                                if (XHR.responseText == '') {
-	                                    checkingAccountBalance = validCombos[i][2];
-	                                    savingsAccountBalance = validCombos[i][3];
+	                                console.log('this.defaultsSet = ' + defaultsSet);
+	                                if (defaultsSet == false) {
+	                                    _this3.checkingAccountBalance = Number(validCombos[i][2]);
+	                                    _this3.savingsAccountBalance = Number(validCombos[i][3]);
+	                                    defaultsSet = true;
 	                                } else {
-	                                    var accountBalances = balances.split(/,/);
-	                                    checkingAccountBalance = accountBalances[0];
-	                                    savingsAccountBalance = accountBalances[1];
+	                                    _this3.checkingAccountBalance = _this3.balances[2];
+	                                    _this3.savingsAccountBalance = _this3.balances[3];
 	                                }
 	                            }
 	                            if (validCombo != true) {
 	                                document.getElementById('promptCustomer').innerHTML = "Incorrect Input. Please try again.";
-	                                if (_this.exitCalled == false) {
-	                                    return main.exitApplication(checkingAccountBalance, savingsAccountBalance);
+	                                if (exitCalled != true) {
+	                                    return main.exitApplication(exitCalled, defaultsSet);
 	                                }
 	                            } else {
-	                                document.getElementById('input').value = cardNumber + "," + pin;
-	                                return main.selectAccount(checkingAccountBalance, savingsAccountBalance);
+	                                document.getElementById('input').value = _this3.cardNumber + "," + _this3.pin;
+	                                return main.selectAccount(exitCalled, defaultsSet);
 	                            }
 	                        };
 	                    })();
@@ -356,7 +364,9 @@
 	        }
 	    }, {
 	        key: 'selectAccount',
-	        value: function selectAccount(checkingAccountBalance, savingsAccountBalance) {
+	        value: function selectAccount(exitCalled, defaultsSet) {
+	            var _this4 = this;
+
 	            var accountType = 0;
 	            var isBusy = false;
 	            document.getElementById('promptCustomer').innerHTML = "Which account would you like to access at this time?";
@@ -367,8 +377,8 @@
 	                    accountType = "savings";
 	                    document.getElementById('buttonSix').innerHTML = "VI";
 	                    document.getElementById('buttonThree').innerHTML = "III";
-	                    document.getElementById('promptCustomer').innerHTML = "You have selected your " + accountType + " account, which has a balance of $" + savingsAccountBalance + ". Which action would you like to perform?";
-	                    return main.performAction(accountType, checkingAccountBalance, savingsAccountBalance);
+	                    document.getElementById('promptCustomer').innerHTML = "You have selected your " + accountType + " account, which has a balance of $" + _this4.savingsAccountBalance + ". Which action would you like to perform?";
+	                    return main.performAction(accountType, isBusy, exitCalled, defaultsSet);
 	                }
 	            }, false);
 	            document.getElementById("buttonThree").addEventListener("click", function () {
@@ -376,14 +386,16 @@
 	                    accountType = "checking";
 	                    document.getElementById('buttonSix').innerHTML = "VI";
 	                    document.getElementById('buttonThree').innerHTML = "III";
-	                    document.getElementById('promptCustomer').innerHTML = "You have selected your " + accountType + " account, which has a balance of $" + checkingAccountBalance + ". Which action would you like to perform?";
-	                    return main.performAction(accountType, checkingAccountBalance, savingsAccountBalance, isBusy);
+	                    document.getElementById('promptCustomer').innerHTML = "You have selected your " + accountType + " account, which has a balance of $" + _this4.checkingAccountBalance + ". Which action would you like to perform?";
+	                    return main.performAction(accountType, isBusy, exitCalled, defaultsSet);
 	                }
 	            }, false);
 	        }
 	    }, {
 	        key: 'performAction',
-	        value: function performAction(accountType, checkingAccountBalance, savingsAccountBalance, isBusy) {
+	        value: function performAction(accountType, isBusy, exitCalled, defaultsSet) {
+	            var _this5 = this;
+
 	            document.getElementById('buttonSix').innerHTML = "WITHDRAW";
 	            document.getElementById('buttonThree').innerHTML = "DEPOSIT";
 	            document.getElementById('buttonTwo').innerHTML = "TRANSFER";
@@ -391,10 +403,10 @@
 	            document.getElementById("buttonFour").addEventListener("click", function () {
 	                if (accountType == "checking") {
 	                    accountType = "savings";
-	                    document.getElementById('promptCustomer').innerHTML = "You have selected your " + accountType + " account, which has a balance of $" + savingsAccountBalance + ". Which action would you like to perform?";
+	                    document.getElementById('promptCustomer').innerHTML = "You have selected your " + accountType + " account, which has a balance of $" + _this5.savingsAccountBalance + ". Which action would you like to perform?";
 	                } else {
 	                    accountType = "checking";
-	                    document.getElementById('promptCustomer').innerHTML = "You have selected your " + accountType + " account, which has a balance of $" + checkingAccountBalance + ". Which action would you like to perform?";
+	                    document.getElementById('promptCustomer').innerHTML = "You have selected your " + accountType + " account, which has a balance of $" + _this5.checkingAccountBalance + ". Which action would you like to perform?";
 	                }
 	            }, false);
 	            document.getElementById("buttonThree").addEventListener("click", function () {
@@ -403,7 +415,7 @@
 	                document.getElementById('buttonSix').innerHTML = "VI";
 	                document.getElementById('buttonThree').innerHTML = "III";
 	                document.getElementById('buttonFour').innerHTML = "IV";
-	                return main.performDeposit(accountType, checkingAccountBalance, savingsAccountBalance);
+	                return main.performDeposit(accountType);
 	            }, false);
 	            document.getElementById("buttonSix").addEventListener("click", function () {
 	                isBusy = true;
@@ -411,7 +423,7 @@
 	                document.getElementById('buttonSix').innerHTML = "VI";
 	                document.getElementById('buttonThree').innerHTML = "III";
 	                document.getElementById('buttonFour').innerHTML = "IV";
-	                return main.performWithdrawal(accountType, checkingAccountBalance, savingsAccountBalance);
+	                return main.performWithdrawal(accountType);
 	            }, false);
 	            document.getElementById("buttonTwo").addEventListener("click", function () {
 	                isBusy = true;
@@ -419,13 +431,13 @@
 	                document.getElementById('buttonSix').innerHTML = "VI";
 	                document.getElementById('buttonThree').innerHTML = "III";
 	                document.getElementById('buttonFour').innerHTML = "IV";
-	                return main.performTransfer(accountType, checkingAccountBalance, savingsAccountBalance);
+	                return main.performTransfer(accountType);
 	            }, false);
 	        }
 	    }, {
 	        key: 'performDeposit',
-	        value: function performDeposit(accountType, checkingAccountBalance, savingsAccountBalance) {
-	            var _this2 = this;
+	        value: function performDeposit(accountType, exitCalled, defaultsSet) {
+	            var _this6 = this;
 
 	            document.getElementById('promptCustomer').innerHTML = "How much money would you like to deposit into your " + accountType + " account?";
 	            document.getElementById("displayArea").style.display = "block";
@@ -473,21 +485,21 @@
 	                var moneyDeposited = document.getElementById("displayArea").innerHTML;
 	                moneyDeposited = Number(moneyDeposited.slice(4, moneyDeposited.length));
 	                if (accountType == "checking") {
-	                    checkingAccountBalance = Number(checkingAccountBalance) + moneyDeposited;
-	                    document.getElementById('promptCustomer').innerHTML = "The balance of your " + accountType + " account is now $" + checkingAccountBalance + ". Thank you for using this terminal.";
+	                    _this6.checkingAccountBalance = Number(_this6.checkingAccountBalance) + moneyDeposited;
+	                    document.getElementById('promptCustomer').innerHTML = "The balance of your " + accountType + " account is now $" + _this6.checkingAccountBalance + ". Thank you for using this terminal.";
 	                } else {
-	                    savingsAccountBalance = Number(savingsAccountBalance) + moneyDeposited;
-	                    document.getElementById('promptCustomer').innerHTML = "The balance of your " + accountType + " account is now $" + savingsAccountBalance + ". Thank you for using this terminal.";
+	                    _this6.savingsAccountBalance = Number(_this6.savingsAccountBalance) + moneyDeposited;
+	                    document.getElementById('promptCustomer').innerHTML = "The balance of your " + accountType + " account is now $" + _this6.savingsAccountBalance + ". Thank you for using this terminal.";
 	                }
-	                if (_this2.exitCalled == false) {
-	                    return main.exitApplication(checkingAccountBalance, savingsAccountBalance);
+	                if (exitCalled != true) {
+	                    return main.exitApplication(exitCalled, defaultsSet);
 	                }
 	            }, false);
 	        }
 	    }, {
 	        key: 'performWithdrawal',
-	        value: function performWithdrawal(accountType, checkingAccountBalance, savingsAccountBalance) {
-	            var _this3 = this;
+	        value: function performWithdrawal(accountType, exitCalled, defaultsSet) {
+	            var _this7 = this;
 
 	            document.getElementById('promptCustomer').innerHTML = "How much money would you like to withdraw from your " + accountType + " account?";
 	            document.getElementById("displayArea").style.display = "block";
@@ -535,29 +547,29 @@
 	                var moneyWithdrawn = document.getElementById("displayArea").innerHTML;
 	                moneyWithdrawn = Number(moneyWithdrawn.slice(4, moneyWithdrawn.length));
 	                if (accountType == "checking") {
-	                    if (moneyWithdrawn <= checkingAccountBalance) {
-	                        checkingAccountBalance = Number(checkingAccountBalance) - moneyWithdrawn;
-	                        document.getElementById('promptCustomer').innerHTML = "The balance of your " + accountType + " account is now $" + checkingAccountBalance + ". Thank you for using this terminal.";
+	                    if (moneyWithdrawn <= _this7.checkingAccountBalance) {
+	                        _this7.checkingAccountBalance = Number(_this7.checkingAccountBalance) - moneyWithdrawn;
+	                        document.getElementById('promptCustomer').innerHTML = "The balance of your " + accountType + " account is now $" + _this7.checkingAccountBalance + ". Thank you for using this terminal.";
 	                    } else {
 	                        document.getElementById('promptCustomer').innerHTML = "You do not have enough money to withdraw that amount. Please try again.";
 	                    }
 	                } else {
-	                    if (moneyWithdrawn <= savingsAccountBalance) {
-	                        savingsAccountBalance = Number(savingsAccountBalance) - moneyWithdrawn;
-	                        document.getElementById('promptCustomer').innerHTML = "The balance of your " + accountType + " account is now $" + savingsAccountBalance + ". Thank you for using this terminal.";
+	                    if (moneyWithdrawn <= _this7.savingsAccountBalance) {
+	                        _this7.savingsAccountBalance = Number(_this7.savingsAccountBalance) - moneyWithdrawn;
+	                        document.getElementById('promptCustomer').innerHTML = "The balance of your " + accountType + " account is now $" + _this7.savingsAccountBalance + ". Thank you for using this terminal.";
 	                    } else {
 	                        document.getElementById('promptCustomer').innerHTML = "You do not have enough money to withdraw that amount. Please try again.";
 	                    }
 	                }
-	                if (_this3.exitCalled == false) {
-	                    return main.exitApplication(checkingAccountBalance, savingsAccountBalance);
+	                if (exitCalled != true) {
+	                    return main.exitApplication(exitCalled, defaultsSet);
 	                }
 	            }, false);
 	        }
 	    }, {
 	        key: 'performTransfer',
-	        value: function performTransfer(accountType, checkingAccountBalance, savingsAccountBalance) {
-	            var _this4 = this;
+	        value: function performTransfer(accountType, exitCalled, defaultsSet) {
+	            var _this8 = this;
 
 	            if (accountType == "checking") {
 	                document.getElementById('promptCustomer').innerHTML = "How much money would you like to transfer from your checking account to your savings account?";
@@ -609,31 +621,31 @@
 	                var moneyTransferred = document.getElementById("displayArea").innerHTML;
 	                moneyTransferred = Number(moneyTransferred.slice(4, moneyTransferred.length));
 	                if (accountType == "checking") {
-	                    if (moneyTransferred <= checkingAccountBalance) {
-	                        checkingAccountBalance = Number(checkingAccountBalance) - moneyTransferred;
-	                        savingsAccountBalance = Number(savingsAccountBalance) + moneyTransferred;
-	                        document.getElementById('promptCustomer').innerHTML = "The balance of your checking account is now $" + checkingAccountBalance + ". The balance of your savings account is now $" + savingsAccountBalance + ".";
-	                        if (_this4.exitCalled == false) {
-	                            return main.exitApplication(checkingAccountBalance, savingsAccountBalance);
+	                    if (moneyTransferred <= _this8.checkingAccountBalance) {
+	                        _this8.checkingAccountBalance = Number(_this8.checkingAccountBalance) - moneyTransferred;
+	                        _this8.savingsAccountBalance = Number(_this8.savingsAccountBalance) + moneyTransferred;
+	                        document.getElementById('promptCustomer').innerHTML = "The balance of your checking account is now $" + _this8.checkingAccountBalance + ". The balance of your savings account is now $" + _this8.savingsAccountBalance + ".";
+	                        if (exitCalled != true) {
+	                            return main.exitApplication(exitCalled, defaultsSet);
 	                        }
 	                    } else {
 	                        document.getElementById('promptCustomer').innerHTML = "You do not have enough money to transfer that amount. Please try again.";
-	                        if (_this4.exitCalled == false) {
-	                            return main.exitApplication(checkingAccountBalance, savingsAccountBalance);
+	                        if (exitCalled != true) {
+	                            return main.exitApplication(exitCalled, defaultsSet);
 	                        }
 	                    }
 	                } else {
-	                    if (moneyTransferred <= savingsAccountBalance) {
-	                        checkingAccountBalance = Number(checkingAccountBalance) + moneyTransferred;
-	                        savingsAccountBalance = Number(savingsAccountBalance) - moneyTransferred;
-	                        document.getElementById('promptCustomer').innerHTML = "The balance of your checking account is now $" + checkingAccountBalance + ". The balance of your savings account is now $" + savingsAccountBalance + ".";
-	                        if (_this4.exitCalled == false) {
-	                            return main.exitApplication(checkingAccountBalance, savingsAccountBalance);
+	                    if (moneyTransferred <= _this8.savingsAccountBalance) {
+	                        _this8.checkingAccountBalance = Number(_this8.checkingAccountBalance) + moneyTransferred;
+	                        _this8.savingsAccountBalance = Number(_this8.savingsAccountBalance) - moneyTransferred;
+	                        document.getElementById('promptCustomer').innerHTML = "The balance of your checking account is now $" + _this8.checkingAccountBalance + ". The balance of your savings account is now $" + _this8.savingsAccountBalance + ".";
+	                        if (exitCalled != true) {
+	                            return main.exitApplication(exitCalled, defaultsSet);
 	                        }
 	                    } else {
 	                        document.getElementById('promptCustomer').innerHTML = "You do not have enough money to transfer that amount. Please try again.";
-	                        if (_this4.exitCalled == false) {
-	                            return main.exitApplication(checkingAccountBalance, savingsAccountBalance);
+	                        if (exitCalled != true) {
+	                            return main.exitApplication(exitCalled, defaultsSet);
 	                        }
 	                    }
 	                }
@@ -641,22 +653,97 @@
 	        }
 	    }, {
 	        key: 'exitApplication',
-	        value: function exitApplication(checkingAccountBalance, savingsAccountBalance) {
-	            this.exitCalled = true;
-	            document.getElementById('input').value = document.getElementById('input').value + "," + checkingAccountBalance + "," + savingsAccountBalance;
+	        value: function exitApplication(exitCalled, defaultsSet) {
+	            var _this9 = this;
+
+	            exitCalled = true;
+	            document.getElementById('input').value = document.getElementById('input').value + "," + this.checkingAccountBalance + "," + this.savingsAccountBalance;
 	            document.getElementById('input').style.display = "block";
 
 	            var XHR = new XMLHttpRequest();
 	            var balances = document.getElementById('input').value;
 	            XHR.open('POST', document.url, true);
 	            XHR.setRequestHeader('x-requested-load', 'XMLHttpRequest0');
-	            console.log('balances = ' + balances);
 	            XHR.send(balances);
-
+	            XHR.onload = function (balances) {
+	                console.log('balances = ' + balances);
+	                console.log('XHR.responseText = ' + XHR.responseText);
+	                _this9.balances = XHR.responseText.split(/,/);
+	            };
 	            document.getElementById('buttonSix').innerHTML = "RESTART";
 	            document.getElementById("buttonSix").addEventListener("click", function () {
-	                location.reload();
+	                exitCalled = false;
+	                main.hideAndRevealDivs();
+	                main.setBackToBeginning();
+	                return main.loadData(exitCalled, defaultsSet);
 	            }, false);
+	        }
+	    }, {
+	        key: 'setBackToBeginning',
+	        value: function setBackToBeginning() {
+	            var _one = document.getElementById('buttonOne'),
+	                _oneClone = _one.cloneNode(true);
+	            _one.parentNode.replaceChild(_oneClone, _one);
+	            var _two = document.getElementById('buttonTwo'),
+	                _twoClone = _two.cloneNode(true);
+	            _two.parentNode.replaceChild(_twoClone, _two);
+	            var _three = document.getElementById('buttonThree'),
+	                _threeClone = _three.cloneNode(true);
+	            _three.parentNode.replaceChild(_threeClone, _three);
+	            var _four = document.getElementById('buttonFour'),
+	                _fourClone = _four.cloneNode(true);
+	            _four.parentNode.replaceChild(_fourClone, _four);
+	            var _five = document.getElementById('buttonFive'),
+	                _fiveClone = _five.cloneNode(true);
+	            _five.parentNode.replaceChild(_fiveClone, _five);
+	            var _six = document.getElementById('buttonSix'),
+	                _sixClone = _six.cloneNode(true);
+	            _six.parentNode.replaceChild(_sixClone, _six);
+	            var one = document.getElementById('one'),
+	                oneClone = one.cloneNode(true);
+	            one.parentNode.replaceChild(oneClone, one);
+	            var two = document.getElementById('two'),
+	                twoClone = two.cloneNode(true);
+	            two.parentNode.replaceChild(twoClone, two);
+	            var three = document.getElementById('three'),
+	                threeClone = three.cloneNode(true);
+	            three.parentNode.replaceChild(threeClone, three);
+	            var four = document.getElementById('four'),
+	                fourClone = four.cloneNode(true);
+	            four.parentNode.replaceChild(fourClone, four);
+	            var five = document.getElementById('five'),
+	                fiveClone = five.cloneNode(true);
+	            five.parentNode.replaceChild(fiveClone, five);
+	            var six = document.getElementById('six'),
+	                sixClone = six.cloneNode(true);
+	            six.parentNode.replaceChild(sixClone, six);
+	            var seven = document.getElementById('seven'),
+	                sevenClone = seven.cloneNode(true);
+	            seven.parentNode.replaceChild(sevenClone, seven);
+	            var eight = document.getElementById('eight'),
+	                eightClone = eight.cloneNode(true);
+	            eight.parentNode.replaceChild(eightClone, eight);
+	            var nine = document.getElementById('nine'),
+	                nineClone = nine.cloneNode(true);
+	            nine.parentNode.replaceChild(nineClone, nine);
+	            var zero = document.getElementById('zero'),
+	                zeroClone = zero.cloneNode(true);
+	            zero.parentNode.replaceChild(zeroClone, zero);
+	            document.getElementById('buttonOne').innerHTML = 'I';
+	            document.getElementById('buttonTwo').innerHTML = "II";
+	            document.getElementById('buttonThree').innerHTML = "III";
+	            document.getElementById('buttonFour').innerHTML = "IV";
+	            document.getElementById('buttonFive').innerHTML = "V";
+	            document.getElementById('buttonSix').innerHTML = "VI";
+	            document.getElementById('promptCustomer').innerHTML = "Please insert the three-digit number on the back of your card into the keypad.";
+	            document.getElementById('cardNumber').innerHTML = '>';
+	            document.getElementById('PIN').innerHTML = '>';
+	            document.getElementById('displayArea').innerHTML = '>';
+	            document.getElementById('input').value = '>';
+	            this.pin = 0;
+	            this.cardNumber = 0;
+	            this.checkingAccountBalance = 0;
+	            this.savingsAccountBalance = 0;
 	        }
 	    }]);
 
